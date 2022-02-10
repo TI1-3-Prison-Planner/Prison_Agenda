@@ -1,6 +1,6 @@
 package Data;
 
-public class Location {
+public class Location implements CRUD{
 
     private String name;
     enum locationType{
@@ -23,5 +23,25 @@ public class Location {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

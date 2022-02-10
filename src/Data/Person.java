@@ -13,6 +13,26 @@ public class Person {
 
     }
 
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
     public boolean isGuard() {
         return isGuard;
     }

@@ -2,10 +2,12 @@ package Data;
 
 import java.time.LocalTime;
 
-public class Activity {
+public class Activity implements CRUD{
 
     private LocalTime startTime;
     private LocalTime endTime;
+    private Groups groups;
+    private Location location;
 
     public Activity(){
 
@@ -25,5 +27,25 @@ public class Activity {
 
     public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
+    }
+
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void read() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
