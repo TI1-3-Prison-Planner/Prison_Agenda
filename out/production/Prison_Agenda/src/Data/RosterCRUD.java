@@ -14,13 +14,6 @@ public class RosterCRUD implements CRUD {
         this.guards.add(new Person("Bob"));
     }
 
-
-    /**
-     * Author: Moustapha Azaïmi
-     *
-     * @param data : an object to be added to the chosen ArrayList
-     * @param dataList :
-     */
     @Override
     public void add(Object data, ArrayList dataList) {
         dataList.add(data);
@@ -61,18 +54,5 @@ public class RosterCRUD implements CRUD {
         return locations;
     }
 
-    /**TODO
-     * make a nice toString();
-     * @return String
-     */
-    @Override
-    public String toString() {
-        return "RosterCRUD{" +
-                "guards=" + guards +
-                ", inmates=" + inmates +
-                ", groups=" + groups +
-                ", activities=" + activities +
-                ", locations=" + locations +
-                '}';
-    }
+
 }

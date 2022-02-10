@@ -30,25 +30,4 @@ public class Activity {
         this.startTime = startTime;
     }
 
-    public void setPrisonGroup(PrisonGroup prisonGroup) {
-        this.prisonGroup = prisonGroup;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    /**TODO
-     * make a nice toString();
-     * @return String
-     */
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", prisonGroup=" + prisonGroup +
-                ", location=" + location +
-                '}';
-    }
 }

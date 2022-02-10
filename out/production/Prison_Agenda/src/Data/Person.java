@@ -53,10 +53,6 @@ public class Person {
         this.hasGun = hasGun;
     }
 
-	/**TODO
-	 * make a nice toString();
-	 * @return String
-	 */
 	@Override
 	public String toString() {
 		return "Person{" +
