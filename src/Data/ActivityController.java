@@ -2,6 +2,9 @@ package Data;
 
 public class ActivityController {
 
+    private Activity activity;
+
+
     public ActivityController(){
 
     }

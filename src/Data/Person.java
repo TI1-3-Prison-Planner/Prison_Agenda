@@ -9,6 +9,10 @@ public class Person {
     private boolean hasGun = false;
     private boolean hasShank = false;
 
+    public Person(){
+
+    }
+
     public boolean isGuard() {
         return isGuard;
     }
