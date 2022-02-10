@@ -13,6 +13,7 @@ public class Gui extends Application {
     public void start(Stage primaryStage) {
         BorderPane mainPane = new BorderPane();
         primaryStage.setScene(new Scene(mainPane));
+        primaryStage.show();
 
 
 
