@@ -9,8 +9,10 @@ public class Person {
     private boolean hasGun = false;
     private boolean hasShank = false;
 
-    public Person(String name){
+    public Person(String name, boolean isPrisoner){
 		this.name = name;
+		this.isPrisoner = isPrisoner;
+		this.isGuard = !isPrisoner;
     }
 
     public boolean isGuard() {
@@ -25,17 +27,10 @@ public class Person {
         return isPrisoner;
     }
 
-    public void setPrisoner(boolean prisoner) {
-        isPrisoner = prisoner;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
 //    public String getLastName() {
 //        return lastName;

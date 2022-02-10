@@ -2,51 +2,30 @@ package Data;
 
 import java.util.ArrayList;
 
-public class PrisonGroup implements CRUD{
+public class PrisonGroup{
 
     private String groupName;
     ArrayList<Person> persons = new ArrayList<>();
 
-
-
-    enum securityDetail{
+    private static securityDetail securityDetail;
+    public enum securityDetail{
         LOW,
         MEDIUM,
         HIGH;
     }
 
-    public PrisonGroup(String groupName){
+    public PrisonGroup(String groupName, securityDetail securityDetail){
         this.groupName = groupName;
-
+        this.securityDetail = securityDetail;
     }
 
-
-
-    @Override
-    public void add(Object data, ArrayList dataList) {
-
-    }
-
-    @Override
-    public void read(Object data, ArrayList dataList) {
-
-    }
-
-    @Override
-    public void update(Object data, ArrayList dataList) {
-
-    }
-
-    @Override
-    public void destroy(Object data, ArrayList dataList) {
-
+    public void add(Person person){
+        PrisonGroup prisonGroup = new PrisonGroup("hallo", PrisonGroup.securityDetail.LOW);
+        this.persons.add(person);
     }
 
     @Override
     public String toString() {
-        return "PrisonGroup{" +
-                "groupName='" + groupName + '\'' +
-                ", persons=" + persons +
-                '}';
+        return "Group name:" + this.groupName + "persons" + this.persons + "security: " + this.securityDetail;
     }
 }

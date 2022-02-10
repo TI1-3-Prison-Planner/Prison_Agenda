@@ -2,8 +2,7 @@ package Data;
 
 public class Location{
 
-    private String name;
-    enum locationType{
+    public enum location{
         CELL,
         CELLBLOCK,
         WORKSKHOP,
@@ -12,27 +11,21 @@ public class Location{
         KITCHEN,
         BREAKROOOM
     }
+    private location location;
 
-    public Location(){
-
+    public Location(location location){
+        this.location = location;
     }
 
-    public String getName() {
-        return name;
+    public location getName() {
+        return this.location;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(location location) {
+        this.location = location;
     }
 
-    /**TODO
-     * make a nice toString();
-     * @return String
-     */
-    @Override
     public String toString() {
-        return "Location{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Location: " + this.location;
     }
 }

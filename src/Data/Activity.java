@@ -10,8 +10,11 @@ public class Activity {
     private PrisonGroup prisonGroup;
     private Location location;
 
-    public Activity(){
-
+    public Activity(LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location){
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.prisonGroup = group;
+        this.location = location;
     }
 
     public LocalTime getEndTime() {

@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bb01c996-7bc9-4066-aad2-78ae056818a9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/out/production/Prison_Agenda/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Prison_Agenda/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Prison_Agenda/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Prison_Agenda/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Prison_Agenda/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Prison_Agenda/src/Main.java" afterDir="false" />
@@ -12,6 +13,8 @@
       <change beforePath="$PROJECT_DIR$/src/Data/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data/Location.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Data/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Data/RosterCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data/RosterCRUD.java" afterDir="false" />
+=======
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,6 +25,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< Updated upstream
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -39,11 +43,19 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-60">
               <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
         <entry file="file://$PROJECT_DIR$/src/Data/Person.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
@@ -52,13 +64,20 @@
                 <element signature="e#276#277#0" expanded="true" />
                 <element signature="e#301#302#0" expanded="true" />
               </folding>
+=======
+        <entry file="file://$PROJECT_DIR$/src/Data/Groups.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-56">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Data/Activity.java">
+        <entry file="file://$PROJECT_DIR$/src/Data/Person.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="174">
               <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
               <folding>
@@ -76,10 +95,15 @@
                 <element signature="e#733#734#0" expanded="true" />
                 <element signature="e#773#774#0" expanded="true" />
               </folding>
+=======
+            <state relative-caret-position="34">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Data/RosterCRUD.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -101,6 +125,13 @@
                 <element signature="e#1201#1202#0" expanded="true" />
                 <element signature="e#1233#1234#0" expanded="true" />
               </folding>
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Data/Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -108,6 +139,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Data/Location.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="264">
               <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
             </state>
@@ -119,6 +151,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
               <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+=======
+            <state relative-caret-position="34">
+              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -151,14 +187,22 @@
         <option value="$PROJECT_DIR$/src/Data/Location.java" />
         <option value="$PROJECT_DIR$/src/Data/Person.java" />
         <option value="$PROJECT_DIR$/src/Data/RosterCRUD.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="975" />
     <option name="height" value="1048" />
+=======
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="width" value="979" />
+    <option name="height" value="1038" />
+>>>>>>> Stashed changes
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -169,7 +213,10 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+<<<<<<< Updated upstream
       <pane id="PackagesPane" />
+=======
+>>>>>>> Stashed changes
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -192,6 +239,10 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< Updated upstream
+=======
+      <pane id="PackagesPane" />
+>>>>>>> Stashed changes
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -225,10 +276,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< Updated upstream
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.26174498" />
+=======
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.26066098" />
+>>>>>>> Stashed changes
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -295,6 +353,7 @@
     <entry file="file://$PROJECT_DIR$/src/Data/ActivityController.java" />
     <entry file="file://$PROJECT_DIR$/src/Data/GroupController.java" />
     <entry file="file://$PROJECT_DIR$/src/Data/LocationController.java" />
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/Data/Roster.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -353,21 +412,61 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-60">
           <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Data/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/Data/Roster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Data/CRUD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Data/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Data/RosterCRUD.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="180">
+          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+=======
+        <state relative-caret-position="34">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Data/Groups.java">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="210">
           <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
           <folding>
@@ -386,6 +485,17 @@
             <element signature="e#1201#1202#0" expanded="true" />
             <element signature="e#1233#1234#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="-56">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
