@@ -20,6 +20,8 @@ import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
+import static Gui.AgendaEditor.Editor.ADD;
+
 
 /**
  * Author:Midas
@@ -115,6 +117,8 @@ public class Gui extends Application {
     }
     public void drawBlock(FXGraphics2D g, MouseEvent e){
 
+        AgendaEditor add = new AgendaEditor(ADD);
+        add.start(new Stage());
 
 //        javafx.geometry.Rectangle2D rect;
 //        g.drawString("midas",(int)(e.getX()-e.getX()%50),(int)e.getY()+25);
