@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 public class Main {
     public static void main(String[] args) {
-        
+        hoerenveeltestcode();
     }
 
 
@@ -50,46 +50,46 @@ public class Main {
 
 
         PrisonGroup a1 = new PrisonGroup("A1", PrisonGroup.securityDetail.LOW);
-        a1.add(billy);
-        a1.add(jan);
-        a1.add(bob);
-        a1.add(harry);
-        a1.add(piet);
+        a1.addPerson(billy);
+        a1.addPerson(jan);
+        a1.addPerson(bob);
+        a1.addPerson(harry);
+        a1.addPerson(piet);
 
         PrisonGroup a2 = new PrisonGroup("A2", PrisonGroup.securityDetail.MEDIUM);
-        a2.add(janus);
-        a2.add(hans);
-        a2.add(stijn);
-        a2.add(hailey);
-        a2.add(julia);
+        a2.addPerson(janus);
+        a2.addPerson(hans);
+        a2.addPerson(stijn);
+        a2.addPerson(hailey);
+        a2.addPerson(julia);
 
         PrisonGroup a3 = new PrisonGroup("A3", PrisonGroup.securityDetail.HIGH);
-        a3.add(daan);
-        a3.add(lucas);
-        a3.add(sem);
-        a3.add(noah);
-        a3.add(levi);
+        a3.addPerson(daan);
+        a3.addPerson(lucas);
+        a3.addPerson(sem);
+        a3.addPerson(noah);
+        a3.addPerson(levi);
 
         PrisonGroup b1 = new PrisonGroup("B1", PrisonGroup.securityDetail.LOW);
-        b1.add(mila);
-        b1.add(emma);
-        b1.add(nora);
-        b1.add(olivia);
-        b1.add(liam);
+        b1.addPerson(mila);
+        b1.addPerson(emma);
+        b1.addPerson(nora);
+        b1.addPerson(olivia);
+        b1.addPerson(liam);
 
         PrisonGroup b2 = new PrisonGroup("B2", PrisonGroup.securityDetail.MEDIUM);
-        b2.add(tess);
-        b2.add(milou);
-        b2.add(james);
-        b2.add(yara);
-        b2.add(finn);
+        b2.addPerson(tess);
+        b2.addPerson(milou);
+        b2.addPerson(james);
+        b2.addPerson(yara);
+        b2.addPerson(finn);
 
         PrisonGroup b3 = new PrisonGroup("B3", PrisonGroup.securityDetail.HIGH);
-        b3.add(luca);
-        b3.add(milan);
-        b3.add(casper);
-        b3.add(charlotte);
-        b3.add(cornelis);
+        b3.addPerson(luca);
+        b3.addPerson(milan);
+        b3.addPerson(casper);
+        b3.addPerson(charlotte);
+        b3.addPerson(cornelis);
 
         Location breakRoom = new Location(Location.location.BREAKROOOM);
         Location cell = new Location(Location.location.CELL);
@@ -103,5 +103,8 @@ public class Main {
         Activity cellTime = new Activity(LocalTime.parse("14:00:00"),LocalTime.parse("17:00:00"), a2, cell);
         Activity work = new Activity(LocalTime.parse("8:00:00"),LocalTime.parse("12:00:00"), b1, workshop);
         Activity eat = new Activity(LocalTime.parse("13:00:00"),LocalTime.parse("14:00:00"), b2, kitchen);
+
+        System.out.println(breakRoom);
+        System.out.println(commonRoom);
     }
 }

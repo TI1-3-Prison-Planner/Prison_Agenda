@@ -1,16 +1,23 @@
 package Data;
 
+import sun.applet.Main;
+
 import java.util.ArrayList;
 
 public class Roster {
-    ArrayList<Person> guards = new ArrayList<>();
-    ArrayList<Person> inmates = new ArrayList<>();
-    ArrayList<PrisonGroup> groups = new ArrayList<>();
-    ArrayList<Activity> activities = new ArrayList<>();
-    ArrayList<Location> locations = new ArrayList<>();
+
+    private ArrayList<Person> guards;
+    private ArrayList<Person> inmates;
+    private ArrayList<PrisonGroup> groups;
+    private ArrayList<Activity> activities;
+    private ArrayList<Location> locations;
 
     public Roster(){
-
+        this.guards = new ArrayList<>();
+        this.groups = new ArrayList<>();
+        this.inmates = new ArrayList<>();
+        this.locations = new ArrayList<>();
+        this.activities = new ArrayList<>();
     }
 
     public ArrayList<Person> getGuards() {

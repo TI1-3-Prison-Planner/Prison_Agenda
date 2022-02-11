@@ -10,11 +10,16 @@ public class Activity {
     private PrisonGroup prisonGroup;
     private Location location;
 
-    public Activity(LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location){
+
+    public Activity(LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.prisonGroup = group;
         this.location = location;
+    }
+
+    public LocalTime getStartTime() {
+        return this.startTime;
     }
 
     public LocalTime getEndTime() {
@@ -23,10 +28,6 @@ public class Activity {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
     }
 
     public void setStartTime(LocalTime startTime) {
@@ -41,17 +42,16 @@ public class Activity {
         this.location = location;
     }
 
-    /**TODO
-     * make a nice toString();
-     * @return String
-     */
+    public PrisonGroup getPrisonGroup() {
+        return prisonGroup;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
     @Override
     public String toString() {
-        return "Activity{" +
-                "startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", prisonGroup=" + prisonGroup +
-                ", location=" + location +
-                '}';
+        return "Activity: " + this.startTime + " - " + this.endTime + ", group: " + this.prisonGroup + ", location: " + this.location;
     }
 }
