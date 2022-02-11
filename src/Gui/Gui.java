@@ -3,6 +3,7 @@ package Gui;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -56,7 +57,8 @@ public class Gui extends Application {
 
         Tab rosterTab=new Tab();
         rosterTab.setText("roster");
-        rosterTab.setContent(getCanvas());
+        ScrollPane scrollPane = new ScrollPane(getCanvas());
+        rosterTab.setContent(scrollPane);
 
         return rosterTab;
     }
@@ -73,8 +75,8 @@ public class Gui extends Application {
         canvas.setOnMouseClicked(e->{drawBlock(new FXGraphics2D(canvas.getGraphicsContext2D()),e);
 
         });
-        canvas.setHeight(500);
-        canvas.setWidth(500);
+        canvas.setHeight(1500);
+        canvas.setWidth(1500);
         draw(new FXGraphics2D(canvas.getGraphicsContext2D()),canvas.getWidth(),canvas.getHeight());
         return canvas;
     }
@@ -93,20 +95,31 @@ public class Gui extends Application {
     }
 
     public void draw(FXGraphics2D graphics,double width,double height){
-       for (int i = 0;i<width;i+=50){
+        int hour=0;
+        int minute = 0;
+       for (int i = 0;i<width;i+=100){
 
            graphics.draw(new Line2D.Double(i,height,i,0));
 
        }
-       for (int i = 0;i<height;i+=50){
-           graphics.draw(new Line2D.Double(0,i,50,i));
+       for (int i = 0;i<height;i+=60){
+           graphics.draw(new Line2D.Double(0,i,100,i));
+
+           if(i > 1) {
+               graphics.drawString(hour + ":00 - "+(hour+1)+":00", 10, i - 25);
+               hour++;
+           }
+
        }
 
     }
     public void drawBlock(FXGraphics2D g, MouseEvent e){
 
-        Rectangle2D rect;
-        g.draw(rect =new Rectangle2D.Double(e.getX()-e.getX()%50,e.getY(),50,50));
+
+//        javafx.geometry.Rectangle2D rect;
+//        g.drawString("midas",(int)(e.getX()-e.getX()%50),(int)e.getY()+25);
+//        g.draw(new Rectangle2D.Double(e.getX()-e.getX()%50,e.getY(),50,50));
+
 
 
 
