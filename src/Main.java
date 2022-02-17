@@ -15,8 +15,9 @@ public class Main {
 		File file = new File("test.json");
 		rfio.saveDataAsFile(file, testRoster);
 		testRoster.clear();
-		RosterFileIO.readData(file);
-		System.out.println(testRoster);
+		testRoster = rfio.readData(file);
+
+		System.out.println("\n" +testRoster);
 
 	}
 
