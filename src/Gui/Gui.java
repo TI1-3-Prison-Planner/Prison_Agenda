@@ -77,16 +77,7 @@ public class Gui extends Application {
 
 	public void draw(FXGraphics2D graphics) {
 	}
-
-	public void drawBlock(FXGraphics2D g, MouseEvent e) {
-
-
-//        javafx.geometry.Rectangle2D rect;
-//        g.drawString("midas",(int)(e.getX()-e.getX()%50),(int)e.getY()+25);
-//        g.draw(new Rectangle2D.Double(e.getX()-e.getX()%50,e.getY(),50,50));
-
-
-	}
+	
 
 	public static void main(String[] args) {
 		launch(args);
