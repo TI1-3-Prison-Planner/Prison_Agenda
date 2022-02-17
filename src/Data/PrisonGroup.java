@@ -1,6 +1,7 @@
 package Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PrisonGroup {
 
@@ -44,10 +45,33 @@ public class PrisonGroup {
 		return this.inmates;
 	}
 
+	public void addGuard(HashMap<Person, Boolean> guardList) {
+		int guardAmount = guardsPerDetail();
+		for (Person person : guardList.keySet()) {
+			if (!guardList.get(person) && guardAmount > 0) {
+				this.guards.add(person);
+				guardAmount--;
+			}
+		}
+
+	}
+
+	public int guardsPerDetail() {
+		switch (securityDetail) {
+			case LOW:
+				return 2;
+			case MEDIUM:
+				return 5;
+			case HIGH:
+				return 10;
+			default:
+				return -1;
+		}
+	}
 
 	@Override
 	public String toString() {
-		return this.groupName + ", "
-				+ this.inmates.size() + ", " + this.securityDetail;
+		return "[" + this.groupName + ", "
+				+ this.inmates.size() + ", " + this.securityDetail + ", guards:" + this.guards.size() + "]";
 	}
 }

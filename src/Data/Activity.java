@@ -53,6 +53,6 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity: " + name + ", " + this.startTime + " - " + this.endTime + ", " + this.prisonGroup + this.location;
+        return "\n[Activity: " + name + ", " + this.startTime + " - " + this.endTime + ", " + this.prisonGroup + ", " + this.location +"]";
     }
 }
