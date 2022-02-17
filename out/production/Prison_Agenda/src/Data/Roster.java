@@ -1,51 +1,80 @@
 package Data;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Roster {
+import java.time.LocalTime;
+import java.util.*;
 
-    //this hashmap contains all guards in the prison. a boolean is used to check if a guard has already been assigned
-    // to a prisonGroup
-    private HashMap<Person, Boolean> guards;
-    private ArrayList<Person> inmates;
-    private ArrayList<PrisonGroup> groups;
-    private ArrayList<Activity> activities;
-    private ArrayList<Location> locations;
+public class Roster implements Comparator<LocalTime> {
 
-    public Roster(){
-        this.guards = new HashMap<>();
-        this.groups = new ArrayList<>();
-        this.inmates = new ArrayList<>();
-        this.locations = new ArrayList<>();
-        this.activities = new ArrayList<>();
-    }
-    public HashMap<Person, Boolean> getGuards() {
-        return this.guards;
-    }
+	//this hashmap contains all guards in the prison. a boolean is used to check if a guard has already been assigned
+	// to a prisonGroup
+	private HashMap<Person, Boolean> guards;
+	private ArrayList<Person> inmates;
+	private ArrayList<PrisonGroup> groups;
+	private ArrayList<Location> locations;
+	private ArrayList<Activity> activities;
 
-    public ArrayList<Person> getInmates() {
-        return this.inmates;
-    }
+	public Roster() {
+		this.guards = new HashMap<>();
+		this.groups = new ArrayList<>();
+		this.inmates = new ArrayList<>();
+		this.locations = new ArrayList<>();
+		this.activities = new ArrayList<>();
+	}
 
-    public ArrayList<PrisonGroup> getGroups() {
-        return this.groups;
-    }
+	public HashMap<Person, Boolean> getGuards() {
+		return this.guards;
+	}
 
-    public ArrayList<Activity> getActivities() {
-        return this.activities;
-    }
+	public ArrayList<Person> getInmates() {
+		return this.inmates;
+	}
 
-    public ArrayList<Location> getLocations() {
-        return this.locations;
-    }
+	public ArrayList<PrisonGroup> getGroups() {
+		return this.groups;
+	}
 
-    @Override
-    public String toString() {
-        return "Roster:\n" +
-                "guards=" + guards + '\n'  +
-                "inmates=" + inmates + '\n'+
-                "groups=" + groups + '\n' +
-                "activities=" + activities + '\n' +
-                "locations=" + locations;
-    }
+	public ArrayList<Activity> getActivities() {
+		return this.activities;
+	}
+
+	public ArrayList<Location> getLocations() {
+		return this.locations;
+	}
+
+	public void sortOnTime() {
+		int n = this.activities.size();
+		Activity tempActivity;
+		Activity[] activitiesArr = this.activities.toArray(new Activity[this.getActivities().size()]);
+		for (int i = 0; i < n; i++) {
+			for (int j = 1; j < (n - i); j++) {
+				if (compare(activitiesArr[j - 1].getStartTime(), activitiesArr[j].getStartTime()) > 0) {
+					tempActivity = activitiesArr[j - 1];
+					activitiesArr[j - 1] = activitiesArr[j];
+					activitiesArr[j] = tempActivity;
+				}
+			}
+		}
+		this.activities = new ArrayList<>(activities.size());
+		Collections.addAll(this.activities, activitiesArr);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Roster:\n" +
+				"guards=" + guards + '\n' +
+				"inmates=" + inmates + '\n' +
+				"groups=" + groups + '\n' +
+				"activities=" + activities + '\n' +
+				"locations=" + locations;
+	}
+
+	@Override
+	public int compare(LocalTime o1, LocalTime o2) {
+		if (o1.isAfter(o2)) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 }

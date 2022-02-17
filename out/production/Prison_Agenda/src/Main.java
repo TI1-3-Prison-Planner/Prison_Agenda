@@ -2,6 +2,7 @@ import Data.*;
 
 import java.time.LocalTime;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Main {
 	public static void main(String[] args) {
@@ -99,7 +100,7 @@ public class Main {
 		b3.addPerson(cornelis);
 
 		b1.addGuard(roster.getGuards());
-		System.out.println(b1);
+
 
 		Location breakRoom = new Location("BreakRoom", Location.locationType.BREAKROOOM);
 		Location cell = new Location("Cell", Location.locationType.CELL);
@@ -109,10 +110,10 @@ public class Main {
 		Location workshop = new Location("Workshop", Location.locationType.WORKSKHOP);
 		Location yard = new Location("Yard", Location.locationType.YARD);
 
-		Activity freeTime = new Activity("Free Time", LocalTime.parse("12:00:00"), LocalTime.parse("13:00:00"), a1, yard);
 		Activity cellTime = new Activity("Cell Time", LocalTime.parse("14:00:00"), LocalTime.parse("17:00:00"), a2, cell);
-		Activity work = new Activity("Work", LocalTime.parse("08:00:00"), LocalTime.parse("12:00:00"), b1, workshop);
 		Activity eat = new Activity("Eat", LocalTime.parse("13:00:00"), LocalTime.parse("14:00:00"), b2, kitchen);
+		Activity work = new Activity("Work", LocalTime.parse("08:00:00"), LocalTime.parse("12:00:00"), b1, workshop);
+		Activity freeTime = new Activity("Free Time", LocalTime.parse("12:00:00"), LocalTime.parse("13:00:00"), a1, yard);
 
 		roster.getActivities().add(freeTime);
 		roster.getActivities().add(cellTime);
@@ -125,7 +126,10 @@ public class Main {
 		roster.getGroups().add(b1);
 		roster.getGroups().add(b2);
 		roster.getGroups().add(b3);
-		System.out.println(roster.getActivities().toString());
 
+
+		roster.sortOnTime();
+
+		System.out.println(roster.getActivities().toString());
 	}
 }
