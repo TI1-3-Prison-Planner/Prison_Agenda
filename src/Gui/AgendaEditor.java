@@ -1,6 +1,5 @@
 package Gui;
-
-import Data.Activity;
+import Data.*;
 import com.sun.javafx.text.TextLine;
 import javafx.application.Application;
 import javafx.scene.Scene;

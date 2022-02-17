@@ -19,8 +19,7 @@ import org.jfree.fx.FXGraphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-
-import static Gui.AgendaEditor.Editor.ADD;
+import Gui.*;
 
 
 /**
@@ -119,7 +118,7 @@ public class Gui extends Application {
 
     public void drawBlock(FXGraphics2D g, MouseEvent e) {
 
-        AgendaEditor add = new AgendaEditor(ADD);
+        AgendaEditor add = new AgendaEditor(AgendaEditor.Editor.ADD);
         add.start(new Stage());
 
 //        javafx.geometry.Rectangle2D rect;
