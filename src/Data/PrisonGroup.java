@@ -10,8 +10,8 @@ public class PrisonGroup implements Serializable {
 	private ArrayList<Person> inmates;
 	private ArrayList<Person> guards;
 	private securityDetail securityDetail;
-	private boolean isGuardGroup;
 
+	//enumeration for the types of security on a group. For each securityDetail is a different amount of guards with the group.
 	public enum securityDetail {
 		LOW,
 		MEDIUM,
@@ -22,30 +22,27 @@ public class PrisonGroup implements Serializable {
 		this.groupName = groupName;
 		this.inmates = new ArrayList<>();
 		this.guards = new ArrayList<>();
-		this.isGuardGroup = isGuardGroup;
 		this.securityDetail = securityDetail;
 	}
 
+	//methode to add a person to a group. An ArrayList and a boolean are used to add the person to the right group.
 	public void addPerson(Person person) {
 		if (!this.inmates.contains(person) && !person.isGuard()) {
 			this.inmates.add(person);
-			person.setInGroup(true);
 		}
-		if (!this.guards.contains(person) && person.isGuard()) {
-			this.guards.add(person);
-			person.setInGroup(true);
-		}
-
 	}
 
+	//Getter to return the name of a certain prisongroup.
 	public String getGroupName() {
 		return this.groupName;
 	}
 
+	//method to return the inmates in a certain prisongroup.
 	public ArrayList<Person> getInmates() {
 		return this.inmates;
 	}
 
+	//method to check how much guards a group needs, then add that amount of guards to the hashmap given as parameter and a ArrayList of guards.
 	public void addGuard(HashMap<Person, Boolean> guardList) {
 		int guardAmount = guardsPerDetail();
 		for (Person person : guardList.keySet()) {
@@ -57,6 +54,7 @@ public class PrisonGroup implements Serializable {
 
 	}
 
+	//method to set the right amount of guards to a certain group.
 	public int guardsPerDetail() {
 		switch (securityDetail) {
 			case LOW:

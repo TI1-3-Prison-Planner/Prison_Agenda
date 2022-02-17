@@ -44,7 +44,8 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		return this.locations;
 	}
 
-	public void clear(){
+	//method to clear all the ArrayLists in the agenda.
+	public void clear() {
 		this.guards.clear();
 		this.groups.clear();
 		this.inmates.clear();
@@ -53,6 +54,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 
 	}
 
+	//method to sort the activities based on time by using the implemented compare method.
 	public void sortOnTime() {
 		int n = this.activities.size();
 		Activity tempActivity;
@@ -70,6 +72,15 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		Collections.addAll(this.activities, activitiesArr);
 	}
 
+	//implemented method to compare 2 different localtime attributes.
+	@Override
+	public int compare(LocalTime o1, LocalTime o2) {
+		if (o1.isAfter(o2)) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 	@Override
 	public String toString() {
@@ -80,13 +91,5 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 				"activities=" + activities + '\n' +
 				"locations=" + locations;
 	}
-
-	@Override
-	public int compare(LocalTime o1, LocalTime o2) {
-		if (o1.isAfter(o2)) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
 }
+

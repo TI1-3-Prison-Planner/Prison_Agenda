@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Location implements Serializable {
 
+    //enumeration for the different locations on the tilemap.
     public enum locationType{
         CELL,
         CELLBLOCK,
@@ -22,8 +23,13 @@ public class Location implements Serializable {
         this.locationType = location;
     }
 
-    public locationType getName(){
+    //getters to return the location name and type.
+    public locationType getLocationType(){
         return this.locationType;
+    }
+
+    public String getLocationName(){
+        return this.locationName;
     }
 
     public String toString() {
