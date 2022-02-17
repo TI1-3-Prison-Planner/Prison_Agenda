@@ -2,6 +2,7 @@ import Data.*;
 
 import java.io.File;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -140,7 +141,7 @@ public class Main {
 
 		roster.sortOnTime();
 
-		System.out.println(roster.getActivities().toString());
+//		System.out.println(roster.getActivities().toString());
 
 	}
 }
