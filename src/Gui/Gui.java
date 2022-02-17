@@ -35,6 +35,7 @@ public class Gui extends Application {
 
     @Override
     public void start(Stage stage) {
+        System.out.println("hello world");
 
 
         BorderPane mainPane = new BorderPane();
