@@ -1,6 +1,8 @@
 package Data;
 
-public class Location{
+import java.io.Serializable;
+
+public class Location implements Serializable {
 
     public enum locationType{
         CELL,

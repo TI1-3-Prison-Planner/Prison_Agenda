@@ -1,9 +1,10 @@
 package Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PrisonGroup {
+public class PrisonGroup implements Serializable {
 
 	private String groupName;
 	private ArrayList<Person> inmates;

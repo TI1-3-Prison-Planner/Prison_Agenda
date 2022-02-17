@@ -1,5 +1,6 @@
 import Data.*;
 
+import java.io.File;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,6 +9,14 @@ public class Main {
 	public static void main(String[] args) {
 		Roster testRoster = new Roster();
 		hoerenveeltestcode(testRoster);
+		System.out.println("");
+
+		RosterFileIO rfio = new RosterFileIO();
+		File file = new File("test.json");
+		rfio.saveDataAsFile(file, testRoster);
+		testRoster.clear();
+		RosterFileIO.readData(file);
+		System.out.println(testRoster);
 
 	}
 
@@ -131,5 +140,6 @@ public class Main {
 		roster.sortOnTime();
 
 		System.out.println(roster.getActivities().toString());
+
 	}
 }

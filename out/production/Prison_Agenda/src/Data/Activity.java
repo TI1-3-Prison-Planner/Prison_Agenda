@@ -1,9 +1,10 @@
 package Data;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Activity {
+public class Activity implements Serializable {
     private String name;
     private LocalTime startTime;
     private LocalTime endTime;

@@ -1,16 +1,31 @@
 package Data;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
 public class RosterFileIO {
 
-    public void saveDataAsFile(ArrayList<Activity> activities, String path) {
+    public void saveDataAsFile(File path, Roster roster) {
+        try(ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.getAbsolutePath()))) {
+            output.writeObject(roster.getActivities());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 
-    public void readDataFromFile(File file){
+    public static ArrayList<Roster> readData(File file) {
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(file.getAbsolutePath()))) {
+            Object obj = input.readObject();
+            ArrayList<Roster> incomming = (ArrayList<Roster>) obj;
 
+
+
+            return null;
+        } catch (IOException | ClassNotFoundException  e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void addPeopleToList(File file, ArrayList<Person> people){

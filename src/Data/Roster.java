@@ -1,9 +1,12 @@
 package Data;
 
+import org.omg.PortableServer.ServantRetentionPolicy;
+
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
 
-public class Roster implements Comparator<LocalTime> {
+public class Roster implements Comparator<LocalTime>, Serializable {
 
 	//this hashmap contains all guards in the prison. a boolean is used to check if a guard has already been assigned
 	// to a prisonGroup
@@ -39,6 +42,15 @@ public class Roster implements Comparator<LocalTime> {
 
 	public ArrayList<Location> getLocations() {
 		return this.locations;
+	}
+
+	public void clear(){
+		this.guards.clear();
+		this.groups.clear();
+		this.inmates.clear();
+		this.locations.clear();
+		this.activities.clear();
+
 	}
 
 	public void sortOnTime() {
