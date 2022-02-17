@@ -25,6 +25,6 @@ public class Location{
     }
 
     public String toString() {
-        return "Location: " + this.locationName + ", this is a " + this.locationType.toString().toLowerCase();
+        return this.locationName + ", " + this.locationType.toString().toLowerCase();
     }
 }

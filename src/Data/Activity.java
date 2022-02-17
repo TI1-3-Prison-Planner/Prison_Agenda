@@ -4,14 +4,15 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Activity {
-
+    private String name;
     private LocalTime startTime;
     private LocalTime endTime;
     private PrisonGroup prisonGroup;
     private Location location;
 
 
-    public Activity(LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location) {
+    public Activity(String name, LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location) {
+        this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.prisonGroup = group;
@@ -52,6 +53,6 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity: " + this.startTime + " - " + this.endTime + ", group: " + this.prisonGroup + ", location: " + this.location;
+        return "Activity: " + name + ", " + this.startTime + " - " + this.endTime + ", " + this.prisonGroup + this.location;
     }
 }

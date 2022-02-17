@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class RosterFileIO {
 
-    public void saveDataAsFile(String path){
+    public void saveDataAsFile(ArrayList<Activity> activities, String path) {
 
     }
 
