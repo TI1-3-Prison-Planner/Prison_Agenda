@@ -1,47 +1,20 @@
 package Gui;
+
 import Data.*;
-import com.sun.javafx.text.TextLine;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
-
 
 import java.time.LocalTime;
 
-public class AgendaEditor extends Application {
+public class AgendaEditor{
     private LocalTime startTime;
     private LocalTime endTime;
     private Activity  Activity;
 
-    enum Editor {
-        ADD,
-        EDIT,
-        REMOVE
-    }
 
-    private Editor editor;
-
-
-
-    public AgendaEditor(Editor s){
-       {
-          if(s == Editor.ADD){
-
-          }else if(s== Editor.EDIT){
-
-          }else if(s==Editor.REMOVE);
-
-
-        }
-
-    }
-
-    @Override
-    public void start(Stage stage) {
+    public void display(Stage stage) {
 
 
 
