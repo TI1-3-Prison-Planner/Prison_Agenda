@@ -61,9 +61,12 @@ public class AgendaEditor{
         });
 
         Scene activityScene = new Scene(grid, 300, 250);
+        
         activityPlanner.setScene(activityScene);
         activityPlanner.showAndWait();
 
 
+        stage.show();
     }
+
 }

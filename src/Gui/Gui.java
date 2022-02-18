@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
 
+import javax.swing.*;
 import java.awt.geom.Line2D;
 
 
@@ -33,7 +34,7 @@ public class Gui extends Application {
 	private BorderPane mainPane;
 	private Roster roster;
 	private AgendaEditor agendaEditor;
-
+	
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("Agenda GUI");
@@ -47,9 +48,7 @@ public class Gui extends Application {
 		this.agendaEditor = new AgendaEditor();
 
 		MenuItem itemNew = new MenuItem("New");
-		itemNew.setOnAction(e-> {
-			agendaEditor.display(stage);
-		});
+		itemNew.setOnAction(e-> agendaEditor.display(stage));
 
 		this.fileMenu = new Menu("File");
 		this.fileMenu.getItems().add(itemNew);
