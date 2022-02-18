@@ -78,8 +78,8 @@ public class Main {
 
 		roster.getLocations().put("breakroom1", new Location("Break room", Location.locationType.BREAKROOOM));
 		roster.getLocations().put("cellA1", new Location("Cell", Location.locationType.CELL));
-		roster.getLocations().put("Cellblock_A", new Location("Cell block", Location.locationType.CELLBLOCK));
-		roster.getLocations().put("Commonroom1", new Location("Common room", Location.locationType.COMMONROOM));
+		roster.getLocations().put("Cellblock_A", new Location("Cell block A", Location.locationType.CELLBLOCK));
+		roster.getLocations().put("Commonroom1", new Location("Common room A", Location.locationType.COMMONROOM));
 		roster.getLocations().put("Kitchen1", new Location("Kitchen", Location.locationType.KITCHEN));
 		roster.getLocations().put("Workshop1", new Location("Workshop", Location.locationType.WORKSKHOP));
 		roster.getLocations().put("Yard1", new Location("Yard", Location.locationType.YARD));
