@@ -2,6 +2,7 @@ package Gui;
 
 import Data.Roster;
 import javafx.application.Application;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -66,6 +67,9 @@ public class Gui extends Application {
 
 
 		ScrollPane scrollableCenter = new ScrollPane(this.canvas);
+		rosterTab.setClosable(false);
+		tableTab.setClosable(false);
+		tabPane.setSide(Side.LEFT);
 		rosterTab.setContent(scrollableCenter);
 		tabPane.getTabs().addAll(rosterTab,tableTab);
 		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
