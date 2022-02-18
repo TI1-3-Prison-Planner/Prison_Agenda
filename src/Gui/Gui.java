@@ -39,7 +39,7 @@ public class Gui extends Application {
 		this.mainPane = new BorderPane();
 		this.tabPane = new TabPane();
 		this.rosterTab = new Tab();
-		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
+//		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 		this.roster = new Roster();
