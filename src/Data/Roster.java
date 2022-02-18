@@ -42,14 +42,9 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		return this.locations;
 	}
 
-<<<<<<< HEAD
-	//method to clear all the ArrayLists in the agenda.
-	public void clear() {
-		this.guards.clear();
-=======
+
 	public void clear(){
 		this.guardDatabase.clear();
->>>>>>> Dataa
 		this.groups.clear();
 		this.inmates.clear();
 		this.locations.clear();
@@ -87,7 +82,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	@Override
 	public String toString() {
 		return "Roster:\n" +
-				"guards=" + guards + '\n' +
+				"guards=" + guardDatabase + '\n' +
 				"inmates=" + inmates + '\n' +
 				"groups=" + groups + '\n' +
 				"activities=" + activities + '\n' +

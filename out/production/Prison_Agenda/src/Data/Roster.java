@@ -1,7 +1,5 @@
 package Data;
 
-import org.omg.PortableServer.ServantRetentionPolicy;
-
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
@@ -10,22 +8,22 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 
 	//this hashmap contains all guards in the prison. a boolean is used to check if a guard has already been assigned
 	// to a prisonGroup
-	private HashMap<Person, Boolean> guards;
+	private HashMap<Person, Boolean> guardDatabase;
 	private ArrayList<Person> inmates;
 	private ArrayList<PrisonGroup> groups;
 	private ArrayList<Location> locations;
 	private ArrayList<Activity> activities;
 
 	public Roster() {
-		this.guards = new HashMap<>();
+		this.guardDatabase = new HashMap<>();
 		this.groups = new ArrayList<>();
 		this.inmates = new ArrayList<>();
 		this.locations = new ArrayList<>();
 		this.activities = new ArrayList<>();
 	}
 
-	public HashMap<Person, Boolean> getGuards() {
-		return this.guards;
+	public HashMap<Person, Boolean> getGuardDatabase() {
+		return this.guardDatabase;
 	}
 
 	public ArrayList<Person> getInmates() {
@@ -44,15 +42,16 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		return this.locations;
 	}
 
+
 	public void clear(){
-		this.guards.clear();
+		this.guardDatabase.clear();
 		this.groups.clear();
 		this.inmates.clear();
 		this.locations.clear();
 		this.activities.clear();
-
 	}
 
+	//method to sort the activities based on time by using the implemented compare method.
 	public void sortOnTime() {
 		int n = this.activities.size();
 		Activity tempActivity;
@@ -70,17 +69,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		Collections.addAll(this.activities, activitiesArr);
 	}
 
-
-	@Override
-	public String toString() {
-		return "Roster:\n" +
-				"guards=" + guards + '\n' +
-				"inmates=" + inmates + '\n' +
-				"groups=" + groups + '\n' +
-				"activities=" + activities + '\n' +
-				"locations=" + locations;
-	}
-
+	//implemented method to compare 2 different localtime attributes.
 	@Override
 	public int compare(LocalTime o1, LocalTime o2) {
 		if (o1.isAfter(o2)) {
@@ -89,4 +78,15 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 			return 0;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Roster:\n" +
+				"guards=" + guardDatabase + '\n' +
+				"inmates=" + inmates + '\n' +
+				"groups=" + groups + '\n' +
+				"activities=" + activities + '\n' +
+				"locations=" + locations;
+	}
 }
+

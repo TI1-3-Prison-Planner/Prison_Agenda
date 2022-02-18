@@ -2,6 +2,7 @@ import Data.*;
 
 import java.io.File;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -59,10 +60,10 @@ public class Main {
 		Person charlotte = new Person("Charlotte", false);
 		Person cornelis = new Person("Cornelis", false);
 
-		roster.getGuards().put(new Person("Johnny Bill", true), false);
-		roster.getGuards().put(new Person("Bill Bill", true), false);
-		roster.getGuards().put(new Person("Johnny Johnny", true),false);
-		roster.getGuards().put(new Person("Johnny John", true), false);
+		roster.getGuardDatabase().put(new Person("Johnny Bill", true), false);
+		roster.getGuardDatabase().put(new Person("Bill Bill", true), false);
+		roster.getGuardDatabase().put(new Person("Johnny Johnny", true),false);
+		roster.getGuardDatabase().put(new Person("Johnny John", true), false);
 
 
 
@@ -109,7 +110,7 @@ public class Main {
 		b3.addPerson(charlotte);
 		b3.addPerson(cornelis);
 
-		b1.addGuard(roster.getGuards());
+		b1.addGuard(roster.getGuardDatabase());
 
 
 		Location breakRoom = new Location("BreakRoom", Location.locationType.BREAKROOOM);
