@@ -138,6 +138,14 @@ public class Main {
 		roster.getGroups().add(b2);
 		roster.getGroups().add(b3);
 
+		roster.getLocations().add(breakRoom);
+		roster.getLocations().add(cell);
+		roster.getLocations().add(cellblock);
+		roster.getLocations().add(commonRoom);
+		roster.getLocations().add(kitchen);
+		roster.getLocations().add(workshop);
+		roster.getLocations().add(yard);
+
 
 		roster.sortOnTime();
 

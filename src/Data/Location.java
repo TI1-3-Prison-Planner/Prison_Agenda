@@ -33,6 +33,6 @@ public class Location implements Serializable {
     }
 
     public String toString() {
-        return this.locationName + ", " + this.locationType;
+        return this.locationName;
     }
 }

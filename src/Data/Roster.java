@@ -83,10 +83,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	@Override
 	public String toString() {
 		return "Roster:\n" +
-				"guards=" + guardDatabase + '\n' +
-				"inmates=" + inmates + '\n' +
-				"groups=" + groups + '\n' +
-				"activities=" + activities + '\n' +
+				"guards=" + guardDatabase + '\n' + '\n' +
+				"inmates=" + inmates + '\n' + '\n' +
+				"groups=" + groups + '\n' + '\n' +
+				"activities=" + activities + '\n' + '\n' +
 				"locations=" + locations;
 	}
 }
