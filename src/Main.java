@@ -6,28 +6,20 @@ import java.time.LocalTime;
 public class Main {
 	public static void main(String[] args) {
 		Roster testRoster = new Roster();
-//		hoerenveeltestcode(testRoster);
-
-
-		FileIO rfio = new FileIO();
-//		File file = new File("test.json");
-//		rfio.saveDataAsFile(file, testRoster);
-//		testRoster.clear();
-//		testRoster = rfio.readData(file);
-
 		FileIO fio = new FileIO();
-		File file = new File("test.json");
-		fio.saveDataAsFile(file, testRoster);
-		testRoster.clear();
-		testRoster = fio.readData(file);
-//		fio.savePersonDatabase("guards.txt" ,testRoster.getGuardDatabase());
 
+		String FileName = "namen.txt";
+		testRoster.fillInmatesDataBase(fio.setUpNamelist(FileName));
 
-		System.out.println(rfio.setUpNamelist("namen.txt"));
-		testRoster.fillGuardDatabase(rfio.setUpNamelist("namen.txt"));
-		System.out.println(testRoster.getGuardDatabase());
+		System.out.println(testRoster.getInmateDatabase());
 
-//		System.out.println("\n" +testRoster);
+		System.out.println("");
+
+		hoerenveeltestcode(testRoster);
+		System.out.println(testRoster);
+
+		fio.savePersonDatabase("fkdit.txt",testRoster.getInmateDatabase());
+
 	}
 
 

@@ -58,7 +58,7 @@ public class PrisonGroup implements Serializable {
 		int inmateAmount = 20;
 		for (Person person : inmateList.keySet()) {
 			if (!inmateList.get(person) && inmateAmount > 0) {
-				this.guards.add(person);
+				this.inmates.add(person);
 				inmateList.put(person, true);
 				inmateAmount--;
 			}

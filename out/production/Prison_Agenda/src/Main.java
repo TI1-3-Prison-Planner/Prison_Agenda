@@ -6,28 +6,20 @@ import java.time.LocalTime;
 public class Main {
 	public static void main(String[] args) {
 		Roster testRoster = new Roster();
-//		hoerenveeltestcode(testRoster);
-
-<<<<<<< Updated upstream
-		RosterFileIO rfio = new RosterFileIO();
-//		File file = new File("test.json");
-//		rfio.saveDataAsFile(file, testRoster);
-//		testRoster.clear();
-//		testRoster = rfio.readData(file);
-=======
 		FileIO fio = new FileIO();
-		File file = new File("test.json");
-		fio.saveDataAsFile(file, testRoster);
-		testRoster.clear();
-		testRoster = fio.readData(file);
-//		fio.savePersonDatabase("guards.txt" ,testRoster.getGuardDatabase());
->>>>>>> Stashed changes
 
-		System.out.println(rfio.setUpNamelist("namen.txt"));
-		testRoster.fillGuardDatabase(rfio.setUpNamelist("namen.txt"));
-		System.out.println(testRoster.getGuardDatabase());
+		String FileName = "namen.txt";
+		testRoster.fillInmatesDataBase(fio.setUpNamelist(FileName));
 
-//		System.out.println("\n" +testRoster);
+		System.out.println(testRoster.getInmateDatabase());
+
+		System.out.println("");
+
+		hoerenveeltestcode(testRoster);
+		System.out.println(testRoster);
+
+		fio.savePersonDatabase("fkdit.txt",testRoster.getInmateDatabase());
+
 	}
 
 
@@ -90,32 +82,20 @@ public class Main {
 
 		a1.addInmates(roster.getInmateDatabase());
 		a1.addGuard(roster.getGuardDatabase());
-<<<<<<< Updated upstream
-		b1.addGuard(roster.getGuardDatabase());
-
-		roster.getLocations().put("breakroom1", new Location("Break room", Location.locationType.BREAKROOOM));
-		roster.getLocations().put("cellA1", new Location("Cell", Location.locationType.CELL));
-		roster.getLocations().put("Cellblock_A", new Location("Cell block A", Location.locationType.CELLBLOCK));
-		roster.getLocations().put("Commonroom1", new Location("Common room A", Location.locationType.COMMONROOM));
-		roster.getLocations().put("Kitchen1", new Location("Kitchen", Location.locationType.KITCHEN));
-		roster.getLocations().put("Workshop1", new Location("Workshop", Location.locationType.WORKSKHOP));
-		roster.getLocations().put("Yard1", new Location("Yard", Location.locationType.YARD));
-=======
 		a2.addInmates(roster.getInmateDatabase());
 		a2.addGuard(roster.getGuardDatabase());
 		a3.addInmates(roster.getInmateDatabase());
 		a3.addGuard(roster.getGuardDatabase());
 
-		roster.getLocationDatabase().put("breakroom1", new Location("Break room", Location.locationType.BREAKROOOM));
-		roster.getLocationDatabase().put("cellA1", new Location("Cell", Location.locationType.CELL));
+		roster.getLocationDatabase().put("breakroom1", 	new Location("Break room", Location.locationType.BREAKROOOM));
+		roster.getLocationDatabase().put("cellA1", 		new Location("Cell", Location.locationType.CELL));
 		roster.getLocationDatabase().put("Cellblock_A", new Location("Cell block A", Location.locationType.CELLBLOCK));
 		roster.getLocationDatabase().put("Commonroom1", new Location("Common room A", Location.locationType.COMMONROOM));
-		roster.getLocationDatabase().put("Kitchen1", new Location("Kitchen", Location.locationType.KITCHEN));
-		roster.getLocationDatabase().put("Workshop1", new Location("Workshop", Location.locationType.WORKSKHOP));
-		roster.getLocationDatabase().put("Yard1", new Location("Yard", Location.locationType.YARD));
->>>>>>> Stashed changes
+		roster.getLocationDatabase().put("Kitchen1", 	new Location("Kitchen", Location.locationType.KITCHEN));
+		roster.getLocationDatabase().put("Workshop1", 	new Location("Workshop", Location.locationType.WORKSKHOP));
+		roster.getLocationDatabase().put("Yard1", 		new Location("Yard", Location.locationType.YARD));
 
-		//TODO location getter needs have a more specific call method
+
 		Activity cellTime = 	new Activity("Cell Time", LocalTime.parse("14:00:00"), LocalTime.parse("17:00:00"), a2, roster.getLocationDatabase().get("breakroom1"));
 		Activity eat = 			new Activity("Eat", LocalTime.parse("13:00:00"), LocalTime.parse("14:00:00"), a2, roster.getLocationDatabase().get("Kitchen1"));
 		Activity work = 		new Activity("Work", LocalTime.parse("08:00:00"), LocalTime.parse("12:00:00"), a1, roster.getLocationDatabase().get("Workshop1"));

@@ -6,23 +6,18 @@ import java.util.*;
 
 public class Roster implements Comparator<LocalTime>, Serializable {
 
-	//this hashmap contains all guards in the prison. a boolean is used to check if a guard has already been assigned
-	// to a prisonGroup
-	private HashMap<Person, Boolean> guardDatabase;
-	private HashMap<Person, Boolean> inmateDatabase;
-	private ArrayList<PrisonGroup> groups;
-	private HashMap<String, Location> locationDatabase;
-	private ArrayList<Activity> activities;
+
+	private HashMap<Person, Boolean> guardDatabase;				//Guard database with boolean for being assinged to a group
+	private HashMap<Person, Boolean> inmateDatabase;			//inmate database with boolean for being assinged to a group
+	private HashMap<String, Location> locationDatabase;			//Location database with ID for each Location
+	private ArrayList<PrisonGroup> groups;						//List with all prison groups to assign inmates and guards to
+	private ArrayList<Activity> activities;						//List with all activity's for all groups
 
 	public Roster() {
 		this.guardDatabase = new HashMap<>();
 		this.groups = new ArrayList<>();
 		this.inmateDatabase = new HashMap<>();
-<<<<<<< Updated upstream
-		this.locations = new HashMap<>();
-=======
 		this.locationDatabase = new HashMap<>();
->>>>>>> Stashed changes
 		this.activities = new ArrayList<>();
 	}
 
@@ -50,11 +45,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		this.guardDatabase.clear();
 		this.groups.clear();
 		this.inmateDatabase.clear();
-<<<<<<< Updated upstream
-		this.locations.clear();
-=======
 		this.locationDatabase.clear();
->>>>>>> Stashed changes
 		this.activities.clear();
 	}
 

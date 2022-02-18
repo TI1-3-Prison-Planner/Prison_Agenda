@@ -1,11 +1,9 @@
 package Data;
 
 import javafx.scene.layout.HBox;
-import java.util.Set;
+
+import java.util.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class FileIO {
 
@@ -47,13 +45,34 @@ public class FileIO {
     }
 
     public void savePersonDatabase(String fileName, HashMap<Person, Boolean> database){
-        Set<Person> temp = database.keySet();
-        ArrayList<Person> people = new ArrayList<>(temp);
-        temp.clear();
+        Set<Person> keys = database.keySet();
+        ArrayList<Person> people = new ArrayList<>(keys);
+        keys.clear();
 
         try(PrintWriter printer = new PrintWriter(fileName)){
             for (int i = 0; i < people.size(); i++) {
                 printer.println(people.get(i));
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void savePersonDatabaseTester(String fileName, HashMap<Person, Boolean> database){
+        Set<Person> keys = database.keySet();
+        ArrayList<Person> people = new ArrayList<>(keys);
+
+        Collection<Boolean> values = database.values();
+        ArrayList<Boolean> trueORfalse = new ArrayList<>(values);
+        keys.clear();
+
+        try(PrintWriter printer = new PrintWriter(fileName)){
+            for (int i = 0; i < people.size(); i++) {
+                printer.print(people.get(i));
+                printer.print(" ");
+                printer.print(trueORfalse.get(i));
+                printer.println("");
             }
         }catch (Exception e){
             e.printStackTrace();
