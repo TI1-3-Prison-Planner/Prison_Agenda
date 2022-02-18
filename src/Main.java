@@ -9,17 +9,19 @@ import java.util.Comparator;
 public class Main {
 	public static void main(String[] args) {
 		Roster testRoster = new Roster();
-		hoerenveeltestcode(testRoster);
-		System.out.println("");
+//		hoerenveeltestcode(testRoster);
 
 		RosterFileIO rfio = new RosterFileIO();
-		File file = new File("test.json");
-		rfio.saveDataAsFile(file, testRoster);
-		testRoster.clear();
-		testRoster = rfio.readData(file);
+//		File file = new File("test.json");
+//		rfio.saveDataAsFile(file, testRoster);
+//		testRoster.clear();
+//		testRoster = rfio.readData(file);
 
-		System.out.println("\n" +testRoster);
+		System.out.println(rfio.setUpNamelist("namen.txt"));
+		testRoster.fillGuardDatabase(rfio.setUpNamelist("namen.txt"));
+		System.out.println(testRoster.getGuardDatabase());
 
+//		System.out.println("\n" +testRoster);
 	}
 
 

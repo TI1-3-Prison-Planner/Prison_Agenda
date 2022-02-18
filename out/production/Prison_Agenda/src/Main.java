@@ -9,17 +9,19 @@ import java.util.Comparator;
 public class Main {
 	public static void main(String[] args) {
 		Roster testRoster = new Roster();
-		hoerenveeltestcode(testRoster);
-		System.out.println("");
+//		hoerenveeltestcode(testRoster);
 
 		RosterFileIO rfio = new RosterFileIO();
-		File file = new File("test.json");
-		rfio.saveDataAsFile(file, testRoster);
-		testRoster.clear();
-		testRoster = rfio.readData(file);
+//		File file = new File("test.json");
+//		rfio.saveDataAsFile(file, testRoster);
+//		testRoster.clear();
+//		testRoster = rfio.readData(file);
 
-		System.out.println("\n" +testRoster);
+		System.out.println(rfio.setUpNamelist("namen.txt"));
+		testRoster.fillGuardDatabase(rfio.setUpNamelist("namen.txt"));
+		System.out.println(testRoster.getGuardDatabase());
 
+//		System.out.println("\n" +testRoster);
 	}
 
 
@@ -78,8 +80,8 @@ public class Main {
 
 		roster.getLocations().put("breakroom1", new Location("Break room", Location.locationType.BREAKROOOM));
 		roster.getLocations().put("cellA1", new Location("Cell", Location.locationType.CELL));
-		roster.getLocations().put("Cellblock_A", new Location("Cell block", Location.locationType.CELLBLOCK));
-		roster.getLocations().put("Commonroom1", new Location("Common room", Location.locationType.COMMONROOM));
+		roster.getLocations().put("Cellblock_A", new Location("Cell block A", Location.locationType.CELLBLOCK));
+		roster.getLocations().put("Commonroom1", new Location("Common room A", Location.locationType.COMMONROOM));
 		roster.getLocations().put("Kitchen1", new Location("Kitchen", Location.locationType.KITCHEN));
 		roster.getLocations().put("Workshop1", new Location("Workshop", Location.locationType.WORKSKHOP));
 		roster.getLocations().put("Yard1", new Location("Yard", Location.locationType.YARD));

@@ -9,7 +9,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	//this hashmap contains all guards in the prison. a boolean is used to check if a guard has already been assigned
 	// to a prisonGroup
 	private HashMap<Person, Boolean> guardDatabase;
-	private ArrayList<Person> inmates;
+	private HashMap<Person, Boolean> inmateDatabase;
 	private ArrayList<PrisonGroup> groups;
 	private HashMap<String, Location> locations;
 	private ArrayList<Activity> activities;
@@ -17,7 +17,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	public Roster() {
 		this.guardDatabase = new HashMap<>();
 		this.groups = new ArrayList<>();
-		this.inmates = new ArrayList<>();
+		this.inmateDatabase = new HashMap<>();
 		this.locations = new HashMap<>();
 		this.activities = new ArrayList<>();
 	}
@@ -26,8 +26,8 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		return this.guardDatabase;
 	}
 
-	public ArrayList<Person> getInmates() {
-		return this.inmates;
+	public HashMap<Person, Boolean> getInmateDatabase() {
+		return this.inmateDatabase;
 	}
 
 	public ArrayList<PrisonGroup> getGroups() {
@@ -42,13 +42,26 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		return this.locations;
 	}
 
-
 	public void clear(){
 		this.guardDatabase.clear();
 		this.groups.clear();
-		this.inmates.clear();
+		this.inmateDatabase.clear();
 		this.locations.clear();
 		this.activities.clear();
+	}
+
+	public void fillInmatesDataBase(ArrayList<String> persons){
+		for (String name : persons) {
+			Person inmate = new Person(name,false);
+			this.inmateDatabase.put(inmate,false);
+		}
+	}
+
+	public void fillGuardDatabase(ArrayList<String> persons){
+		for (String name : persons) {
+			Person inmate = new Person(name,true);
+			this.inmateDatabase.put(inmate,false);
+		}
 	}
 
 	//method to sort the activities based on time by using the implemented compare method.
@@ -84,7 +97,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	public String toString() {
 		return "Roster:\n" +
 				"guards=" + guardDatabase + '\n' + '\n' +
-				"inmates=" + inmates + '\n' + '\n' +
+				"inmates=" + inmateDatabase + '\n' + '\n' +
 				"groups=" + groups + '\n' + '\n' +
 				"activities=" + activities + '\n' + '\n' +
 				"locations=" + locations;

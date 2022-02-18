@@ -42,13 +42,26 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		return this.locations;
 	}
 
-
 	public void clear(){
 		this.guardDatabase.clear();
 		this.groups.clear();
 		this.inmateDatabase.clear();
 		this.locations.clear();
 		this.activities.clear();
+	}
+
+	public void fillInmatesDataBase(ArrayList<String> persons){
+		for (String name : persons) {
+			Person inmate = new Person(name,false);
+			this.inmateDatabase.put(inmate,false);
+		}
+	}
+
+	public void fillGuardDatabase(ArrayList<String> persons){
+		for (String name : persons) {
+			Person inmate = new Person(name,true);
+			this.inmateDatabase.put(inmate,false);
+		}
 	}
 
 	//method to sort the activities based on time by using the implemented compare method.

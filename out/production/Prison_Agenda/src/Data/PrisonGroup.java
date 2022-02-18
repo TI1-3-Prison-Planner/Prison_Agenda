@@ -48,10 +48,21 @@ public class PrisonGroup implements Serializable {
 		for (Person person : guardList.keySet()) {
 			if (!guardList.get(person) && guardAmount > 0) {
 				this.guards.add(person);
+				guardList.put(person, true);
 				guardAmount--;
 			}
 		}
+	}
 
+	public void addInmates(HashMap<Person, Boolean> inmateList){
+		int inmateAmount = 20;
+		for (Person person : inmateList.keySet()) {
+			if (!inmateList.get(person) && inmateAmount > 0) {
+				this.guards.add(person);
+				inmateList.put(person, true);
+				inmateAmount--;
+			}
+		}
 	}
 
 	//method to set the right amount of guards to a certain group.
@@ -67,6 +78,8 @@ public class PrisonGroup implements Serializable {
 				return -1;
 		}
 	}
+
+
 
 	@Override
 	public String toString() {
