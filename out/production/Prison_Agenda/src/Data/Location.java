@@ -14,23 +14,20 @@ public class Location implements Serializable {
         KITCHEN,
         BREAKROOOM
     }
-    private String locationName;
-    private locationType locationType;
+    public String locationName;
+    public locationType type;
 
 
-    public Location(String locationName, locationType location){
+    public Location(String locationName, locationType locationtype){
         this.locationName = locationName;
-        this.locationType = location;
-    }
-
-    //getters to return the location name and type.
-    public locationType getLocationType(){
-        return this.locationType;
+        this.type = locationtype;
     }
 
     public String getLocationName(){
         return this.locationName;
     }
+
+    public locationType getType(){return this.type;}
 
     public String toString() {
         return this.locationName;

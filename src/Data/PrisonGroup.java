@@ -70,6 +70,6 @@ public class PrisonGroup implements Serializable {
 
 	@Override
 	public String toString() {
-		return "\n[Group: "+ this.groupName + ", inmates: " + this.inmates.size() + ", Security detail: " + this.securityDetail + ", guards:" + this.guards.size() + "]\n";
+		return "\nSecurity detail: " + this.securityDetail + ", Group: "+ this.groupName + ", inmates: " + this.inmates.size() +  ", guards:" + this.guards.size() + "]\n";
 	}
 }

@@ -24,41 +24,6 @@ public class Main {
 
 
 	public static void hoerenveeltestcode(Roster roster) {
-		Person billy = new Person("Billy", false);
-		Person jan = new Person("Jan", false);
-		Person bob = new Person("Bob", false);
-		Person harry = new Person("Harry", false);
-		Person piet = new Person("Piet", false);
-
-		Person janus = new Person("Janus", false);
-		Person hans = new Person("Hans", false);
-		Person stijn = new Person("Stijn", false);
-		Person hailey = new Person("Hailey", false);
-		Person julia = new Person("Julia", false);
-
-		Person daan = new Person("Daan", false);
-		Person lucas = new Person("Lucas", false);
-		Person sem = new Person("Sem", false);
-		Person noah = new Person("Noah", false);
-		Person levi = new Person("Levi", false);
-
-		Person mila = new Person("Mila", false);
-		Person emma = new Person("Emma", false);
-		Person nora = new Person("Nora", false);
-		Person olivia = new Person("Olivia", false);
-		Person liam = new Person("Liam", false);
-
-		Person tess = new Person("Tess", false);
-		Person milou = new Person("Milou", false);
-		Person james = new Person("James", false);
-		Person yara = new Person("Yara", false);
-		Person finn = new Person("Finn", false);
-
-		Person luca = new Person("Luca", false);
-		Person milan = new Person("Milan", false);
-		Person casper = new Person("Casper", false);
-		Person charlotte = new Person("Charlotte", false);
-		Person cornelis = new Person("Cornelis", false);
 
 		roster.getGuardDatabase().put(new Person("Johnny Bill", true), false);
 		roster.getGuardDatabase().put(new Person("Bill Bill", true), false);
@@ -66,65 +31,64 @@ public class Main {
 		roster.getGuardDatabase().put(new Person("Johnny John", true), false);
 
 
-
-
 		PrisonGroup a1 = new PrisonGroup("A1", PrisonGroup.securityDetail.LOW, false);
-		a1.addPerson(billy);
-		a1.addPerson(jan);
-		a1.addPerson(bob);
-		a1.addPerson(harry);
-		a1.addPerson(piet);
+		a1.addPerson(new Person("Billy", false ));
+		a1.addPerson(new Person("Jan", false));
+		a1.addPerson(new Person("Bob", false));
+		a1.addPerson(new Person("Harry", false));
+		a1.addPerson(new Person("Piet", false));
 
 		PrisonGroup a2 = new PrisonGroup("A2", PrisonGroup.securityDetail.MEDIUM, false);
-		a2.addPerson(janus);
-		a2.addPerson(hans);
-		a2.addPerson(stijn);
-		a2.addPerson(hailey);
-		a2.addPerson(julia);
+		a2.addPerson(new Person("Janus", false));
+		a2.addPerson(new Person("Hans", false));
+		a2.addPerson(new Person("Stijn", false));
+		a2.addPerson(new Person("Hailey", false));
+		a2.addPerson(new Person("Julia", false));
 
 		PrisonGroup a3 = new PrisonGroup("A3", PrisonGroup.securityDetail.HIGH, false);
-		a3.addPerson(daan);
-		a3.addPerson(lucas);
-		a3.addPerson(sem);
-		a3.addPerson(noah);
-		a3.addPerson(levi);
+		a3.addPerson(new Person("Daan", false));
+		a3.addPerson(new Person("Lucas", false));
+		a3.addPerson(new Person("Sem", false));
+		a3.addPerson(new Person("Noah", false));
+		a3.addPerson(new Person("Levi", false));
 
 		PrisonGroup b1 = new PrisonGroup("B1", PrisonGroup.securityDetail.LOW, false);
-		b1.addPerson(mila);
-		b1.addPerson(emma);
-		b1.addPerson(nora);
-		b1.addPerson(olivia);
-		b1.addPerson(liam);
+		b1.addPerson(new Person("Mila", false));
+		b1.addPerson(new Person("Emma", false));
+		b1.addPerson(new Person("Nora", false));
+		b1.addPerson(new Person("Olivia", false));
+		b1.addPerson(new Person("Liam", false));
 
 		PrisonGroup b2 = new PrisonGroup("B2", PrisonGroup.securityDetail.MEDIUM, false);
-		b2.addPerson(tess);
-		b2.addPerson(milou);
-		b2.addPerson(james);
-		b2.addPerson(yara);
-		b2.addPerson(finn);
+		b2.addPerson(new Person("Tess", false));
+		b2.addPerson(new Person("Milou", false));
+		b2.addPerson(new Person("James", false));
+		b2.addPerson(new Person("Yara", false));
+		b2.addPerson(new Person("Finn", false));
 
 		PrisonGroup b3 = new PrisonGroup("B3", PrisonGroup.securityDetail.HIGH, false);
-		b3.addPerson(luca);
-		b3.addPerson(milan);
-		b3.addPerson(casper);
-		b3.addPerson(charlotte);
-		b3.addPerson(cornelis);
+		b3.addPerson(new Person("Luca", false));
+		b3.addPerson(new Person("Milan", false));
+		b3.addPerson(new Person("Casper", false));
+		b3.addPerson(new Person("Charlotte", false));
+		b3.addPerson(new Person("Cornelis", false));
 
+		a1.addGuard(roster.getGuardDatabase());
 		b1.addGuard(roster.getGuardDatabase());
 
+		roster.getLocations().put("breakroom1", new Location("Break room", Location.locationType.BREAKROOOM));
+		roster.getLocations().put("cellA1", new Location("Cell", Location.locationType.CELL));
+		roster.getLocations().put("Cellblock_A", new Location("Cell block", Location.locationType.CELLBLOCK));
+		roster.getLocations().put("Commonroom1", new Location("Common room", Location.locationType.COMMONROOM));
+		roster.getLocations().put("Kitchen1", new Location("Kitchen", Location.locationType.KITCHEN));
+		roster.getLocations().put("Workshop1", new Location("Workshop", Location.locationType.WORKSKHOP));
+		roster.getLocations().put("Yard1", new Location("Yard", Location.locationType.YARD));
 
-		Location breakRoom = new Location("BreakRoom", Location.locationType.BREAKROOOM);
-		Location cell = new Location("Cell", Location.locationType.CELL);
-		Location cellblock = new Location("Cellblock", Location.locationType.CELLBLOCK);
-		Location commonRoom = new Location("CommonRoom", Location.locationType.COMMONROOM);
-		Location kitchen = new Location("Kitchen", Location.locationType.KITCHEN);
-		Location workshop = new Location("Workshop", Location.locationType.WORKSKHOP);
-		Location yard = new Location("Yard", Location.locationType.YARD);
-
-		Activity cellTime = new Activity("Cell Time", LocalTime.parse("14:00:00"), LocalTime.parse("17:00:00"), a2, cell);
-		Activity eat = new Activity("Eat", LocalTime.parse("13:00:00"), LocalTime.parse("14:00:00"), b2, kitchen);
-		Activity work = new Activity("Work", LocalTime.parse("08:00:00"), LocalTime.parse("12:00:00"), b1, workshop);
-		Activity freeTime = new Activity("Free Time", LocalTime.parse("12:00:00"), LocalTime.parse("13:00:00"), a1, yard);
+		//TODO location getter needs have a more specific call method
+		Activity cellTime = 	new Activity("Cell Time", LocalTime.parse("14:00:00"), LocalTime.parse("17:00:00"), a2, roster.getLocations().get("breakroom1"));
+		Activity eat = 			new Activity("Eat", LocalTime.parse("13:00:00"), LocalTime.parse("14:00:00"), b2, roster.getLocations().get("Kitchen1"));
+		Activity work = 		new Activity("Work", LocalTime.parse("08:00:00"), LocalTime.parse("12:00:00"), b1, roster.getLocations().get("Workshop1"));
+		Activity freeTime = 	new Activity("Free Time", LocalTime.parse("12:00:00"), LocalTime.parse("13:00:00"), a1, roster.getLocations().get("Yard1"));
 
 		roster.getActivities().add(freeTime);
 		roster.getActivities().add(cellTime);
@@ -137,15 +101,6 @@ public class Main {
 		roster.getGroups().add(b1);
 		roster.getGroups().add(b2);
 		roster.getGroups().add(b3);
-
-		roster.getLocations().add(breakRoom);
-		roster.getLocations().add(cell);
-		roster.getLocations().add(cellblock);
-		roster.getLocations().add(commonRoom);
-		roster.getLocations().add(kitchen);
-		roster.getLocations().add(workshop);
-		roster.getLocations().add(yard);
-
 
 		roster.sortOnTime();
 
