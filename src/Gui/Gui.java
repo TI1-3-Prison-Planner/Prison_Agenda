@@ -7,13 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
 
-import javax.swing.*;
 import java.awt.geom.Line2D;
 
 
@@ -33,7 +30,7 @@ public class Gui extends Application {
 	private Menu deleteMenu;
 	private BorderPane mainPane;
 	private Roster roster;
-	private AgendaEditor agendaEditor;
+	private AgendaCreator agendaCreator;
 	
 	@Override
 	public void start(Stage stage) {
@@ -45,10 +42,11 @@ public class Gui extends Application {
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 		this.roster = new Roster();
-		this.agendaEditor = new AgendaEditor();
+		this.agendaCreator = new AgendaCreator();
+		this.agendaCreator.init(this.roster);
 
 		MenuItem itemNew = new MenuItem("New");
-		itemNew.setOnAction(e-> agendaEditor.display(stage));
+		itemNew.setOnAction(e-> agendaCreator.display(stage));
 
 		this.fileMenu = new Menu("File");
 		this.fileMenu.getItems().add(itemNew);

@@ -9,11 +9,16 @@ import javafx.stage.Stage;
 
 import java.time.LocalTime;
 
-public class AgendaEditor{
+public class AgendaCreator {
     private LocalTime startTime;
     private LocalTime endTime;
     private Activity  Activity;
+    private ErrorPopup errorPopup;
 
+
+    public void init(Roster roster) {
+
+    }
 
     public void display(Stage stage) {
 
@@ -57,11 +62,15 @@ public class AgendaEditor{
         });
 
         add.setOnAction(event -> {
+            this.errorPopup = new ErrorPopup("Overlap with other activities");
+            errorPopup.display(stage);
+//            startTime = setStartTime.getValue();
+//            Activity newActivity = new Activity(activityName.getText(), setStartTime);
             //TODO, Code missing until adding function is working
         });
 
         Scene activityScene = new Scene(grid, 300, 250);
-        
+
         activityPlanner.setScene(activityScene);
         activityPlanner.showAndWait();
 
