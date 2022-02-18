@@ -11,14 +11,18 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	private HashMap<Person, Boolean> guardDatabase;
 	private HashMap<Person, Boolean> inmateDatabase;
 	private ArrayList<PrisonGroup> groups;
-	private HashMap<String, Location> locations;
+	private HashMap<String, Location> locationDatabase;
 	private ArrayList<Activity> activities;
 
 	public Roster() {
 		this.guardDatabase = new HashMap<>();
 		this.groups = new ArrayList<>();
 		this.inmateDatabase = new HashMap<>();
+<<<<<<< Updated upstream
 		this.locations = new HashMap<>();
+=======
+		this.locationDatabase = new HashMap<>();
+>>>>>>> Stashed changes
 		this.activities = new ArrayList<>();
 	}
 
@@ -38,15 +42,19 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 		return this.activities;
 	}
 
-	public HashMap<String, Location> getLocations() {
-		return this.locations;
+	public HashMap<String, Location> getLocationDatabase() {
+		return this.locationDatabase;
 	}
 
 	public void clear(){
 		this.guardDatabase.clear();
 		this.groups.clear();
 		this.inmateDatabase.clear();
+<<<<<<< Updated upstream
 		this.locations.clear();
+=======
+		this.locationDatabase.clear();
+>>>>>>> Stashed changes
 		this.activities.clear();
 	}
 
@@ -100,7 +108,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 				"inmates=" + inmateDatabase + '\n' + '\n' +
 				"groups=" + groups + '\n' + '\n' +
 				"activities=" + activities + '\n' + '\n' +
-				"locations=" + locations;
+				"locations=" + locationDatabase;
 	}
 }
 

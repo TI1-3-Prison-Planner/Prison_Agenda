@@ -1,13 +1,15 @@
 package Data;
 
 import javafx.scene.layout.HBox;
-
+import java.util.Set;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class RosterFileIO {
+public class FileIO {
+
+
     //method to save the data in roster as a file.
     public void saveDataAsFile(File path, Roster roster) {
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.getAbsolutePath()))) {
@@ -28,6 +30,7 @@ public class RosterFileIO {
         }
     }
 
+
     public ArrayList<String> setUpNamelist(String fileName) {
         File file = new File(fileName);
         ArrayList<String> names = new ArrayList<>();
@@ -42,4 +45,20 @@ public class RosterFileIO {
         }
         return names;
     }
+
+    public void savePersonDatabase(String fileName, HashMap<Person, Boolean> database){
+        Set<Person> temp = database.keySet();
+        ArrayList<Person> people = new ArrayList<>(temp);
+        temp.clear();
+
+        try(PrintWriter printer = new PrintWriter(fileName)){
+            for (int i = 0; i < people.size(); i++) {
+                printer.println(people.get(i));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
