@@ -39,7 +39,7 @@ public class Gui extends Application {
 		this.mainPane = new BorderPane();
 		this.tabPane = new TabPane();
 		this.rosterTab = new Tab();
-//		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
+		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 		this.roster = new Roster();
@@ -64,10 +64,14 @@ public class Gui extends Application {
 		});
 
 
+
 		ScrollPane scrollableCenter = new ScrollPane(this.canvas);
+		rosterTab.setContent(scrollableCenter);
+		tabPane.getTabs().addAll(rosterTab,tableTab);
 		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
 		this.mainPane.setTop(this.menuBar);
-		this.mainPane.setCenter(scrollableCenter);
+		this.mainPane.setCenter(tabPane);
+
 		Scene scene = new Scene(this.mainPane, 700, 700);
 		stage.setScene(scene);
 		stage.show();
