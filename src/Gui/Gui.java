@@ -30,7 +30,7 @@ public class Gui extends Application {
 	private Menu deleteMenu;
 	private BorderPane mainPane;
 	private Roster roster;
-	private AgendaCreator agendaCreator;
+	private ActivityCreator agendaCreator;
 	
 	@Override
 	public void start(Stage stage) {
@@ -42,7 +42,7 @@ public class Gui extends Application {
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 		this.roster = new Roster();
-		this.agendaCreator = new AgendaCreator();
+		this.agendaCreator = new ActivityCreator();
 		this.agendaCreator.init(this.roster);
 
 		MenuItem itemNew = new MenuItem("New");
@@ -87,7 +87,7 @@ public class Gui extends Application {
 		//TODO, improve time display left side
 		int hours = 0;
 
-		for (int i = 0; i < 1500; i += 60) {
+		for (int i = 0; i < 1800; i += 60) {
 			graphics.draw(new Line2D.Double(0, i, 100, i));
 
 			if (i > 1 && hours < 23) {

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalTime;
 
-public class AgendaCreator {
+public class ActivityCreator {
     private LocalTime startTime;
     private LocalTime endTime;
     private Activity  Activity;
