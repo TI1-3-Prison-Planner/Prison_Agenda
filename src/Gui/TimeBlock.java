@@ -13,15 +13,17 @@ public class TimeBlock {
     private int timeEnd;
     private int timeEndMinute;
     private int timeEndHour;
+    private int groupNumber;
 
 
-    public TimeBlock(String group, String location, int timeStart, int timeEnd) {
+    public TimeBlock(String group, String location, int timeStart, int timeEnd,int groupNumber) {
         this.group = group;
         this.location = location;
         this.timeStartMin = timeStart %100;
         this.timeStartHour = timeStart /100;
         this.timeEndHour = timeEnd / 100;
         this.timeEndMinute = timeEnd %100;
+        this.groupNumber = groupNumber;
     }
 
     public String getGroup() {
@@ -65,7 +67,7 @@ public class TimeBlock {
     }
 
     public void draw(FXGraphics2D g){
-        int x = 100;
+        int x = groupNumber*100;
         int y = timeStartHour*60+timeStartMin;
         int height = ((timeEndHour - timeStartHour)*60+timeEndMinute-timeStartMin);
 

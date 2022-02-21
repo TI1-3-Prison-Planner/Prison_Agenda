@@ -98,7 +98,7 @@ public class ActivityCreator {
 
 
             //creating a timeBlock;
-            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString())));
+            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
 
 //            startTime = setStartTime.getValue();
 //            Activity newActivity = new Activity(activityName.getText(), setStartTime);
