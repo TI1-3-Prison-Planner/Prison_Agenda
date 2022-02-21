@@ -6,12 +6,21 @@ import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
 
+import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 
 /**
@@ -31,6 +40,7 @@ public class Gui extends Application {
 	private BorderPane mainPane;
 	private Roster roster;
 	private ActivityCreator agendaCreator;
+
 	
 	@Override
 	public void start(Stage stage) {
@@ -44,6 +54,7 @@ public class Gui extends Application {
 		this.roster = new Roster();
 		this.agendaCreator = new ActivityCreator();
 		this.agendaCreator.init(this.roster);
+
 
 		MenuItem itemNew = new MenuItem("New");
 		itemNew.setOnAction(e-> agendaCreator.display(stage));
@@ -63,7 +74,20 @@ public class Gui extends Application {
 
 
 
-		ScrollPane scrollableCenter = new ScrollPane(this.canvas);
+		//test code to fill array with timeBlocks
+		agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200));
+		agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400));
+		agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800));
+		agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845));
+		agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000));
+
+		StackPane flowPane = new StackPane(this.canvas);
+		flowPane.setPrefHeight(1440);
+
+		canvas.setHeight(flowPane.getHeight());
+		ScrollPane scrollableCenter = new ScrollPane(flowPane);
+
+
 		rosterTab.setClosable(false);
 		tableTab.setClosable(false);
 		tabPane.setSide(Side.LEFT);
@@ -78,6 +102,7 @@ public class Gui extends Application {
 		stage.show();
 	}
 
+
 	public void init() {
 		//TODO, Init code missing
 	}
@@ -85,7 +110,16 @@ public class Gui extends Application {
 
 	public void draw(FXGraphics2D graphics) {
 		//TODO, improve time display left side
-		int hours = 0;
+		graphics.setColor(Color.WHITE);
+		graphics.drawRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+//		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+
+		 int hours = 0;
+		for (TimeBlock  o :agendaCreator.timeBlocks ) {
+			o.draw(graphics);
+			System.out.println("test");
+		}
+		graphics.setColor(Color.BLACK);
 
 		for (int i = 0; i < 1800; i += 60) {
 			graphics.draw(new Line2D.Double(0, i, 100, i));
@@ -98,6 +132,7 @@ public class Gui extends Application {
 				hours++;
 			}
 		}
+
 	}
 
 
