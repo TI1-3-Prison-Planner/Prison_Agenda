@@ -21,7 +21,7 @@ public class ErrorPopup {
 
     public void display(Stage stage) {
 
-
+        GridPane grid = new GridPane();
         Stage errorPopupDisplay = new Stage();
 
         errorPopupDisplay.initModality(Modality.APPLICATION_MODAL);
