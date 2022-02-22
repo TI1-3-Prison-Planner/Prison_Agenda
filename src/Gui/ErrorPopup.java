@@ -12,15 +12,15 @@ import javafx.stage.Stage;
 public class ErrorPopup {
 
     private final String errorMessage;
-
+    private Stage errorPopupDisplay;
 
     public ErrorPopup(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
 
-    public void display(Stage stage) {
-
+    public void display() {
+        this.errorPopupDisplay = new Stage();
         GridPane grid = new GridPane();
         Stage errorPopupDisplay = new Stage();
 
@@ -36,16 +36,14 @@ public class ErrorPopup {
         borderPane.setBottom(button);
         button.setOnAction(e -> {
             errorPopupDisplay.close();
+
         });
 
         Scene activityScene = new Scene(borderPane, 300, 100);
-
-
+        errorPopupDisplay.setResizable(false);
         errorPopupDisplay.setScene(activityScene);
         errorPopupDisplay.showAndWait();
 
-
-        stage.show();
     }
 
 }

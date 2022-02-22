@@ -19,6 +19,7 @@ public class ActivityCreator {
     private LocalTime endTime;
     private Activity Activity;
     private ErrorPopup errorPopup;
+    private NewLocationPopup newLocationPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ArrayList<PrisonGroup> groups = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
@@ -57,6 +58,8 @@ public class ActivityCreator {
 
         Button newLocation = new Button("New");
         Button newGroup = new Button("New");
+        this.newLocationPopup = new NewLocationPopup("Add Location");
+        newLocation.setOnAction(event -> newLocationPopup.display());
 
         grid.add(activity, 1, 10);
         grid.add(location, 1, 20);
@@ -76,9 +79,7 @@ public class ActivityCreator {
         grid.add(hBox1 = new HBox(setLocation, newLocation), 2, 20);
         hBox1.setSpacing(70);
 
-        newLocation.setOnAction(e->{
 
-        });
 
         HBox hbox2;
         grid.add(hbox2 = new HBox(setGroup, newGroup), 2, 30);
@@ -108,7 +109,7 @@ public class ActivityCreator {
 
             //todo: add if statement to check whether activity overlaps
             this.errorPopup = new ErrorPopup("Overlap with other activities");
-            errorPopup.display(stage);
+            errorPopup.display();
         });
 
 
