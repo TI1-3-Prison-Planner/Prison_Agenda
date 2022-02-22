@@ -1,9 +1,11 @@
 package Data;
 
-public class Location {
+import java.io.Serializable;
 
-    private String name;
-    enum locationType{
+public class Location implements Serializable {
+
+    //enumeration for the different locations on the tilemap.
+    public enum locationType{
         CELL,
         CELLBLOCK,
         WORKSKHOP,
@@ -12,16 +14,22 @@ public class Location {
         KITCHEN,
         BREAKROOOM
     }
+    public String locationName;
+    public locationType type;
 
-    public Location(){
 
+    public Location(String locationName, locationType locationtype){
+        this.locationName = locationName;
+        this.type = locationtype;
     }
 
-    public String getName() {
-        return name;
+    public String getLocationName(){
+        return this.locationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public locationType getType(){return this.type;}
+
+    public String toString() {
+        return this.locationName;
     }
 }
