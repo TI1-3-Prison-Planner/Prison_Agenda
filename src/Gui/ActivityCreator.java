@@ -1,15 +1,16 @@
 package Gui;
 
-import Data.*;
+import Data.Activity;
+import Data.Location;
+import Data.PrisonGroup;
+import Data.Roster;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -93,16 +94,21 @@ public class ActivityCreator {
         });
 
         add.setOnAction(event -> {
-            this.errorPopup = new ErrorPopup("Overlap with other activities");
-            errorPopup.display(stage);
 
 
             //creating a timeBlock;
-            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
+            /**
+             * todo: roster is empty, causes NullPointerException
+             */
+//            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
 
 //            startTime = setStartTime.getValue();
 //            Activity newActivity = new Activity(activityName.getText(), setStartTime);
             //TODO, Code missing until adding function is working
+
+            //todo: add if statement to check whether activity overlaps
+            this.errorPopup = new ErrorPopup("Overlap with other activities");
+            errorPopup.display(stage);
         });
 
 

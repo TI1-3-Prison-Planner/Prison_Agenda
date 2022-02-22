@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class ErrorPopup {
 
-    private String errorMessage;
+    private final String errorMessage;
 
 
     public ErrorPopup(String errorMessage) {
@@ -21,7 +21,7 @@ public class ErrorPopup {
 
     public void display(Stage stage) {
 
-        GridPane grid = new GridPane();
+
         Stage errorPopupDisplay = new Stage();
 
         errorPopupDisplay.initModality(Modality.APPLICATION_MODAL);
@@ -31,7 +31,7 @@ public class ErrorPopup {
 
         Button button = new Button("Ok");
 
-        borderPane.setAlignment(button, Pos.BOTTOM_CENTER);
+        BorderPane.setAlignment(button, Pos.BOTTOM_CENTER);
 
         borderPane.setBottom(button);
         button.setOnAction(e -> {
