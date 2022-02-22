@@ -1,6 +1,5 @@
 import Data.*;
 
-import java.io.File;
 import java.time.LocalTime;
 
 public class Main {
@@ -15,15 +14,13 @@ public class Main {
 
         System.out.println("");
 
-        hoerenveeltestcode(testRoster);
+        testcode(testRoster);
         System.out.println(testRoster);
-
-        fio.savePersonDatabase("fkdit.txt",testRoster.getInmateDatabase());
 
     }
 
 
-    public static void hoerenveeltestcode(Roster roster) {
+    public static void testcode(Roster roster) {
 
 //		roster.getGuardDatabase().put(new Person("Johnny Bill", true), false);
 //		roster.getGuardDatabase().put(new Person("Bill Bill", true), false);
