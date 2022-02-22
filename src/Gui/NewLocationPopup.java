@@ -1,6 +1,7 @@
 package Gui;
 
 import Data.Location;
+import Data.Roster;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -22,9 +23,11 @@ public class NewLocationPopup {
     private ComboBox<Location.LocationType> locationTypeBox;
     private Button addButton;
     private Button cancelButton;
+    private Roster roster;
 
-    public NewLocationPopup(String title) {
+    public NewLocationPopup(String title, Roster roster) {
         this.newLocationPopupDisplay = new Stage();
+        this.newLocationPopupDisplay.initModality(Modality.APPLICATION_MODAL);
         this.newLocationPopupDisplay.setTitle(title);
         this.instructionLabel = new Label("Type the name of the location:");
         this.instructionLabel1 = new Label("Choose the type of location:");
@@ -38,11 +41,9 @@ public class NewLocationPopup {
     }
 
     public void display() {
-        this.newLocationPopupDisplay.initModality(Modality.APPLICATION_MODAL);
-
         this.cancelButton.setOnAction(e-> newLocationPopupDisplay.close());
         this.addButton.setOnAction(e-> {
-            
+                addLocation();
         });
 
 
@@ -59,5 +60,9 @@ public class NewLocationPopup {
         newLocationPopupDisplay.setScene(scene);
         newLocationPopupDisplay.setResizable(false);
         newLocationPopupDisplay.showAndWait();
+    }
+
+    private void addLocation() {
+
     }
 }
