@@ -4,11 +4,13 @@ import Data.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jfree.fx.FXGraphics2D;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,14 +21,19 @@ public class ActivityCreator {
     private Activity Activity;
     private ErrorPopup errorPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
-    private ObservableList<String> groups = FXCollections.observableArrayList();
+    private ObservableList<PrisonGroup> groups = FXCollections.observableArrayList();
     private ObservableList<String> locations = FXCollections.observableArrayList();
     private Roster roster;
+    private Canvas c;
+    private Gui g;
+
 
     public void init(Roster roster) {
     this.roster = roster;
     locations.addAll(roster.getLocationDatabase().keySet());
-    groups.addAll(roster.getGroups().toString());
+    groups.addAll(roster.getGroups());
+    this.c = c;
+
     }
 
     public void display(Stage stage) {
@@ -50,15 +57,17 @@ public class ActivityCreator {
         ComboBox setLocation = new ComboBox();
         setLocation.setItems(locations);
         ComboBox setGroup = new ComboBox();
+        setGroup.setItems(groups);
 
 
 
-        Spinner setStartTime = new Spinner();
+        Spinner<Integer> setStartTime = new Spinner<>(0,2400,0);
+
 
 
         setStartTime.setEditable(true);
 
-        Spinner setEndTime = new Spinner();
+        Spinner<Integer> setEndTime = new Spinner<>(0,2400,0);
         setEndTime.setEditable(true);
 
         Button cancel = new Button("Cancel");
@@ -103,12 +112,19 @@ public class ActivityCreator {
         });
 
         add.setOnAction(event -> {
-            this.errorPopup = new ErrorPopup("Overlap with other activities");
-            errorPopup.display(stage);
+            activityPlanner.close();
+
+            timeBlocks.add(new TimeBlock((PrisonGroup)setGroup.getValue(),setLocation.getValue().toString(),setStartTime.getValue(),setEndTime.getValue(),1));
+            System.out.println(setStartTime.getValue()+":start, end :"+setEndTime.getValue());
+            System.out.println(timeBlocks.size());
+
+
+//            this.errorPopup = new ErrorPopup("Overlap with other activities");
+//            errorPopup.display(stage);
 
 
             //creating a timeBlock;
-            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
+//            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
 
 //            startTime = setStartTime.getValue();
 //            Activity newActivity = new Activity(activityName.getText(), setStartTime);

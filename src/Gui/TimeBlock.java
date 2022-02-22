@@ -1,12 +1,13 @@
 package Gui;
 
+import Data.PrisonGroup;
 import org.jfree.fx.FXGraphics2D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class TimeBlock {
-    private String group;
+    private PrisonGroup group;
     private String location;
     private int timeStartHour;
     private int timeStartMin;
@@ -16,7 +17,7 @@ public class TimeBlock {
     private int groupNumber;
 
 
-    public TimeBlock(String group, String location, int timeStart, int timeEnd,int groupNumber) {
+    public TimeBlock(PrisonGroup group, String location, int timeStart, int timeEnd,int groupNumber) {
         this.group = group;
         this.location = location;
         this.timeStartMin = timeStart %100;
@@ -27,10 +28,10 @@ public class TimeBlock {
     }
 
     public String getGroup() {
-        return group;
+        return group.getGroupName();
     }
 
-    public void setGroup(String group) {
+    public void setGroup(PrisonGroup group) {
         this.group = group;
     }
 
@@ -74,12 +75,12 @@ public class TimeBlock {
        ;
         System.out.println(this.group);
 
-
+        g.setColor(Color.BLACK);
         Rectangle2D rect = new Rectangle2D.Double(x,y,60,height);
         g.setColor(Color.BLACK);
         g.fill(rect);
         g.setColor(Color.WHITE);
-        g.drawString(this.group,x, y+height/4);
+        g.drawString(this.group.getGroupName(),x, y+height/4);
         g.drawString(this.location,x,y+2*(height/4));
         g.drawString(this.timeStartHour+":"+this.timeStartMin,x,y+3*(height/4));
         g.drawString(this.timeEndHour+":"+this.timeEndMinute,x,y+4*(height/4));

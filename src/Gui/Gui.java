@@ -34,7 +34,7 @@ import java.util.ArrayList;
  */
 
 public class Gui extends Application {
-	private Canvas canvas;
+	protected Canvas canvas;
 	private TabPane tabPane;
 	private Tab rosterTab;
 	private Tab tableTab;
@@ -51,6 +51,9 @@ public class Gui extends Application {
 	
 	@Override
 	public void start(Stage stage) {
+		Testcode test = new Testcode();
+
+
 		stage.setTitle("Agenda GUI");
 		this.mainPane = new BorderPane();
 		this.tabPane = new TabPane();
@@ -58,18 +61,21 @@ public class Gui extends Application {
 		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
-		this.roster = new Roster();
+		this.roster = test.testdata();
 		this.agendaCreator = new ActivityCreator();
 
 		this.roster = new Roster();
-		roster.getLocationDatabase().put("test", new Location("cell", Location.locationType.CELL));
-		roster.getLocationDatabase().put("test1", new Location("cell", Location.locationType.CELL));
-		roster.getLocationDatabase().put("test2", new Location("cell", Location.locationType.CELL));
-		roster.getLocationDatabase().put("test3", new Location("cell", Location.locationType.CELL));
-
-		roster.getGroups().add(new PrisonGroup(new PrisonGroup("A1",PrisonGroup.securityDetail.LOW, false));
-		this.agendaCreator.init(this.roster);
-
+//		roster.getLocationDatabase().put("test", new Location("cell", Location.locationType.CELL));
+//		roster.getLocationDatabase().put("test1", new Location("cell", Location.locationType.CELL));
+//		roster.getLocationDatabase().put("test2", new Location("cell", Location.locationType.CELL));
+//		roster.getLocationDatabase().put("test3", new Location("cell", Location.locationType.CELL));
+//
+//		roster.getGroups().add(new PrisonGroup("A1", PrisonGroup.securityDetail.LOW, false));
+//		roster.getGroups().add(new PrisonGroup("A2", PrisonGroup.securityDetail.LOW, false));
+//		roster.getGroups().add(new PrisonGroup("A3", PrisonGroup.securityDetail.LOW, false));
+//		roster.getGroups().add(new PrisonGroup("A4", PrisonGroup.securityDetail.LOW, false));
+		this.agendaCreator.init(test.testdata());
+		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
 
 
 
@@ -95,17 +101,17 @@ public class Gui extends Application {
 
 
 		//test code to fill array with timeBlocks
-		agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,1));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,2));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,3));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,4));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,5));
-
-		agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,3));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,1));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,4));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,1));
-		agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,2));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,1));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,2));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,3));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,4));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,5));
+//
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,3));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,1));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,4));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,1));
+//		agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,2));
 
 		BorderPane borderPane = new BorderPane();
 
@@ -138,10 +144,10 @@ public class Gui extends Application {
 
 		groupBox.getChildren().add(empty = new Label(""));
 		empty.setPrefWidth(100);
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10;i++) {
 			 Label group;
 			groupBox.getChildren().add(group = new Label("group"+(i+1)));
-			group.setPrefWidth(100);
+			group.setPrefWidth(50);
 
 		}
 
