@@ -144,9 +144,11 @@ public class Gui extends Application {
 
 	public void draw(FXGraphics2D graphics) {
 		//TODO, improve time display left side
-		graphics.setColor(Color.WHITE);
-		graphics.drawRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
-//		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+//		graphics.setColor(Color.WHITE);
+		graphics.setBackground(Color.white);
+//		graphics.drawRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+
 
 		 int hours = 0;
 		for (TimeBlock  o :agendaCreator.timeBlocks ) {
