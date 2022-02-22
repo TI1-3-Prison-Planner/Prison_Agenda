@@ -84,13 +84,13 @@ public class Main {
         a3.addInmates(roster.getInmateDatabase());
         a3.addGuard(roster.getGuardDatabase());
 
-        roster.getLocationDatabase().put("breakroom1", 	new Location("Break room", Location.locationType.BREAKROOOM));
-        roster.getLocationDatabase().put("cellA1", 		new Location("Cell", Location.locationType.CELL));
-        roster.getLocationDatabase().put("Cellblock_A", new Location("Cell block A", Location.locationType.CELLBLOCK));
-        roster.getLocationDatabase().put("Commonroom1", new Location("Common room A", Location.locationType.COMMONROOM));
-        roster.getLocationDatabase().put("Kitchen1", 	new Location("Kitchen", Location.locationType.KITCHEN));
-        roster.getLocationDatabase().put("Workshop1", 	new Location("Workshop", Location.locationType.WORKSKHOP));
-        roster.getLocationDatabase().put("Yard1", 		new Location("Yard", Location.locationType.YARD));
+        roster.getLocationDatabase().put("breakroom1", 	new Location("Break room", Location.LocationType.BREAKROOOM));
+        roster.getLocationDatabase().put("cellA1", 		new Location("Cell", Location.LocationType.CELL));
+        roster.getLocationDatabase().put("Cellblock_A", new Location("Cell block A", Location.LocationType.CELLBLOCK));
+        roster.getLocationDatabase().put("Commonroom1", new Location("Common room A", Location.LocationType.COMMONROOM));
+        roster.getLocationDatabase().put("Kitchen1", 	new Location("Kitchen", Location.LocationType.KITCHEN));
+        roster.getLocationDatabase().put("Workshop1", 	new Location("Workshop", Location.LocationType.WORKSKHOP));
+        roster.getLocationDatabase().put("Yard1", 		new Location("Yard", Location.LocationType.YARD));
 
 
         Activity cellTime = 	new Activity("Cell Time", LocalTime.parse("14:00:00"), LocalTime.parse("17:00:00"), a2, roster.getLocationDatabase().get("breakroom1"));
