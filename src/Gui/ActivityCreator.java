@@ -19,7 +19,7 @@ public class ActivityCreator {
     private Activity Activity;
     private ErrorPopup errorPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
-    private ArrayList<Groups> groups = new ArrayList<>();
+    private ArrayList<PrisonGroup> groups = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
 
 
