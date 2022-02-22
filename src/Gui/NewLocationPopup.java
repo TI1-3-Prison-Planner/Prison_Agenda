@@ -37,15 +37,15 @@ public class NewLocationPopup {
         this.cancelButton = new Button("Cancel");
         this.locationTypeBox = new ComboBox<>();
         this.locationTypeBox.getItems().setAll(Location.LocationType.values());
-
+        this.roster = roster;
     }
 
     public void display() {
-        this.cancelButton.setOnAction(e-> newLocationPopupDisplay.close());
-        this.addButton.setOnAction(e-> {
-                addLocation();
+        this.cancelButton.setOnAction(e -> newLocationPopupDisplay.close());
+        this.addButton.setOnAction(e -> {
+            addLocation();
+            this.newLocationPopupDisplay.close();
         });
-
 
 
         VBox vBox = new VBox();
@@ -56,13 +56,17 @@ public class NewLocationPopup {
         vBox.setSpacing(10);
         HBox displayBox = new HBox(vBox);
         displayBox.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(displayBox, 300,200);
+        Scene scene = new Scene(displayBox, 300, 200);
         newLocationPopupDisplay.setScene(scene);
         newLocationPopupDisplay.setResizable(false);
         newLocationPopupDisplay.showAndWait();
     }
 
     private void addLocation() {
-
+        if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
+            this.roster.getLocationDatabase().put(locationName.getText(),
+                    new Location(locationName.getText(), locationTypeBox.getValue()));
+        }
     }
+
 }

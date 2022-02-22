@@ -23,10 +23,11 @@ public class ActivityCreator {
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ArrayList<PrisonGroup> groups = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
+    private Roster roster;
 
 
     public void init(Roster roster) {
-
+        this.roster = roster;
     }
 
     public void display(Stage stage) {
@@ -58,7 +59,7 @@ public class ActivityCreator {
 
         Button newLocation = new Button("New");
         Button newGroup = new Button("New");
-        this.newLocationPopup = new NewLocationPopup("Add Location");
+        this.newLocationPopup = new NewLocationPopup("Add Location", this.roster);
         newLocation.setOnAction(event -> newLocationPopup.display());
 
         grid.add(activity, 1, 10);
