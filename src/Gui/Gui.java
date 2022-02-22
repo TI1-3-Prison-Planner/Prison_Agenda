@@ -1,5 +1,7 @@
 package Gui;
 
+import Data.Location;
+import Data.PrisonGroup;
 import Data.Roster;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -58,7 +60,19 @@ public class Gui extends Application {
 		this.tableView = new TableView();
 		this.roster = new Roster();
 		this.agendaCreator = new ActivityCreator();
+
+		this.roster = new Roster();
+		roster.getLocationDatabase().put("test", new Location("cell", Location.locationType.CELL));
+		roster.getLocationDatabase().put("test1", new Location("cell", Location.locationType.CELL));
+		roster.getLocationDatabase().put("test2", new Location("cell", Location.locationType.CELL));
+		roster.getLocationDatabase().put("test3", new Location("cell", Location.locationType.CELL));
+
+		roster.getGroups().add(new PrisonGroup(new PrisonGroup("A1",PrisonGroup.securityDetail.LOW, false));
 		this.agendaCreator.init(this.roster);
+
+
+
+
 
 
 
