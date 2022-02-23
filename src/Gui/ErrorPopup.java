@@ -1,5 +1,6 @@
 package Gui;
 
+import Data.Roster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,18 +10,23 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ErrorPopup {
+public class ErrorPopup extends Observer {
 
     private String errorMessage;
 
-
+    private Stage errorPopupDisplay;
     public ErrorPopup(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
-    public void display(Stage stage) {
 
+
+    public void display() {
+        this.errorPopupDisplay = new Stage();
         GridPane grid = new GridPane();
         Stage errorPopupDisplay = new Stage();
 
@@ -31,21 +37,23 @@ public class ErrorPopup {
 
         Button button = new Button("Ok");
 
-        borderPane.setAlignment(button, Pos.BOTTOM_CENTER);
+        BorderPane.setAlignment(button, Pos.BOTTOM_CENTER);
 
         borderPane.setBottom(button);
         button.setOnAction(e -> {
             errorPopupDisplay.close();
+
         });
 
         Scene activityScene = new Scene(borderPane, 300, 100);
-
-
+        errorPopupDisplay.setResizable(false);
         errorPopupDisplay.setScene(activityScene);
         errorPopupDisplay.showAndWait();
 
-
-        stage.show();
     }
 
+    @Override
+    public void update() {
+
+    }
 }

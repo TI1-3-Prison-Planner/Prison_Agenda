@@ -1,10 +1,8 @@
 package Gui;
 
-import Data.Activity;
-import Data.PrisonGroup;
-import Data.Roster;
-import javafx.application.Application;
 
+import Data.*;
+import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,7 +14,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -25,6 +22,10 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+
+import java.io.File;
+import java.time.LocalTime;
+
 import java.util.ArrayList;
 
 
@@ -33,6 +34,7 @@ import java.util.ArrayList;
  */
 
 public class Gui extends Application {
+
 	protected Canvas canvas;
 	private Canvas canvasTime;
 	private TabPane tabPane;
@@ -47,6 +49,8 @@ public class Gui extends Application {
 	private Roster roster;
 	private ActivityCreator agendaCreator;
 	private ArrayList<TimeBlock>timeBlocks = new ArrayList<>();
+	private DataViewer dataViewer;
+
 
 
 	
@@ -63,24 +67,82 @@ public class Gui extends Application {
 		
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
-		this.roster = test.testdata();
-		this.agendaCreator = new ActivityCreator();
 
-
-		this.agendaCreator.init(test.testdata());
 		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
 
 
 
 
+//		this.roster = new Roster();
+
+//		this.agendaCreator.init(this.roster);
 
 
+		fillMenuBar(stage);
+		createPanes();
+
+		FileIO fileIO = new FileIO();
+		//todo test file out of date
+		File file = new File("roster.json");
+		this.roster = fileIO.readData(file);
+		this.dataViewer = new DataViewer(this.roster);
+		fillTableTab();
+		this.agendaCreator = new ActivityCreator(this.roster);
+		
+//		testCode();
+
+		Scene scene = new Scene(this.mainPane, 700, 700);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+
+
+	public void init() {
+		//TODO, Init code missing
+
+	}
+
+
+	public void draw(FXGraphics2D graphics) {
+		//TODO, improve time display left side
+//		graphics.setColor(Color.WHITE);
+        graphics.setBackground(Color.white);
+//		graphics.drawRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+		graphics.clearRect(0,0,(int)this.canvas.getWidth(),(int)this.canvas.getHeight());
+
+
+		int hours = 0;
+		for (TimeBlock timeBlock :this.agendaCreator.timeBlocks ) {
+			timeBlock.draw(graphics);
+		}
+		graphics.setColor(Color.BLACK);
+
+		for (int i = 0; i < 1800; i += 60) {
+			graphics.draw(new Line2D.Double(0, i, 100, i));
+
+			if (i > 1 && hours < 23) {
+				graphics.drawString(hours + ":00 - " + (hours + 1) + ":00", 10, i - 25);
+				hours++;
+			} else if (hours == 23) {
+				graphics.drawString(hours + ":00 - 00:00", 10, i - 25);
+				hours++;
+			}
+		}
+
+	}
+
+	public void fillMenuBar(Stage stage){
 		MenuItem itemNew = new MenuItem("New");
+
 		itemNew.setOnAction(e-> {
 
 			agendaCreator.init(roster);
 
 			agendaCreator.display(stage);});
+
+		itemNew.setOnAction(e-> agendaCreator.display());
+
 
 		this.fileMenu = new Menu("File");
 		this.fileMenu.getItems().add(itemNew);
@@ -94,31 +156,54 @@ public class Gui extends Application {
 		this.deleteMenu.setOnAction(e-> {
 			//TODO, Delete code missing
 		});
+	}
 
-
-
-
+	private void createPanes() {
 		BorderPane borderPane = new BorderPane();
+		HBox groupBox = new HBox();
+		StackPane flowPane = new StackPane(this.canvas);
+		ScrollPane scrollableCenter = new ScrollPane(flowPane);
+
+		setPaneSettings(borderPane,groupBox, flowPane, scrollableCenter);
+		fillGroupbox(groupBox);
+	}
+
+	private void setPaneSettings(BorderPane borderPane, HBox groupBox, StackPane flowPane, ScrollPane scrollableCenter) {
+		this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+		this.rosterTab.setContent(borderPane);
+		this.rosterTab.setText("Rooster");
+
+
+
+		this.tabPane.setSide(Side.LEFT);
+		this.tableTab.setText("Data");
+		this.tabPane.getTabs().addAll(this.rosterTab, this.tableTab);
+
 
 
 		StackPane flowPane = new StackPane(this.canvas);
 
-
-
 		flowPane.setPrefHeight(1440);
-
 
 		canvas.setHeight(flowPane.getHeight());
 		ScrollPane scrollableCenter = new ScrollPane(flowPane);
 
 		ScrollPane groupScroll = new ScrollPane();
-
-
-
 		HBox groupBox = new HBox();
 
 		borderPane.setTop(groupScroll);
+
+		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
+
+		this.mainPane.setTop(this.menuBar);
+		this.mainPane.setCenter(this.tabPane);
+
+		borderPane.setTop(groupBox);
+
 		borderPane.setCenter(scrollableCenter);
+
+		flowPane.setPrefHeight(1440);
+		this.canvas.setHeight(flowPane.getHeight());
 
 
 
@@ -133,10 +218,12 @@ public class Gui extends Application {
 		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
 		this.mainPane.setTop(this.menuBar);
 		this.mainPane.setCenter(tabPane);
+
 		scrollableCenter.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+	}
 
-
-
+	public void fillGroupbox(HBox groupBox){
+		ArrayList<Label> groups = new ArrayList<>();
 
 		Label empty;
 
@@ -151,10 +238,12 @@ public class Gui extends Application {
 		for (PrisonGroup p : roster.getGroups()) {
 			Label group;
 			groupBox.getChildren().add(group = new Label(p.getGroupName()));
+
 			group.setPrefWidth(100);
 
 
 		}
+
 ;
 		groupScroll.setContent(groupBox);
 		groupBox.setPrefWidth(groupBox.getChildren().size()*100);
@@ -163,11 +252,12 @@ public class Gui extends Application {
 		stage.setScene(scene);
 		stage.show();
 		flowPane.setPrefWidth(groupBox.getChildren().size()*100-20);
+
 	}
 
+	public void fillTableTab(){
+		this.tableTab.setContent(this.dataViewer.allTabs());
 
-	public void init() {
-		//TODO, Init code missing
 	}
 
 
@@ -187,11 +277,6 @@ public class Gui extends Application {
 
 
 	}
-
-
-
-
-
 
 	private void drawTimeBlocks(FXGraphics2D graphics) {
 
@@ -225,8 +310,11 @@ if(roster.getActivities().size()>0) {
 	}
 
 
+
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+
 
 }

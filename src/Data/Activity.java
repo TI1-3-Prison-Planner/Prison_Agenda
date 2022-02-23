@@ -2,18 +2,18 @@ package Data;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class Activity implements Serializable {
-    private String name;
+    private String activityName;
     private LocalTime startTime;
     private LocalTime endTime;
     private PrisonGroup prisonGroup;
     private Location location;
 
 
-    public Activity(String name, LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location) {
-        this.name = name;
+
+    public Activity(String activityName, LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location) {
+        this.activityName = activityName;
         this.startTime = startTime;
         this.endTime = endTime;
         this.prisonGroup = group;
@@ -54,6 +54,6 @@ public class Activity implements Serializable {
 
     @Override
     public String toString() {
-        return "\nActivity: " + ", " + this.startTime + " - " + this.endTime + ", " + this.location.locationName + ", " + this.prisonGroup;
+        return "Activity: " + this.activityName + ", " + this.startTime + " - " + this.endTime + ", " + this.location.getLocationName() + ", " + this.prisonGroup;
     }
 }
