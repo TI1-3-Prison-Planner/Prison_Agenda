@@ -19,6 +19,7 @@ public class TimeBlock {
     private int groupNumber;
     private LocalTime timeStart;
     private LocalTime timeEnd;
+    private Rectangle2D rect;
 
 
     public TimeBlock(PrisonGroup group, String location, LocalTime timeStart, LocalTime timeEnd,int groupNumber) {
@@ -89,7 +90,7 @@ public class TimeBlock {
         System.out.println(this.group);
 
         g.setColor(Color.BLACK);
-        Rectangle2D rect = new Rectangle2D.Double(x,y,100,height);
+        rect = new Rectangle2D.Double(x,y,100,height);
         g.setColor(Color.BLACK);
         g.fill(rect);
         g.setColor(Color.WHITE);
@@ -97,6 +98,7 @@ public class TimeBlock {
         g.drawString(this.location,x,y+2*(height/4));
         g.drawString(this.timeStart.toString(),x,y+3*(height/4));
         g.drawString(this.timeEnd.toString(),x,y+4*(height/4));
+
     }
 
 

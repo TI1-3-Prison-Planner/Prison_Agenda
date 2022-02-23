@@ -1,6 +1,8 @@
 package Gui;
 
 import Data.*;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Stylesheet;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ClassGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -64,13 +66,12 @@ public class ActivityCreator {
 
         ComboBox setLocation = new ComboBox();
         setLocation.setItems(locations);
+
         ComboBox setGroup = new ComboBox();
         setGroup.setItems(groups);
 
 
         Spinner<LocalTime> setStartTime =timeSpinner();
-
-
         setStartTime.setEditable(true);
 
         Spinner<LocalTime> setEndTime = timeSpinner();
@@ -118,18 +119,27 @@ public class ActivityCreator {
         });
 
         add.setOnAction(event -> {
-            activityPlanner.close();
 
-            roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),(PrisonGroup)setGroup.getValue(),roster.getLocationDatabase().get(setLocation.getValue())));
+            if(!setStartTime.getValue().isAfter(setEndTime.getValue())
+                    &&setEndTime.getValue().isAfter(setStartTime.getValue())
+                    && setLocation.getValue() != null
+                    && setGroup.getValue() != null) {
+
+                activityPlanner.close();
+
+                roster.getActivities().add(new Activity(activityName.getText(), setStartTime.getValue(), setEndTime.getValue(), (PrisonGroup) setGroup.getValue(), roster.getLocationDatabase().get(setLocation.getValue())));
 
 
-
-            System.out.println(setStartTime.getValue() + ":start, end :" + setEndTime.getValue());
-            System.out.println(timeBlocks.size());
-
+                System.out.println(setStartTime.getValue() + ":start, end :" + setEndTime.getValue());
+                System.out.println(timeBlocks.size());
 
 
-            //TODO, Code missing until adding function is working
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("not Valid");
+                alert.showAndWait();
+                //TODO, Code missing until adding function is working
+            }
         });
 
 
@@ -142,7 +152,7 @@ public class ActivityCreator {
         stage.show();
     }
 
-
+    //this method creates a time spinner.
     public Spinner<LocalTime> timeSpinner(){
         return  new Spinner<>(new SpinnerValueFactory<LocalTime>() {
             {
