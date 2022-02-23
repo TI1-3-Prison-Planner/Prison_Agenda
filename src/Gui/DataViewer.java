@@ -20,7 +20,7 @@ public class DataViewer {
     private Tab activities;
     private Roster roster;
 
-    DataViewer(Stage stage, Roster roster){
+    DataViewer(Roster roster){
         this.dataTab = new TabPane();
         this.roster = roster;
         createTabs();
@@ -42,13 +42,11 @@ public class DataViewer {
     }
 
     public void fillGuardTab(){
-<<<<<<< Updated upstream
         TableView guards = new TableView();
         TableColumn name = new TableColumn("names");
         TableColumn isInGroup = new TableColumn("Assigned");
-=======
+
         ListView listView = new ListView();
->>>>>>> Stashed changes
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
         for (Person pers : roster.getGuardDatabase().keySet()){
@@ -56,7 +54,7 @@ public class DataViewer {
         }
 
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-        isInGroup.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("isGuard"));
+        isInGroup.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("isInGroup"));
 
         guards.getColumns().addAll(name, isInGroup);
         guards.setItems(persons);

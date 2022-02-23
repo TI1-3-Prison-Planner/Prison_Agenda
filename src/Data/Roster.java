@@ -13,6 +13,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	private ArrayList<PrisonGroup> groups;								//List with all prison groups to assign inmates and guards to
 	private ArrayList<Activity> activities;							//List with all activity's for all groups
 
+
 	public Roster() {
 		this.guardDatabase = new HashMap<>();
 		this.groups = new ArrayList<>();
@@ -52,14 +53,14 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 	public void fillInmatesDataBase(ArrayList<String> persons){
 		for (String name : persons) {
 			Person inmate = new Person(name,false);
-			this.inmateDatabase.put(inmate,false);
+			this.inmateDatabase.put(inmate, inmate.isInGroup());
 		}
 	}
 
 	public void fillGuardDatabase(ArrayList<String> persons){
 		for (String name : persons) {
-			Person guard = new Person(name,true);
-			this.guardDatabase.put(guard,false);
+			Person guard = new Person(name, true);
+			this.guardDatabase.put(guard,guard.isInGroup());
 		}
 	}
 
