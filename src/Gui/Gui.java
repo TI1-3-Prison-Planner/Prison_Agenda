@@ -65,7 +65,7 @@ public class Gui extends Application {
 
 		FileIO fileIO = new FileIO();
 		//todo test file out of date
-		File file = new File("testfile/roster.json");
+		File file = new File("roster.json");
 		this.roster = fileIO.readData(file);
 		this.dataViewer = new DataViewer(this.roster);
 		fillTableTab();

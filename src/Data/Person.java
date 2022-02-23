@@ -25,7 +25,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return this.name;
+        return '\n' + this.name;
     }
 
     public void setInGroup(boolean inGroup) {

@@ -15,14 +15,11 @@ public class Main {
 
         String FileName = "namen.txt";
         testRoster.fillGuardDatabase(fio.setUpNamelist(FileName));
-
-        System.out.println("");
+        testRoster.fillInmatesDataBase(fio.setUpNamelist(FileName));
 
         testcode(testRoster);
-        System.out.println(testRoster);
 
-
-        File file = new File("testfile/roster.json");
+        File file = new File("roster.json");
         fio.saveDataAsFile(file, testRoster);
         Application.launch(Gui.class);
 
@@ -31,60 +28,10 @@ public class Main {
 
     public static void testcode(Roster roster) {
 
-//		roster.getGuardDatabase().put(new Person("Johnny Bill", true), false);
-//		roster.getGuardDatabase().put(new Person("Bill Bill", true), false);
-//		roster.getGuardDatabase().put(new Person("Johnny Johnny", true),false);
-//		roster.getGuardDatabase().put(new Person("Johnny John", true), false);
-//
-//
-//		PrisonGroup a1 = new PrisonGroup("A1", PrisonGroup.securityDetail.LOW, false);
-//		a1.addPerson(new Person("Billy", false ));
-//		a1.addPerson(new Person("Jan", false));
-//		a1.addPerson(new Person("Bob", false));
-//		a1.addPerson(new Person("Harry", false));
-//		a1.addPerson(new Person("Piet", false));
-//
-//		PrisonGroup a2 = new PrisonGroup("A2", PrisonGroup.securityDetail.MEDIUM, false);
-//		a2.addPerson(new Person("Janus", false));
-//		a2.addPerson(new Person("Hans", false));
-//		a2.addPerson(new Person("Stijn", false));
-//		a2.addPerson(new Person("Hailey", false));
-//		a2.addPerson(new Person("Julia", false));
-//
-//		PrisonGroup a3 = new PrisonGroup("A3", PrisonGroup.securityDetail.HIGH, false);
-//		a3.addPerson(new Person("Daan", false));
-//		a3.addPerson(new Person("Lucas", false));
-//		a3.addPerson(new Person("Sem", false));
-//		a3.addPerson(new Person("Noah", false));
-//		a3.addPerson(new Person("Levi", false));
-//
-//		PrisonGroup b1 = new PrisonGroup("B1", PrisonGroup.securityDetail.LOW, false);
-//		b1.addPerson(new Person("Mila", false));
-//		b1.addPerson(new Person("Emma", false));
-//		b1.addPerson(new Person("Nora", false));
-//		b1.addPerson(new Person("Olivia", false));
-//		b1.addPerson(new Person("Liam", false));
-//
-//		PrisonGroup b2 = new PrisonGroup("B2", PrisonGroup.securityDetail.MEDIUM, false);
-//		b2.addPerson(new Person("Tess", false));
-//		b2.addPerson(new Person("Milou", false));
-//		b2.addPerson(new Person("James", false));
-//		b2.addPerson(new Person("Yara", false));
-//		b2.addPerson(new Person("Finn", false));
-//
-//		PrisonGroup b3 = new PrisonGroup("B3", PrisonGroup.securityDetail.HIGH, false);
-//		b3.addPerson(new Person("Luca", false));
-//		b3.addPerson(new Person("Milan", false));
-//		b3.addPerson(new Person("Casper", false));
-//		b3.addPerson(new Person("Charlotte", false));
-//		b3.addPerson(new Person("Cornelis", false));
-//
-//		a1.addGuard(roster.getGuardDatabase());
-//		b1.addGuard(roster.getGuardDatabase());
 
-        PrisonGroup a1 = new PrisonGroup("A1", PrisonGroup.securityDetail.LOW, false);
-        PrisonGroup a2 = new PrisonGroup("A2", PrisonGroup.securityDetail.MEDIUM, false);
-        PrisonGroup a3 = new PrisonGroup("A3", PrisonGroup.securityDetail.HIGH, false);
+        PrisonGroup a1 = new PrisonGroup("A1", PrisonGroup.SecurityDetail.LOW, false);
+        PrisonGroup a2 = new PrisonGroup("A2", PrisonGroup.SecurityDetail.MEDIUM, false);
+        PrisonGroup a3 = new PrisonGroup("A3", PrisonGroup.SecurityDetail.HIGH, false);
 
         a1.addInmates(roster.getInmateDatabase());
         a1.addGuard(roster.getGuardDatabase());
