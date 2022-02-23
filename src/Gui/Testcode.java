@@ -55,7 +55,7 @@ public class Testcode {
 //        roster.getGroups().add(a3);
 //        roster.getGroups().add(a4);
 //
-        for (int i = 1; i<10;i++){
+        for (int i = 1; i<100;i++){
             roster.getGroups().add(new PrisonGroup("A"+i , PrisonGroup.securityDetail.HIGH, false,i));
         }
 

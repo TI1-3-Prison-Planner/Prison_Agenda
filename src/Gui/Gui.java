@@ -128,14 +128,16 @@ public class Gui extends Application {
 		canvas.setHeight(flowPane.getHeight());
 		ScrollPane scrollableCenter = new ScrollPane(flowPane);
 
+		ScrollPane groupScroll = new ScrollPane();
 
 		HBox groupBox = new HBox();
 //		groupBox.getChildren().add(new Button("test"));
-		borderPane.setTop(groupBox);
-
-
+		borderPane.setTop(groupScroll);
 		borderPane.setCenter(scrollableCenter);
 
+		groupScroll.hvalueProperty().bindBidirectional(scrollableCenter.hvalueProperty());
+
+groupScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
 		rosterTab.setClosable(false);
 		tableTab.setClosable(false);
@@ -167,7 +169,7 @@ public class Gui extends Application {
 
 		}
 ;
-
+		groupScroll.setContent(groupBox);
 		groupBox.setPrefWidth(groupBox.getChildren().size()*100);
 
 		Scene scene = new Scene(this.mainPane, 700, 700);

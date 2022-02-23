@@ -73,7 +73,6 @@ public class ActivityCreator {
 
         setStartTime.setEditable(true);
 
-        // Spinner<Integer> setEndTime = new Spinner<>(0,2400,0);
         Spinner<LocalTime> setEndTime = timeSpinner();
         setEndTime.setEditable(true);
 
@@ -123,22 +122,13 @@ public class ActivityCreator {
 
             roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),(PrisonGroup)setGroup.getValue(),roster.getLocationDatabase().get(setLocation.getValue())));
 
-//            System.out.println( roster.getActivities().get(0));
 
-//            timeBlocks.add(new TimeBlock((PrisonGroup)setGroup.getValue(),setLocation.getValue().toString(),setStartTime.getValue(),setEndTime.getValue(),1));
+
             System.out.println(setStartTime.getValue() + ":start, end :" + setEndTime.getValue());
             System.out.println(timeBlocks.size());
 
 
-//            this.errorPopup = new ErrorPopup("Overlap with other activities");
-//            errorPopup.display(stage);
 
-
-            //creating a timeBlock;
-//            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
-
-//            startTime = setStartTime.getValue();
-//            Activity newActivity = new Activity(activityName.getText(), setStartTime);
             //TODO, Code missing until adding function is working
         });
 
