@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class NewLocationPopup {
+public class NewLocationPopup extends Observer{
     private Stage newLocationPopupDisplay;
     private Label instructionLabel;
     private Label instructionLabel1;
@@ -38,13 +38,15 @@ public class NewLocationPopup {
         this.locationTypeBox = new ComboBox<>();
         this.locationTypeBox.getItems().setAll(Location.LocationType.values());
         this.roster = roster;
+        this.roster.attach(this);
     }
 
     public void display() {
-        this.cancelButton.setOnAction(e -> newLocationPopupDisplay.close());
+        this.cancelButton.setOnAction(e -> close());
         this.addButton.setOnAction(e -> {
             addLocation();
-            this.newLocationPopupDisplay.close();
+            close();
+
         });
 
 
@@ -62,11 +64,22 @@ public class NewLocationPopup {
         newLocationPopupDisplay.showAndWait();
     }
 
+    private void close() {
+        locationName.clear();
+        locationTypeBox.getSelectionModel().selectFirst();
+        newLocationPopupDisplay.close();
+    }
+
     private void addLocation() {
         if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
             this.roster.getLocationDatabase().put(locationName.getText(),
                     new Location(locationName.getText(), locationTypeBox.getValue()));
+            roster.notifyObservers();
         }
     }
 
+    @Override
+    public void update() {
+        this.locationTypeBox.getItems().setAll(Location.LocationType.values());
+    }
 }

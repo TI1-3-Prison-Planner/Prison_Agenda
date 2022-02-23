@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class ActivityCreator {
+public class ActivityCreator extends Observer{
     private LocalTime startTime;
     private LocalTime endTime;
     private Activity Activity;
@@ -27,11 +27,12 @@ public class ActivityCreator {
     private ComboBox<Location> setLocation;
     private ComboBox<PrisonGroup> setGroup;
 
-    public void init(Roster roster) {
+    public ActivityCreator(Roster roster){
         this.roster = roster;
+        this.roster.attach(this);
     }
 
-    public void display(Stage stage) {
+    public void display(Stage stage, NewLocationPopup newLocationPopup) {
 
         GridPane grid = new GridPane();
         Stage activityPlanner = new Stage();
@@ -52,7 +53,7 @@ public class ActivityCreator {
         Spinner setStartTime = new Spinner();
         setStartTime.setEditable(true);
         setLocation.getItems().setAll(roster.getLocationDatabase().values());
-
+        setGroup.getItems().setAll(roster.getGroups());
         Spinner setEndTime = new Spinner();
         setEndTime.setEditable(true);
 
@@ -61,7 +62,7 @@ public class ActivityCreator {
 
         Button newLocation = new Button("New");
         Button newGroup = new Button("New");
-        this.newLocationPopup = new NewLocationPopup("Add Location", this.roster);
+        this.newLocationPopup = newLocationPopup;
         newLocation.setOnAction(event -> newLocationPopup.display());
 
         grid.add(activity, 1, 10);
