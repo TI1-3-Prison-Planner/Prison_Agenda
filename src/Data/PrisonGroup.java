@@ -9,8 +9,10 @@ public class PrisonGroup implements Serializable {
 	private String groupName;
 	private ArrayList<Person> inmates;
 	private ArrayList<Person> guards;
+
 	private SecurityDetail securityDetail;
 	private int groupID;
+
 
 
 	//enumeration for the types of security on a group. For each securityDetail is a different amount of guards with the group.
@@ -21,12 +23,15 @@ public class PrisonGroup implements Serializable {
 	}
 
 
+
 	public PrisonGroup(String groupName,int groupID, SecurityDetail securityDetail) {
 		this.groupName = groupName;
 		this.inmates = new ArrayList<>();
 		this.guards = new ArrayList<>();
 		this.groupID = groupID;
 		this.securityDetail = securityDetail;
+		this.groupNumber = nummer;
+
 	}
 
 	//methode to add a person to a group. An ArrayList and a boolean are used to add the person to the right group.
@@ -85,11 +90,16 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
+	public int getGroupNumber() {
+		return groupNumber;
+	}
 
+	public void setGroupNumber(int groupNumber) {
+		this.groupNumber = groupNumber;
+	}
 
 	@Override
 	public String toString() {
 		return "Security detail: " + this.securityDetail + ", Group: "+ this.groupName + ", inmates: " + this.inmates.size() +  ", guards:" + this.guards.size() + "]";
-
 	}
 }
