@@ -30,6 +30,7 @@ import java.util.ArrayList;
  */
 
 public class Gui extends Application {
+
 	private Canvas canvas;
 	private TabPane tabPane;
 	private Tab rosterTab;
@@ -90,7 +91,7 @@ public class Gui extends Application {
 	public void draw(FXGraphics2D graphics) {
 		//TODO, improve time display left side
 //		graphics.setColor(Color.WHITE);
-		graphics.setBackground(Color.white);
+        graphics.setBackground(Color.white);
 //		graphics.drawRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
 		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
 
@@ -204,6 +205,7 @@ public class Gui extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 
 
 }

@@ -3,19 +3,17 @@ package Gui;
 import Data.Location;
 import Data.Roster;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class NewLocationPopup {
+public class NewLocationPopup extends Observer {
     private Stage newLocationPopupDisplay;
     private Label instructionLabel;
     private Label instructionLabel1;
@@ -38,15 +36,15 @@ public class NewLocationPopup {
         this.locationTypeBox = new ComboBox<>();
         this.locationTypeBox.getItems().setAll(Location.LocationType.values());
         this.roster = roster;
+        this.roster.attach(this);
     }
 
     public void display() {
-        this.cancelButton.setOnAction(e -> newLocationPopupDisplay.close());
+        this.cancelButton.setOnAction(e -> close());
         this.addButton.setOnAction(e -> {
             addLocation();
-            this.newLocationPopupDisplay.close();
+            close();
         });
-
 
         VBox vBox = new VBox();
         HBox buttonBox = new HBox();
@@ -62,11 +60,24 @@ public class NewLocationPopup {
         newLocationPopupDisplay.showAndWait();
     }
 
+    private void close() {
+        locationName.clear();
+        locationTypeBox.getSelectionModel().selectFirst();
+        newLocationPopupDisplay.close();
+    }
+
+    //todo add a label and textfield for id to class
+    //todo fix addLocation() and close()
     private void addLocation() {
         if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
             this.roster.getLocationDatabase().put(locationName.getText(),
                     new Location(locationName.getText(), locationTypeBox.getValue()));
+            roster.notifyObservers();
         }
     }
 
+    @Override
+    public void update() {
+        this.locationTypeBox.getItems().setAll(Location.LocationType.values());
+    }
 }

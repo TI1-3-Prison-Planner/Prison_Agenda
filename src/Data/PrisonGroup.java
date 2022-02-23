@@ -9,7 +9,9 @@ public class PrisonGroup implements Serializable {
 	private String groupName;
 	private ArrayList<Person> inmates;
 	private ArrayList<Person> guards;
-	private SecurityDetail securityDetail;
+	private securityDetail securityDetail;
+	private int groupID;
+
 
 	//enumeration for the types of security on a group. For each securityDetail is a different amount of guards with the group.
 	public enum SecurityDetail {
@@ -18,10 +20,12 @@ public class PrisonGroup implements Serializable {
 		HIGH
 	}
 
-	public PrisonGroup(String groupName, SecurityDetail securityDetail, boolean isGuardGroup) {
+
+	public PrisonGroup(String groupName,int groupID, securityDetail securityDetail) {
 		this.groupName = groupName;
 		this.inmates = new ArrayList<>();
 		this.guards = new ArrayList<>();
+		this.groupID = groupID;
 		this.securityDetail = securityDetail;
 	}
 
@@ -86,5 +90,6 @@ public class PrisonGroup implements Serializable {
 	@Override
 	public String toString() {
 		return "Security detail: " + this.securityDetail + ", Group: "+ this.groupName + ", inmates: " + this.inmates.size() +  ", guards:" + this.guards.size() + "]";
+
 	}
 }
