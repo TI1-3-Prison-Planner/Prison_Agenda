@@ -1,6 +1,10 @@
 import Data.*;
+import Gui.*;
+import javafx.application.Application;
 
 import java.time.LocalTime;
+
+import static javafx.application.Application.launch;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,6 +20,7 @@ public class Main {
 
         testcode(testRoster);
         System.out.println(testRoster);
+        Application.launch(Gui.class);
 
     }
 

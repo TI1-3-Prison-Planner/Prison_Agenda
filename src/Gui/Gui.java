@@ -40,6 +40,7 @@ public class Gui extends Application {
 	private BorderPane mainPane;
 	private Roster roster;
 	private ActivityCreator agendaCreator;
+	private DataViewer dataViewer;
 
 
 	
@@ -55,9 +56,11 @@ public class Gui extends Application {
 		this.roster = new Roster();
 		this.agendaCreator = new ActivityCreator();
 		this.agendaCreator.init(this.roster);
+		this.dataViewer = new DataViewer(stage);
 
 		fillMenuBar(stage);
 		createPanes();
+		fillTableTab();
 		
 		testCode();
 
@@ -137,7 +140,7 @@ public class Gui extends Application {
 
 		this.tableTab.setClosable(false);
 		this.tabPane.setSide(Side.LEFT);
-		this.tabPane.getTabs().addAll(rosterTab,tableTab);
+		this.tabPane.getTabs().addAll(this.rosterTab, this.tableTab);
 
 		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
 
@@ -165,6 +168,11 @@ public class Gui extends Application {
 			group.setPrefWidth(100);
 
 		}
+	}
+
+	public void fillTableTab(){
+		this.tableTab.setContent(this.dataViewer.allTabs());
+
 	}
 
 	public void testCode(){
