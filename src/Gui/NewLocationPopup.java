@@ -46,9 +46,7 @@ public class NewLocationPopup extends Observer{
         this.addButton.setOnAction(e -> {
             addLocation();
             close();
-
         });
-
 
         VBox vBox = new VBox();
         HBox buttonBox = new HBox();
@@ -69,7 +67,8 @@ public class NewLocationPopup extends Observer{
         locationTypeBox.getSelectionModel().selectFirst();
         newLocationPopupDisplay.close();
     }
-
+   //todo add a label and textfield for id to class
+    //todo fix addLocation() and close()
     private void addLocation() {
         if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
             this.roster.getLocationDatabase().put(locationName.getText(),

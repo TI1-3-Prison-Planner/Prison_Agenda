@@ -73,9 +73,9 @@ public class Main {
 //		a1.addGuard(roster.getGuardDatabase());
 //		b1.addGuard(roster.getGuardDatabase());
 
-        PrisonGroup a1 = new PrisonGroup("A1", PrisonGroup.securityDetail.LOW, false);
-        PrisonGroup a2 = new PrisonGroup("A2", PrisonGroup.securityDetail.MEDIUM, false);
-        PrisonGroup a3 = new PrisonGroup("A3", PrisonGroup.securityDetail.HIGH, false);
+        PrisonGroup a1 = new PrisonGroup("A1",1,PrisonGroup.securityDetail.LOW);
+        PrisonGroup a2 = new PrisonGroup("A2",2,PrisonGroup.securityDetail.MEDIUM);
+        PrisonGroup a3 = new PrisonGroup("A3",3,PrisonGroup.securityDetail.HIGH);
 
         a1.addInmates(roster.getInmateDatabase());
         a1.addGuard(roster.getGuardDatabase());

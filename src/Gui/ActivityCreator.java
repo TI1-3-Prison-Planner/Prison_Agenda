@@ -19,7 +19,6 @@ public class ActivityCreator extends Observer{
     private LocalTime endTime;
     private Activity Activity;
     private ErrorPopup errorPopup;
-    private NewLocationPopup newLocationPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ArrayList<PrisonGroup> groups = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
@@ -32,7 +31,7 @@ public class ActivityCreator extends Observer{
         this.roster.attach(this);
     }
 
-    public void display(Stage stage, NewLocationPopup newLocationPopup) {
+    public void display(Stage stage) {
 
         GridPane grid = new GridPane();
         Stage activityPlanner = new Stage();
@@ -53,17 +52,14 @@ public class ActivityCreator extends Observer{
         Spinner setStartTime = new Spinner();
         setStartTime.setEditable(true);
         setLocation.getItems().setAll(roster.getLocationDatabase().values());
-        setGroup.getItems().setAll(roster.getGroups());
+        setGroup.getItems().setAll(this.roster.getGroups());
+
         Spinner setEndTime = new Spinner();
         setEndTime.setEditable(true);
 
         Button cancel = new Button("Cancel");
         Button add = new Button("Add");
 
-        Button newLocation = new Button("New");
-        Button newGroup = new Button("New");
-        this.newLocationPopup = newLocationPopup;
-        newLocation.setOnAction(event -> newLocationPopup.display());
 
         grid.add(activity, 1, 10);
         grid.add(location, 1, 20);
@@ -72,26 +68,16 @@ public class ActivityCreator extends Observer{
         grid.add(timeEnd, 1, 50);
 
         grid.add(activityName, 2, 10);
-
+        grid.add(setLocation, 2,20);
         grid.add(setGroup, 2, 30);
         grid.add(setStartTime, 2, 40);
         grid.add(setEndTime, 2, 50);
         grid.add(cancel, 2, 80);
         grid.add(add, 1, 80);
 
-        HBox hBox1;
-        grid.add(hBox1 = new HBox(setLocation, newLocation), 2, 20);
-        hBox1.setSpacing(70);
 
 
 
-        HBox hbox2;
-        grid.add(hbox2 = new HBox(setGroup, newGroup), 2, 30);
-        hbox2.setSpacing(70);
-
-        newGroup.setOnAction(e->{
-
-        });
 
 
         cancel.setOnAction(event -> {
@@ -119,7 +105,7 @@ public class ActivityCreator extends Observer{
 
 
 
-        Scene activityScene = new Scene(grid, 300, 250);
+        Scene activityScene = new Scene(grid);
 
         activityPlanner.setScene(activityScene);
         activityPlanner.showAndWait();
@@ -132,8 +118,8 @@ public class ActivityCreator extends Observer{
     }
 
     public void update(){
-        setLocation.getItems().setAll(roster.getLocationDatabase().values());
-        setGroup.getItems().setAll(roster.getGroups());
+        setLocation.getItems().setAll(this.roster.getLocationDatabase().values());
+        setGroup.getItems().setAll(this.roster.getGroups());
     }
 }
 

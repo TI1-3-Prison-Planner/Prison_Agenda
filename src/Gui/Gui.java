@@ -40,7 +40,7 @@ public class Gui extends Application {
 	private Menu deleteMenu;
 	private BorderPane mainPane;
 	private Roster roster;
-	private ActivityCreator agendaCreator;
+	private ActivityCreator activityCreator;
 	private NewLocationPopup newLocationPopup;
 	private NewGroupPopup newGroupPopup;
 
@@ -55,7 +55,7 @@ public class Gui extends Application {
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 		this.roster = new Roster();
-		this.agendaCreator = new ActivityCreator(this.roster);
+		this.activityCreator = new ActivityCreator(this.roster);
 		this.newLocationPopup = new NewLocationPopup("Add Location", this.roster);
 		this.newGroupPopup = new NewGroupPopup("Add Group", this.roster);
 		fillMenuBar(stage);
@@ -85,7 +85,7 @@ public class Gui extends Application {
 
 
 		int hours = 0;
-		for (TimeBlock timeBlock :agendaCreator.timeBlocks ) {
+		for (TimeBlock timeBlock : activityCreator.timeBlocks ) {
 			timeBlock.draw(graphics);
 			System.out.println("test");
 		}
@@ -112,7 +112,7 @@ public class Gui extends Application {
 
 		this.newMenu = new Menu("New");
 		MenuItem newActivity = new MenuItem("Add new activity");
-		newActivity.setOnAction(e-> agendaCreator.display(stage, newLocationPopup));
+		newActivity.setOnAction(e-> activityCreator.display(stage));
 		this.newMenu.getItems().add(newActivity);
 
 		MenuItem newGroup = new MenuItem("Add new group");
@@ -181,17 +181,17 @@ public class Gui extends Application {
 	}
 
 	public void testCode(){
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,1));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,2));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,3));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,4));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,5));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,1));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,2));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,3));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,4));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,5));
 
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,3));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,1));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,4));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,1));
-		this.agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,2));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,3));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,1));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,4));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,1));
+		this.activityCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,2));
 	}
 
 	public static void main(String[] args) {
