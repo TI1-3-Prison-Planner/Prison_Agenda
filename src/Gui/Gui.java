@@ -35,14 +35,16 @@ public class Gui extends Application {
 	private TableView tableView;
 	private MenuBar menuBar;
 	private Menu fileMenu;
+	private Menu newMenu;
 	private Menu editMenu;
 	private Menu deleteMenu;
 	private BorderPane mainPane;
 	private Roster roster;
 	private ActivityCreator agendaCreator;
+	private NewLocationPopup newLocationPopup;
+	private NewGroupPopup newGroupPopup;
 
 
-	
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("Agenda GUI");
@@ -53,9 +55,9 @@ public class Gui extends Application {
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 		this.roster = new Roster();
-		this.agendaCreator = new ActivityCreator();
-		this.agendaCreator.init(this.roster);
-
+		this.agendaCreator = new ActivityCreator(this.roster);
+		this.newLocationPopup = new NewLocationPopup("Add Location", this.roster);
+		this.newGroupPopup = new NewGroupPopup("Add Group", this.roster);
 		fillMenuBar(stage);
 		createPanes();
 		
@@ -104,11 +106,22 @@ public class Gui extends Application {
 	}
 
 	public void fillMenuBar(Stage stage){
-		MenuItem itemNew = new MenuItem("New");
-		itemNew.setOnAction(e-> agendaCreator.display(stage));
 
 		this.fileMenu = new Menu("File");
-		this.fileMenu.getItems().add(itemNew);
+//		this.fileMenu.getItems().add();
+
+		this.newMenu = new Menu("New");
+		MenuItem newActivity = new MenuItem("Add new activity");
+		newActivity.setOnAction(e-> agendaCreator.display(stage, newLocationPopup));
+		this.newMenu.getItems().add(newActivity);
+
+		MenuItem newGroup = new MenuItem("Add new group");
+		newGroup.setOnAction(e-> newGroupPopup.display());
+		this.newMenu.getItems().add(newGroup);
+
+		MenuItem newLocation = new MenuItem("Add new location");
+		newLocation.setOnAction(e-> newLocationPopup.display());
+		this.newMenu.getItems().add(newLocation);
 
 		this.editMenu = new Menu("Edit");
 		this.editMenu.setOnAction(e->{
@@ -139,7 +152,7 @@ public class Gui extends Application {
 		this.tabPane.setSide(Side.LEFT);
 		this.tabPane.getTabs().addAll(rosterTab,tableTab);
 
-		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
+		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, this.deleteMenu);
 
 		this.mainPane.setTop(this.menuBar);
 		this.mainPane.setCenter(this.tabPane);
