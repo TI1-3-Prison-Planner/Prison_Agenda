@@ -18,12 +18,12 @@ public class TimeBlock {
     private int timeEndMinute;
     private int timeEndHour;
     private int groupNumber;
-    private Location timeStart;
+    private LocalTime timeStart;
     private LocalTime timeEnd;
     private Rectangle2D rect;
 
 
-    public TimeBlock(PrisonGroup group, String location, int timeStart, int timeEnd, int groupNumber) {
+    public TimeBlock(PrisonGroup group, String location, LocalTime timeStart, LocalTime timeEnd, int groupNumber) {
         this.group = group;
         this.location = location;
         this.timeStartMin = timeStart % 100;
@@ -106,8 +106,8 @@ public class TimeBlock {
     public static TimeBlock convertToTimeblcok(Activity a){
 
 
-//        TimeBlock b = new TimeBlock(a.getPrisonGroup(), a.getLocation().toString(), a.getStartTime(), a.getEndTime(), a.getPrisonGroup().getGroupNumber());
-//        return  b;
+        TimeBlock b = new TimeBlock(a.getPrisonGroup(), a.getLocation().toString(), a.getStartTime(), a.getEndTime(), a.getPrisonGroup().getGroupNumber());
+        return  b;
 
 //         Rectangle2D rect = new Rectangle2D.Double(x, y, 60, height);
 //         g.setColor(Color.BLACK);
