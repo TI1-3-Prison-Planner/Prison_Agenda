@@ -7,11 +7,11 @@ import java.util.*;
 public class Roster implements Comparator<LocalTime>, Serializable {
 
 
-	private HashMap<Person, Boolean> guardDatabase;				//Guard database with boolean for being assinged to a group
-	private HashMap<Person, Boolean> inmateDatabase;			//inmate database with boolean for being assinged to a group
-	private HashMap<String, Location> locationDatabase;			//Location database with ID for each Location
-	private ArrayList<PrisonGroup> groups;						//List with all prison groups to assign inmates and guards to
-	private ArrayList<Activity> activities;						//List with all activity's for all groups
+	private HashMap<Person, Boolean> guardDatabase;					//Guard database with boolean for being assinged to a group
+	private HashMap<Person, Boolean> inmateDatabase;					//inmate database with boolean for being assinged to a group
+	private HashMap<String, Location> locationDatabase;				//Location database with ID for each Location
+	private ArrayList<PrisonGroup> groups;								//List with all prison groups to assign inmates and guards to
+	private ArrayList<Activity> activities;							//List with all activity's for all groups
 
 	public Roster() {
 		this.guardDatabase = new HashMap<>();

@@ -42,12 +42,16 @@ public class DataViewer {
     }
 
     public void fillGuardTab(){
+<<<<<<< Updated upstream
         TableView guards = new TableView();
         TableColumn name = new TableColumn("names");
         TableColumn isInGroup = new TableColumn("Assigned");
+=======
+        ListView listView = new ListView();
+>>>>>>> Stashed changes
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
-        for (Person pers : roster.getGuardDatabase().keySet()) {
+        for (Person pers : roster.getGuardDatabase().keySet()){
             persons.add(pers);
         }
 
@@ -63,5 +67,7 @@ public class DataViewer {
     public TabPane allTabs(){
         return this.dataTab;
     }
+
+
 
 }
