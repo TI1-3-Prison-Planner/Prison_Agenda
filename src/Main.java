@@ -21,7 +21,8 @@ public class Main {
         testcode(testRoster);
         System.out.println(testRoster);
 
-        File file = new File("/roster.json");
+
+        File file = new File("testfile/roster.json");
         fio.saveDataAsFile(file, testRoster);
         Application.launch(Gui.class);
 

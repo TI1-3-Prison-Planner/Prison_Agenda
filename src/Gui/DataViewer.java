@@ -43,7 +43,7 @@ public class DataViewer {
 
     public void fillGuardTab(){
         TableView guards = new TableView();
-        TableColumn name = new TableColumn("name");
+        TableColumn name = new TableColumn("names");
         TableColumn isInGroup = new TableColumn("Assigned");
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
@@ -51,8 +51,8 @@ public class DataViewer {
             persons.add(pers);
         }
 
-        name.setCellValueFactory(new PropertyValueFactory<Person, String>("names"));
-        isInGroup.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("assigned"));
+        name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+        isInGroup.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("isGuard"));
 
         guards.getColumns().addAll(name, isInGroup);
         guards.setItems(persons);

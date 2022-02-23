@@ -64,7 +64,7 @@ public class Gui extends Application {
 		createPanes();
 
 		FileIO fileIO = new FileIO();
-		File file = new File("/roster.json");
+		File file = new File("testfile/roster.json");
 		this.roster = fileIO.readData(file);
 		this.dataViewer = new DataViewer(stage, this.roster);
 		fillTableTab();
