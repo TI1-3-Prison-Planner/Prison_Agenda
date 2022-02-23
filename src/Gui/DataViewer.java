@@ -1,9 +1,14 @@
 package Gui;
 
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import Data.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
 
 public class DataViewer {
     private TabPane dataTab;
@@ -40,12 +45,11 @@ public class DataViewer {
         TableColumn name = new TableColumn("name");
         TableColumn isInGroup = new TableColumn("Assigned");
 
-        ObservableMap map = (ObservableMap) roster.getGuardDatabase().keySet();
 
-        name.getColumns().add(map);
-//        isInGroup.getColumns().add();
+
 
         guards.getColumns().addAll(name, isInGroup);
+        
         this.guards.setContent(guards);
     }
 

@@ -20,7 +20,7 @@ public class Main {
 
         testcode(testRoster);
         System.out.println(testRoster);
-        Application.launch(Gui.class);
+
 
     }
 
