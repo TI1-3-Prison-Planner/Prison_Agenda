@@ -1,10 +1,14 @@
 package Data;
 
+
+
+import Gui.Observer;
+
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
 
-public class Roster implements Comparator<LocalTime>, Serializable {
+public class Roster extends Subject  implements Comparator<LocalTime>, Serializable {
 
 
 	private HashMap<Person, Boolean> guardDatabase;				//Guard database with boolean for being assinged to a group
@@ -100,6 +104,23 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 				"groups=" + groups + '\n' + '\n' +
 				"activities=" + activities + '\n' + '\n' +
 				"locations=" + locationDatabase;
+	}
+
+	private List<Observer> observers = new ArrayList<>();
+
+	@Override
+	void attach(Observer observer) {
+
+	}
+
+	@Override
+	void detach(Observer observer) {
+
+	}
+
+	@Override
+	void notifyObservers() {
+
 	}
 }
 
