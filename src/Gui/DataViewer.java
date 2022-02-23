@@ -1,14 +1,15 @@
 package Gui;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Data.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Observable;
+import java.util.*;
 
 public class DataViewer {
     private TabPane dataTab;
@@ -19,9 +20,9 @@ public class DataViewer {
     private Tab activities;
     private Roster roster;
 
-    DataViewer(Stage stage){
+    DataViewer(Stage stage, Roster roster){
         this.dataTab = new TabPane();
-        this.roster = new Roster();
+        this.roster = roster;
         createTabs();
         fillGuardTab();
     }
@@ -45,11 +46,17 @@ public class DataViewer {
         TableColumn name = new TableColumn("name");
         TableColumn isInGroup = new TableColumn("Assigned");
 
+        ObservableList<Person> persons = FXCollections.observableArrayList();
+        for (Person pers : roster.getGuardDatabase().keySet()) {
+            persons.add(pers);
+        }
 
-
+        name.setCellValueFactory(new PropertyValueFactory<Person, String>("names"));
+        isInGroup.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("assigned"));
 
         guards.getColumns().addAll(name, isInGroup);
-        
+        guards.setItems(persons);
+
         this.guards.setContent(guards);
     }
 

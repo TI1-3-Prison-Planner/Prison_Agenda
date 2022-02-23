@@ -1,6 +1,6 @@
 package Gui;
 
-import Data.Roster;
+import Data.*;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -20,6 +20,8 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.io.File;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -53,16 +55,22 @@ public class Gui extends Application {
 		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
-		this.roster = new Roster();
+//		this.roster = new Roster();
 		this.agendaCreator = new ActivityCreator();
-		this.agendaCreator.init(this.roster);
-		this.dataViewer = new DataViewer(stage);
+//		this.agendaCreator.init(this.roster);
+
 
 		fillMenuBar(stage);
 		createPanes();
+
+		FileIO fileIO = new FileIO();
+		File file = new File("/roster.json");
+		this.roster = fileIO.readData(file);
+		this.dataViewer = new DataViewer(stage, this.roster);
 		fillTableTab();
+
 		
-		testCode();
+//		testCode();
 
 		Scene scene = new Scene(this.mainPane, 700, 700);
 		stage.setScene(scene);
@@ -74,6 +82,7 @@ public class Gui extends Application {
 
 	public void init() {
 		//TODO, Init code missing
+
 	}
 
 
@@ -88,7 +97,7 @@ public class Gui extends Application {
 		int hours = 0;
 		for (TimeBlock timeBlock :agendaCreator.timeBlocks ) {
 			timeBlock.draw(graphics);
-			System.out.println("test");
+//			System.out.println("test");
 		}
 		graphics.setColor(Color.BLACK);
 
@@ -192,5 +201,6 @@ public class Gui extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 
 }

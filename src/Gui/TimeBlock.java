@@ -72,7 +72,7 @@ public class TimeBlock {
         int height = ((timeEndHour - timeStartHour)*60+timeEndMinute-timeStartMin);
 
        ;
-        System.out.println(this.group);
+//        System.out.println(this.group);
 
 
         Rectangle2D rect = new Rectangle2D.Double(x,y,60,height);

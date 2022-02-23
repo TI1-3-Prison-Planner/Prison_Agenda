@@ -58,8 +58,8 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 
 	public void fillGuardDatabase(ArrayList<String> persons){
 		for (String name : persons) {
-			Person inmate = new Person(name,true);
-			this.inmateDatabase.put(inmate,false);
+			Person guard = new Person(name,true);
+			this.guardDatabase.put(guard,false);
 		}
 	}
 

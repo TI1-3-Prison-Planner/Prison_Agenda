@@ -2,6 +2,7 @@ import Data.*;
 import Gui.*;
 import javafx.application.Application;
 
+import java.io.File;
 import java.time.LocalTime;
 
 import static javafx.application.Application.launch;
@@ -10,17 +11,19 @@ public class Main {
     public static void main(String[] args) {
         Roster testRoster = new Roster();
         FileIO fio = new FileIO();
+        Gui gui = new Gui();
 
         String FileName = "namen.txt";
-        testRoster.fillInmatesDataBase(fio.setUpNamelist(FileName));
-
-        System.out.println(testRoster.getInmateDatabase());
+        testRoster.fillGuardDatabase(fio.setUpNamelist(FileName));
 
         System.out.println("");
 
         testcode(testRoster);
         System.out.println(testRoster);
 
+        File file = new File("/roster.json");
+        fio.saveDataAsFile(file, testRoster);
+        Application.launch(Gui.class);
 
     }
 
