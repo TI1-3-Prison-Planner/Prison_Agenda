@@ -24,7 +24,8 @@ public class ActivityCreator {
     private ArrayList<PrisonGroup> groups = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
     private Roster roster;
-
+    private ComboBox<Location> setLocation;
+    private ComboBox<PrisonGroup> setGroup;
 
     public void init(Roster roster) {
         this.roster = roster;
@@ -46,10 +47,11 @@ public class ActivityCreator {
         Label timeEnd = new Label("Time end: ");
 
         TextField activityName = new TextField();
-        ComboBox setLocation = new ComboBox();
-        ComboBox setGroup = new ComboBox();
+        this.setLocation = new ComboBox<>();
+        this.setGroup = new ComboBox<>();
         Spinner setStartTime = new Spinner();
         setStartTime.setEditable(true);
+        setLocation.getItems().setAll(roster.getLocationDatabase().values());
 
         Spinner setEndTime = new Spinner();
         setEndTime.setEditable(true);
@@ -128,4 +130,9 @@ public class ActivityCreator {
         return this.timeBlocks;
     }
 
+    public void update(){
+        setLocation.getItems().setAll(roster.getLocationDatabase().values());
+        setGroup.getItems().setAll(roster.getGroups());
+    }
 }
+
