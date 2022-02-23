@@ -30,7 +30,6 @@ public class PrisonGroup implements Serializable {
 		this.guards = new ArrayList<>();
 		this.groupID = groupID;
 		this.securityDetail = securityDetail;
-		this.groupNumber = nummer;
 
 	}
 
@@ -91,11 +90,11 @@ public class PrisonGroup implements Serializable {
 	}
 
 	public int getGroupNumber() {
-		return groupNumber;
+		return this.groupID;
 	}
 
 	public void setGroupNumber(int groupNumber) {
-		this.groupNumber = groupNumber;
+		this.groupID = groupNumber;
 	}
 
 	@Override

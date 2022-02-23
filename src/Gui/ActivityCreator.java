@@ -44,6 +44,7 @@ public class ActivityCreator extends Observer {
 
 
         this.c = c;
+    }
 
 
     private ComboBox<Location> setLocation;
@@ -74,7 +75,7 @@ public class ActivityCreator extends Observer {
 
 
 
-        setLocation.setItems(locations);
+//        setLocation.setItems(locations);
         setGroup.setItems(groups);
         setStartTime.setEditable(true);
 
@@ -112,17 +113,17 @@ public class ActivityCreator extends Observer {
         grid.add(hBox1 = new HBox(setLocation), 2, 20);
         hBox1.setSpacing(70);
 
-        newLocation.setOnAction(e -> {
-
-        });
+//        newLocation.setOnAction(e -> {
+//
+//        });
 
         HBox hbox2;
         grid.add(hbox2 = new HBox(setGroup), 2, 30);
         hbox2.setSpacing(70);
 
-        newGroup.setOnAction(e -> {
-
-        });
+//        newGroup.setOnAction(e -> {
+//
+//        });
 
 
 

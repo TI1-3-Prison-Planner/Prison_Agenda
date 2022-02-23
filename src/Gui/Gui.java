@@ -68,21 +68,14 @@ public class Gui extends Application {
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 
-		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
-
-
-
-
+//		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
 //		this.roster = new Roster();
-
 //		this.agendaCreator.init(this.roster);
-
 
 		fillMenuBar(stage);
 		createPanes();
 
 		FileIO fileIO = new FileIO();
-		//todo test file out of date
 		File file = new File("roster.json");
 		this.roster = fileIO.readData(file);
 		this.dataViewer = new DataViewer(this.roster);
@@ -132,6 +125,15 @@ public class Gui extends Application {
 
 	}
 
+//	public void draw(FXGraphics2D graphics) {
+//		//TODO, improve time display left side
+//
+//		graphics.setBackground(Color.white);
+//		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+//		drawTimeBlocks(graphics);
+//		drawTime(graphics);
+//	}
+
 	public void fillMenuBar(Stage stage){
 		MenuItem itemNew = new MenuItem("New");
 
@@ -139,7 +141,7 @@ public class Gui extends Application {
 
 			agendaCreator.init(roster);
 
-			agendaCreator.display(stage);});
+			agendaCreator.display();});
 
 		itemNew.setOnAction(e-> agendaCreator.display());
 
@@ -173,23 +175,19 @@ public class Gui extends Application {
 		this.rosterTab.setContent(borderPane);
 		this.rosterTab.setText("Rooster");
 
-
-
 		this.tabPane.setSide(Side.LEFT);
 		this.tableTab.setText("Data");
 		this.tabPane.getTabs().addAll(this.rosterTab, this.tableTab);
 
-
-
-		StackPane flowPane = new StackPane(this.canvas);
+		flowPane = new StackPane(this.canvas);
 
 		flowPane.setPrefHeight(1440);
 
 		canvas.setHeight(flowPane.getHeight());
-		ScrollPane scrollableCenter = new ScrollPane(flowPane);
+		scrollableCenter = new ScrollPane(flowPane);
 
 		ScrollPane groupScroll = new ScrollPane();
-		HBox groupBox = new HBox();
+		groupBox = new HBox();
 
 		borderPane.setTop(groupScroll);
 
@@ -204,7 +202,6 @@ public class Gui extends Application {
 
 		flowPane.setPrefHeight(1440);
 		this.canvas.setHeight(flowPane.getHeight());
-
 
 
 		groupScroll.hvalueProperty().bindBidirectional(scrollableCenter.hvalueProperty()); //this statenebt binds the h-scrollbar from groupscroll to h scrollbar from scrollablecenter
@@ -240,41 +237,19 @@ public class Gui extends Application {
 			groupBox.getChildren().add(group = new Label(p.getGroupName()));
 
 			group.setPrefWidth(100);
-
-
 		}
-
-;
-		groupScroll.setContent(groupBox);
-		groupBox.setPrefWidth(groupBox.getChildren().size()*100);
-
-		Scene scene = new Scene(this.mainPane, 700, 700);
-		stage.setScene(scene);
-		stage.show();
-		flowPane.setPrefWidth(groupBox.getChildren().size()*100-20);
+//		groupScroll.setContent(groupBox);
+//		groupBox.setPrefWidth(groupBox.getChildren().size()*100);
+//
+//		Scene scene = new Scene(this.mainPane, 700, 700);
+//		stage.setScene(scene);
+//		stage.show();
+//		flowPane.setPrefWidth(groupBox.getChildren().size()*100-20);
 
 	}
 
 	public void fillTableTab(){
 		this.tableTab.setContent(this.dataViewer.allTabs());
-
-	}
-
-
-
-	public void draw(FXGraphics2D graphics) {
-		//TODO, improve time display left side
-
-		graphics.setBackground(Color.white);
-
-		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
-
-
-		drawTimeBlocks(graphics);
-
-
-		drawTime(graphics);
-
 
 	}
 
@@ -290,10 +265,6 @@ if(roster.getActivities().size()>0) {
 		graphics.setColor(Color.BLACK);
 	}
 
-
-
-
-
 	private void drawTime(FXGraphics2D graphics) {
 		int hours = 0;
 		for (int i = 0; i < 1800; i += 60) {
@@ -308,8 +279,6 @@ if(roster.getActivities().size()>0) {
 			}
 		}
 	}
-
-
 
 	public static void main(String[] args) {
 		launch(args);
