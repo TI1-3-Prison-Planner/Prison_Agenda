@@ -10,6 +10,7 @@ public class PrisonGroup implements Serializable {
 	private ArrayList<Person> inmates;
 	private ArrayList<Person> guards;
 	private securityDetail securityDetail;
+	private int groupNumber;
 
 	//enumeration for the types of security on a group. For each securityDetail is a different amount of guards with the group.
 	public enum securityDetail {
@@ -18,11 +19,13 @@ public class PrisonGroup implements Serializable {
 		HIGH
 	}
 
-	public PrisonGroup(String groupName, securityDetail securityDetail, boolean isGuardGroup) {
+	public PrisonGroup(String groupName, securityDetail securityDetail, boolean isGuardGroup, int nummer) {
 		this.groupName = groupName;
 		this.inmates = new ArrayList<>();
 		this.guards = new ArrayList<>();
 		this.securityDetail = securityDetail;
+		this.groupNumber = nummer;
+
 	}
 
 	//methode to add a person to a group. An ArrayList and a boolean are used to add the person to the right group.
@@ -79,10 +82,16 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
+	public int getGroupNumber() {
+		return groupNumber;
+	}
 
+	public void setGroupNumber(int groupNumber) {
+		this.groupNumber = groupNumber;
+	}
 
 	@Override
 	public String toString() {
-		return "\nSecurity detail: " + this.securityDetail + ", Group: "+ this.groupName + ", inmates: " + this.inmates.size() +  ", guards:" + this.guards.size() + "]\n";
+		return "Security detail: " + this.securityDetail + ", Group: "+ this.groupName + ", inmates: " + this.inmates.size() +  ", guards:" + this.guards.size() + "]";
 	}
 }

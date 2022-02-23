@@ -10,9 +10,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalTimeStringConverter;
 import org.jfree.fx.FXGraphics2D;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class ActivityCreator {
@@ -29,10 +32,15 @@ public class ActivityCreator {
 
 
     public void init(Roster roster) {
-    this.roster = roster;
-    locations.addAll(roster.getLocationDatabase().keySet());
-    groups.addAll(roster.getGroups());
-    this.c = c;
+        groups.clear();
+        groups.addAll(roster.getGroups());
+
+        this.roster = roster;
+        locations.clear();
+        locations.addAll(roster.getLocationDatabase().keySet());
+
+
+        this.c = c;
 
     }
 
@@ -60,14 +68,13 @@ public class ActivityCreator {
         setGroup.setItems(groups);
 
 
-
-        Spinner<Integer> setStartTime = new Spinner<>(0,2400,0);
-
+        Spinner<LocalTime> setStartTime =timeSpinner();
 
 
         setStartTime.setEditable(true);
 
-        Spinner<Integer> setEndTime = new Spinner<>(0,2400,0);
+        // Spinner<Integer> setEndTime = new Spinner<>(0,2400,0);
+        Spinner<LocalTime> setEndTime = timeSpinner();
         setEndTime.setEditable(true);
 
         Button cancel = new Button("Cancel");
@@ -91,18 +98,18 @@ public class ActivityCreator {
         grid.add(add, 1, 80);
 
         HBox hBox1;
-        grid.add(hBox1 = new HBox(setLocation, newLocation), 2, 20);
+        grid.add(hBox1 = new HBox(setLocation), 2, 20);
         hBox1.setSpacing(70);
 
-        newLocation.setOnAction(e->{
+        newLocation.setOnAction(e -> {
 
         });
 
         HBox hbox2;
-        grid.add(hbox2 = new HBox(setGroup, newGroup), 2, 30);
+        grid.add(hbox2 = new HBox(setGroup), 2, 30);
         hbox2.setSpacing(70);
 
-        newGroup.setOnAction(e->{
+        newGroup.setOnAction(e -> {
 
         });
 
@@ -114,8 +121,12 @@ public class ActivityCreator {
         add.setOnAction(event -> {
             activityPlanner.close();
 
-            timeBlocks.add(new TimeBlock((PrisonGroup)setGroup.getValue(),setLocation.getValue().toString(),setStartTime.getValue(),setEndTime.getValue(),1));
-            System.out.println(setStartTime.getValue()+":start, end :"+setEndTime.getValue());
+            roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),(PrisonGroup)setGroup.getValue(),roster.getLocationDatabase().get(setLocation.getValue())));
+
+//            System.out.println( roster.getActivities().get(0));
+
+//            timeBlocks.add(new TimeBlock((PrisonGroup)setGroup.getValue(),setLocation.getValue().toString(),setStartTime.getValue(),setEndTime.getValue(),1));
+            System.out.println(setStartTime.getValue() + ":start, end :" + setEndTime.getValue());
             System.out.println(timeBlocks.size());
 
 
@@ -132,8 +143,6 @@ public class ActivityCreator {
         });
 
 
-
-
         Scene activityScene = new Scene(grid, 300, 250);
 
         activityPlanner.setScene(activityScene);
@@ -141,6 +150,40 @@ public class ActivityCreator {
 
 
         stage.show();
+    }
+
+
+    public Spinner<LocalTime> timeSpinner(){
+        return  new Spinner<>(new SpinnerValueFactory<LocalTime>() {
+            {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                setConverter(new LocalTimeStringConverter(formatter, null));
+            }
+
+            @Override
+            public void decrement(int steps) {
+                if (getValue() == null) {
+                    setValue(LocalTime.now());
+                } else {
+                    LocalTime time = (LocalTime) getValue();
+                    setValue(time.minusMinutes(steps));
+                }
+            }
+
+            @Override
+            public void increment(int steps) {
+                if (this.getValue() == null)
+                    setValue(LocalTime.now());
+                else {
+                    LocalTime time = (LocalTime) getValue();
+                    setValue(time.plusMinutes(steps));
+                }
+            }
+        });
+    }
+
+    public Roster getRoster(){
+        return this.roster;
     }
 
 

@@ -1,5 +1,6 @@
 package Gui;
 
+import Data.Activity;
 import Data.Location;
 import Data.PrisonGroup;
 import Data.Roster;
@@ -64,7 +65,7 @@ public class Gui extends Application {
 		this.roster = test.testdata();
 		this.agendaCreator = new ActivityCreator();
 
-		this.roster = new Roster();
+//		this.roster = new Roster();
 //		roster.getLocationDatabase().put("test", new Location("cell", Location.locationType.CELL));
 //		roster.getLocationDatabase().put("test1", new Location("cell", Location.locationType.CELL));
 //		roster.getLocationDatabase().put("test2", new Location("cell", Location.locationType.CELL));
@@ -83,7 +84,11 @@ public class Gui extends Application {
 
 
 		MenuItem itemNew = new MenuItem("New");
-		itemNew.setOnAction(e-> agendaCreator.display(stage));
+		itemNew.setOnAction(e-> {
+
+			agendaCreator.init(roster);
+
+			agendaCreator.display(stage);});
 
 		this.fileMenu = new Menu("File");
 		this.fileMenu.getItems().add(itemNew);
@@ -115,15 +120,19 @@ public class Gui extends Application {
 
 		BorderPane borderPane = new BorderPane();
 
+
 		StackPane flowPane = new StackPane(this.canvas);
 		flowPane.setPrefHeight(1440);
+
 
 		canvas.setHeight(flowPane.getHeight());
 		ScrollPane scrollableCenter = new ScrollPane(flowPane);
 
+
 		HBox groupBox = new HBox();
 //		groupBox.getChildren().add(new Button("test"));
 		borderPane.setTop(groupBox);
+
 
 		borderPane.setCenter(scrollableCenter);
 
@@ -139,21 +148,32 @@ public class Gui extends Application {
 		scrollableCenter.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
 
-		ArrayList<Label> groups = new ArrayList<>();
+
 		Label empty;
 
 		groupBox.getChildren().add(empty = new Label(""));
 		empty.setPrefWidth(100);
-		for (int i = 0; i < 10;i++) {
-			 Label group;
-			groupBox.getChildren().add(group = new Label("group"+(i+1)));
-			group.setPrefWidth(50);
+//		for (int i = 0; i < 10;i++) {
+//			 Label group;
+//			groupBox.getChildren().add(group = new Label("group"+(i+1)));
+//			group.setPrefWidth(50);
+//
+//		}
+		for (PrisonGroup p : roster.getGroups()) {
+			Label group;
+			groupBox.getChildren().add(group = new Label(p.getGroupName()));
+			group.setPrefWidth(100);
+
 
 		}
+;
+
+		groupBox.setPrefWidth(groupBox.getChildren().size()*100);
 
 		Scene scene = new Scene(this.mainPane, 700, 700);
 		stage.setScene(scene);
 		stage.show();
+		flowPane.setPrefWidth(groupBox.getChildren().size()*100-20);
 	}
 
 
@@ -170,13 +190,40 @@ public class Gui extends Application {
 		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
 
 
-		 int hours = 0;
-		for (TimeBlock  o :agendaCreator.timeBlocks ) {
-			o.draw(graphics);
-			System.out.println("test");
-		}
-		graphics.setColor(Color.BLACK);
+		drawTimeBlocks(graphics);
 
+
+		drawTime(graphics);
+
+
+	}
+
+
+
+
+
+
+	private void drawTimeBlocks(FXGraphics2D graphics) {
+
+if(roster.getActivities().size()>0) {
+	for (Activity a : roster.getActivities()) {
+
+		TimeBlock.convertToTimeblcok(a).draw(graphics);
+	}
+}
+//		for (TimeBlock  o :agendaCreator.timeBlocks ) {
+//			o.draw(graphics);
+//			System.out.println("test");
+//		}
+		graphics.setColor(Color.BLACK);
+	}
+
+
+
+
+
+	private void drawTime(FXGraphics2D graphics) {
+		int hours = 0;
 		for (int i = 0; i < 1800; i += 60) {
 			graphics.draw(new Line2D.Double(0, i, 100, i));
 
@@ -188,10 +235,7 @@ public class Gui extends Application {
 				hours++;
 			}
 		}
-
 	}
-
-
 
 
 	public static void main(String[] args) {

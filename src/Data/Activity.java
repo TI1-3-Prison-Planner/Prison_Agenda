@@ -54,6 +54,6 @@ public class Activity implements Serializable {
 
     @Override
     public String toString() {
-        return "\nActivity: " + name + ", " + this.startTime + " - " + this.endTime + ", " + this.location.locationName + ", " + this.prisonGroup;
+        return "\nActivity: " + ", " + this.startTime + " - " + this.endTime + ", " + this.location.locationName + ", " + this.prisonGroup;
     }
 }
