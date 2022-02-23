@@ -12,12 +12,17 @@ import javafx.stage.Stage;
 
 public class ErrorPopup extends Observer {
 
-    private final String errorMessage;
-    private Stage errorPopupDisplay;
+    private String errorMessage;
 
+    private Stage errorPopupDisplay;
     public ErrorPopup(String errorMessage) {
         this.errorMessage = errorMessage;
     }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
 
 
     public void display() {

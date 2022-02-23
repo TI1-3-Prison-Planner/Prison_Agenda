@@ -110,7 +110,7 @@ public class Gui extends Application {
 
         this.newMenu = new Menu("New");
         MenuItem newActivity = new MenuItem("Add new activity");
-        newActivity.setOnAction(e -> activityCreator.display(stage));
+        newActivity.setOnAction(e -> activityCreator.display());
         this.newMenu.getItems().add(newActivity);
 
         MenuItem newGroup = new MenuItem("Add new group");

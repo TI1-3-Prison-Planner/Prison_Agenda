@@ -1,6 +1,7 @@
 package Gui;
 
 import Data.Location;
+import Data.Person;
 import Data.PrisonGroup;
 import Data.Roster;
 import javafx.geometry.Pos;
@@ -46,6 +47,7 @@ public class NewGroupPopup extends Observer {
     }
 
     public void display() {
+        this.roster.getGuardDatabase().put(new Person("Bobby", true), false);
         this.cancelButton.setOnAction(e -> close());
         this.addButton.setOnAction(e -> {
             addGroup();
@@ -67,28 +69,49 @@ public class NewGroupPopup extends Observer {
     }
 
     private void addGroup() {
-        if (!roster.getGroups().contains(groupName.getText()) || !groupName.getText().equals("")) {
-            if (!groupId.getText().equals("")) {
-                try {
-                    this.roster.getGroups().add(new PrisonGroup(groupName.getText(), Integer.parseInt(groupId.getText()), securityTypeBox.getSelectionModel().getSelectedItem()));
+        PrisonGroup prisonGroup = null;
+        try {
+            prisonGroup = new PrisonGroup(groupName.getText(), Integer.parseInt(groupId.getText()), securityTypeBox.getSelectionModel().getSelectedItem());
+
+            if (!roster.getGroups().contains(prisonGroup) || !groupName.getText().equals("")) {
+                if (hasText()) {
+                    prisonGroup.addGuard(this.roster.getGuardDatabase());
+                    prisonGroup.addInmates(this.roster.getInmateDatabase());
+                    this.roster.getGroups().add(prisonGroup);
                     //TODO fill method can't be used this way!
-                    close();
                     roster.notifyObservers();
-                } catch (NumberFormatException e) {
-                    this.errorPopup = new ErrorPopup("An ID can't contain letters or signs!");
-                    this.errorPopup.display();
+                    close();
                 }
             }
-        }
 
+            if (!hasText()) {
+                this.errorPopup.setErrorMessage("Incorrect input. Please fill every cell correctly.");
+                this.errorPopup.display();
+            }
+
+        } catch (NumberFormatException | NullPointerException e) {
+            prisonGroup = null;
+            ErrorPopup exceptionPopup = new ErrorPopup("Incorrect input. Please fill every cell correctly.");
+//            exceptionPopup.setErrorMessage("Incorrect input. Please fill every cell correctly.");
+            exceptionPopup.display();
+        }
     }
 
     private void close() {
         groupName.clear();
+        securityTypeBox.getSelectionModel().selectFirst();
         newGroupPopupDisplay.close();
     }
 
-
+    public boolean hasText(){
+        boolean hasText = false;
+        for (char character : groupName.getText().toCharArray()) {
+            if (Character.isLetterOrDigit(character)) {
+                hasText = true;
+            }
+        }
+        return hasText;
+    }
     @Override
     public void update() {
         this.securityTypeBox.getItems().setAll(PrisonGroup.securityDetail.values());

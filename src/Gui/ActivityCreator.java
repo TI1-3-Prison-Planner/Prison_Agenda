@@ -4,12 +4,9 @@ import Data.Activity;
 import Data.Location;
 import Data.PrisonGroup;
 import Data.Roster;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -17,9 +14,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class ActivityCreator extends Observer {
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private Activity Activity;
     private ErrorPopup errorPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ArrayList<PrisonGroup> groups = new ArrayList<>();
@@ -27,16 +21,19 @@ public class ActivityCreator extends Observer {
     private Roster roster;
     private ComboBox<Location> setLocation;
     private ComboBox<PrisonGroup> setGroup;
-
+    private Spinner<LocalTime> setStartTime;
+    private Spinner<LocalTime> setEndTime;
+    private TextField activityName;
+    private Stage activityPlanner;
     public ActivityCreator(Roster roster) {
         this.roster = roster;
         this.roster.attach(this);
     }
 
-    public void display(Stage stage) {
-
+    public void display() {
+        this.errorPopup = new ErrorPopup("");
         GridPane grid = new GridPane();
-        Stage activityPlanner = new Stage();
+        this.activityPlanner = new Stage();
 
         activityPlanner.initModality(Modality.APPLICATION_MODAL);
         activityPlanner.setTitle("Activity Planner");
@@ -48,16 +45,16 @@ public class ActivityCreator extends Observer {
         Label timeStart = new Label("Time start: ");
         Label timeEnd = new Label("Time end: ");
 
-        TextField activityName = new TextField();
+        this.activityName = new TextField();
         this.setLocation = new ComboBox<>();
         this.setGroup = new ComboBox<>();
-        Spinner<LocalTime> setStartTime = new Spinner<>();
-        setStartTime.setEditable(true);
+        this.setStartTime = new Spinner<>();
+        this.setStartTime.setEditable(true);
         setLocation.getItems().setAll(roster.getLocationDatabase().values());
         setGroup.getItems().setAll(this.roster.getGroups());
 
 
-        Spinner<LocalTime> setEndTime = new Spinner<>();
+        this.setEndTime = new Spinner<>();
         setEndTime.setEditable(true);
 
         Button cancel = new Button("Cancel");
@@ -84,21 +81,15 @@ public class ActivityCreator extends Observer {
         });
 
         add.setOnAction(event -> {
-
-
+            addActivity();
+            close();
             //creating a timeBlock;
-            /**
-             * todo: roster is empty, causes NullPointerException
-             */
+
 //            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
 
 //            startTime = setStartTime.getValue();
 //            Activity newActivity = new Activity(activityName.getText(), setStartTime);
-            //TODO, Code missing until adding function is working
 
-            //todo: add if statement to check whether activity overlaps
-            this.errorPopup = new ErrorPopup("Overlap with other activities");
-            errorPopup.display();
         });
 
 
@@ -107,8 +98,39 @@ public class ActivityCreator extends Observer {
         activityPlanner.setScene(activityScene);
         activityPlanner.showAndWait();
 
+    }
 
-        stage.show();
+    private void close() {
+        activityName.clear();
+        setLocation.getSelectionModel().selectFirst();
+        setGroup.getSelectionModel().selectFirst();
+        activityPlanner.close();
+    }
+
+    private void addActivity() {
+        if (isOverlapping()) {
+            this.errorPopup.setErrorMessage("Overlap with other activities");
+            errorPopup.display();
+        } else {
+            this.roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),setGroup.getValue(),setLocation.getValue()));
+            this.roster.notifyObservers();
+        }
+    }
+
+    private boolean isOverlapping() {
+        for (Activity activity : this.roster.getActivities()) {
+            if (activity.getPrisonGroup().equals(setGroup.getValue())) {
+                if (setStartTime.getValue().isAfter(activity.getStartTime())
+                        && setStartTime.getValue().isBefore(activity.getStartTime())) {
+                    return true;
+                }
+                if (setEndTime.getValue().isAfter(activity.getStartTime())
+                        && setEndTime.getValue().isBefore(activity.getEndTime())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public ArrayList<TimeBlock> getTimeBlocks() {
@@ -116,8 +138,11 @@ public class ActivityCreator extends Observer {
     }
 
     public void update() {
-        setLocation.getItems().setAll(this.roster.getLocationDatabase().values());
-        setGroup.getItems().setAll(this.roster.getGroups());
+        if (this.setLocation != null || this.setGroup != null) {
+            assert setLocation != null;
+            setLocation.getItems().setAll(this.roster.getLocationDatabase().values());
+            setGroup.getItems().setAll(this.roster.getGroups());
+        }
     }
 }
 
