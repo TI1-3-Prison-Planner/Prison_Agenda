@@ -1,6 +1,6 @@
 package Gui;
 
-import Data.Roster;
+import Data.*;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -20,6 +20,8 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.io.File;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -28,172 +30,182 @@ import java.util.ArrayList;
  */
 
 public class Gui extends Application {
-    private Canvas canvas;
-    private TabPane tabPane;
-    private Tab rosterTab;
-    private Tab tableTab;
-    private TableView tableView;
-    private MenuBar menuBar;
-    private Menu fileMenu;
-    private Menu newMenu;
-    private Menu editMenu;
-    private Menu deleteMenu;
-    private BorderPane mainPane;
-    private Roster roster;
-    private ActivityCreator activityCreator;
-    private NewLocationPopup newLocationPopup;
-    private NewGroupPopup newGroupPopup;
+
+	private Canvas canvas;
+	private TabPane tabPane;
+	private Tab rosterTab;
+	private Tab tableTab;
+	private TableView tableView;
+	private MenuBar menuBar;
+	private Menu fileMenu;
+	private Menu editMenu;
+	private Menu deleteMenu;
+	private BorderPane mainPane;
+	private Roster roster;
+	private ActivityCreator agendaCreator;
+	private DataViewer dataViewer;
 
 
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("Agenda GUI");
-        this.mainPane = new BorderPane();
-        this.tabPane = new TabPane();
-        this.rosterTab = new Tab();
-        this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
-        this.tableTab = new Tab();
-        this.tableView = new TableView();
-        this.roster = new Roster();
-        this.activityCreator = new ActivityCreator(this.roster);
-        this.newLocationPopup = new NewLocationPopup("Add Location", this.roster);
-        this.newGroupPopup = new NewGroupPopup("Add Group", this.roster);
-        fillMenuBar(stage);
-        createPanes();
-
-        testCode();
-
-        Scene scene = new Scene(this.mainPane, 700, 700);
-        stage.setScene(scene);
-        stage.show();
-    }
+	
+	@Override
+	public void start(Stage stage) {
+		stage.setTitle("Agenda GUI");
+		this.mainPane = new BorderPane();
+		this.tabPane = new TabPane();
+		this.rosterTab = new Tab();
+		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
+		this.tableTab = new Tab();
+		this.tableView = new TableView();
+//		this.roster = new Roster();
+		this.agendaCreator = new ActivityCreator();
+//		this.agendaCreator.init(this.roster);
 
 
-    public void init() {
-        //TODO, Init code missing
-    }
+		fillMenuBar(stage);
+		createPanes();
+
+		FileIO fileIO = new FileIO();
+		//todo test file out of date
+		File file = new File("roster.json");
+		this.roster = fileIO.readData(file);
+		this.dataViewer = new DataViewer(this.roster);
+		fillTableTab();
+
+		
+//		testCode();
+
+		Scene scene = new Scene(this.mainPane, 700, 700);
+		stage.setScene(scene);
+		stage.show();
+	}
 
 
-    public void draw(FXGraphics2D graphics) {
-        //TODO, improve time display left side
+
+
+	public void init() {
+		//TODO, Init code missing
+
+	}
+
+
+	public void draw(FXGraphics2D graphics) {
+		//TODO, improve time display left side
 //		graphics.setColor(Color.WHITE);
         graphics.setBackground(Color.white);
 //		graphics.drawRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
-        graphics.clearRect(0, 0, (int) canvas.getWidth(), (int) canvas.getHeight());
+		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
 
 
-        int hours = 0;
-        for (TimeBlock timeBlock : activityCreator.timeBlocks) {
-            timeBlock.draw(graphics);
-            System.out.println("test");
-        }
-        graphics.setColor(Color.BLACK);
+		int hours = 0;
+		for (TimeBlock timeBlock :agendaCreator.timeBlocks ) {
+			timeBlock.draw(graphics);
+//			System.out.println("test");
+		}
+		graphics.setColor(Color.BLACK);
 
-        for (int i = 0; i < 1800; i += 60) {
-            graphics.draw(new Line2D.Double(0, i, 100, i));
+		for (int i = 0; i < 1800; i += 60) {
+			graphics.draw(new Line2D.Double(0, i, 100, i));
 
-            if (i > 1 && hours < 23) {
-                graphics.drawString(hours + ":00 - " + (hours + 1) + ":00", 10, i - 25);
-                hours++;
-            } else if (hours == 23) {
-                graphics.drawString(hours + ":00 - 00:00", 10, i - 25);
-                hours++;
-            }
-        }
+			if (i > 1 && hours < 23) {
+				graphics.drawString(hours + ":00 - " + (hours + 1) + ":00", 10, i - 25);
+				hours++;
+			} else if (hours == 23) {
+				graphics.drawString(hours + ":00 - 00:00", 10, i - 25);
+				hours++;
+			}
+		}
 
-    }
+	}
 
-    public void fillMenuBar(Stage stage) {
+	public void fillMenuBar(Stage stage){
+		MenuItem itemNew = new MenuItem("New");
+		itemNew.setOnAction(e-> agendaCreator.display(stage));
 
-        this.fileMenu = new Menu("File");
-//		this.fileMenu.getItems().add();
+		this.fileMenu = new Menu("File");
+		this.fileMenu.getItems().add(itemNew);
 
-        this.newMenu = new Menu("New");
-        MenuItem newActivity = new MenuItem("Add new activity");
-        newActivity.setOnAction(e -> activityCreator.display());
-        this.newMenu.getItems().add(newActivity);
+		this.editMenu = new Menu("Edit");
+		this.editMenu.setOnAction(e->{
+			//TODO, Edit code missing
+		});
 
-        MenuItem newGroup = new MenuItem("Add new group");
-        newGroup.setOnAction(e -> newGroupPopup.display());
-        this.newMenu.getItems().add(newGroup);
+		this.deleteMenu = new Menu("Delete");
+		this.deleteMenu.setOnAction(e-> {
+			//TODO, Delete code missing
+		});
+	}
 
-        MenuItem newLocation = new MenuItem("Add new location");
-        newLocation.setOnAction(e -> newLocationPopup.display());
-        this.newMenu.getItems().add(newLocation);
+	private void createPanes() {
+		BorderPane borderPane = new BorderPane();
+		HBox groupBox = new HBox();
+		StackPane flowPane = new StackPane(this.canvas);
+		ScrollPane scrollableCenter = new ScrollPane(flowPane);
 
-        this.editMenu = new Menu("Edit");
-        this.editMenu.setOnAction(e -> {
-            //TODO, Edit code missing
-        });
+		setPaneSettings(borderPane,groupBox, flowPane, scrollableCenter);
+		fillGroupbox(groupBox);
+	}
 
-        this.deleteMenu = new Menu("Delete");
-        this.deleteMenu.setOnAction(e -> {
-            //TODO, Delete code missing
-        });
-    }
+	private void setPaneSettings(BorderPane borderPane, HBox groupBox, StackPane flowPane, ScrollPane scrollableCenter) {
+		this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+		this.rosterTab.setContent(borderPane);
+		this.rosterTab.setText("Rooster");
 
-    private void createPanes() {
-        BorderPane borderPane = new BorderPane();
-        HBox groupBox = new HBox();
-        StackPane flowPane = new StackPane(this.canvas);
-        ScrollPane scrollableCenter = new ScrollPane(flowPane);
 
-        setPaneSettings(borderPane, groupBox, flowPane, scrollableCenter);
-        fillGroupbox(groupBox);
-    }
+		this.tabPane.setSide(Side.LEFT);
+		this.tableTab.setText("Data");
+		this.tabPane.getTabs().addAll(this.rosterTab, this.tableTab);
 
-    private void setPaneSettings(BorderPane borderPane, HBox groupBox, StackPane flowPane, ScrollPane scrollableCenter) {
-        this.rosterTab.setClosable(false);
-        this.rosterTab.setContent(borderPane);
+		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
 
-        this.tableTab.setClosable(false);
-        this.tabPane.setSide(Side.LEFT);
-        this.tabPane.getTabs().addAll(rosterTab, tableTab);
+		this.mainPane.setTop(this.menuBar);
+		this.mainPane.setCenter(this.tabPane);
 
-        this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, this.deleteMenu);
+		borderPane.setTop(groupBox);
+		borderPane.setCenter(scrollableCenter);
 
-        this.mainPane.setTop(this.menuBar);
-        this.mainPane.setCenter(this.tabPane);
+		flowPane.setPrefHeight(1440);
+		this.canvas.setHeight(flowPane.getHeight());
 
-        borderPane.setTop(groupBox);
-        borderPane.setCenter(scrollableCenter);
+		scrollableCenter.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+	}
 
-        flowPane.setPrefHeight(1440);
-        this.canvas.setHeight(flowPane.getHeight());
+	public void fillGroupbox(HBox groupBox){
+		ArrayList<Label> groups = new ArrayList<>();
+		Label empty;
 
-        scrollableCenter.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-    }
+		groupBox.getChildren().add(empty = new Label(""));
+		empty.setPrefWidth(100);
+		for (int i = 0; i < 5; i++) {
+			Label group;
+			groupBox.getChildren().add(group = new Label("group"+(i+1)));
+			group.setPrefWidth(100);
 
-    public void fillGroupbox(HBox groupBox) {
-        ArrayList<Label> groups = new ArrayList<>();
-        Label empty;
+		}
+	}
 
-        groupBox.getChildren().add(empty = new Label(""));
-        empty.setPrefWidth(100);
-        for (int i = 0; i < 5; i++) {
-            Label group;
-            groupBox.getChildren().add(group = new Label("group" + (i + 1)));
-            group.setPrefWidth(100);
+	public void fillTableTab(){
+		this.tableTab.setContent(this.dataViewer.allTabs());
 
-        }
-    }
+	}
 
-    public void testCode() {
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas", "thuis", 1000, 1200, 1));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas3", "thuis", 1300, 1400, 2));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas4", "thuis", 1600, 1800, 3));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas5", "thuis", 530, 845, 4));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas6", "thuis", 1900, 2000, 5));
+	public void testCode(){
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,1));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,2));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,3));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,4));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,5));
 
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas", "thuis", 1000, 1200, 3));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas3", "thuis", 1300, 1400, 1));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas4", "thuis", 1600, 1800, 4));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas5", "thuis", 530, 845, 1));
-        this.activityCreator.timeBlocks.add(new TimeBlock("midas6", "thuis", 1900, 2000, 2));
-    }
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas","thuis",1000,1200,3));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas3","thuis",1300,1400,1));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas4","thuis",1600,1800,4));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas5","thuis",530,845,1));
+		this.agendaCreator.timeBlocks.add(new TimeBlock("midas6","thuis",1900,2000,2));
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+
 
 }

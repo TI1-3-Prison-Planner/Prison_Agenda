@@ -71,9 +71,6 @@ public class TimeBlock {
         int y = timeStartHour * 60 + timeStartMin;
         int height = ((timeEndHour - timeStartHour) * 60 + timeEndMinute - timeStartMin);
 
-        ;
-        System.out.println(this.group);
-
 
         Rectangle2D rect = new Rectangle2D.Double(x, y, 60, height);
         g.setColor(Color.BLACK);

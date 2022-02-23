@@ -3,20 +3,8 @@ package Data;
 import java.io.Serializable;
 
 public class Location implements Serializable {
-
-    //enumeration for the different locations on the tilemap.
-    public enum LocationType {
-        CELL,
-        CELLBLOCK,
-        WORKSKHOP,
-        YARD,
-        COMMONROOM,
-        KITCHEN,
-        BREAKROOOM
-    }
-    public String locationName;
-    public LocationType type;
-
+    private String locationName;
+    private LocationType type;
 
     public Location(String locationName, LocationType locationtype){
         this.locationName = locationName;
@@ -31,5 +19,16 @@ public class Location implements Serializable {
 
     public String toString() {
         return this.locationName;
+    }
+
+    //enumeration for the different locations on the tilemap.
+    public enum LocationType {
+        CELL,
+        CELLBLOCK,
+        WORKSKHOP,
+        YARD,
+        COMMONROOM,
+        KITCHEN,
+        BREAKROOOM
     }
 }
