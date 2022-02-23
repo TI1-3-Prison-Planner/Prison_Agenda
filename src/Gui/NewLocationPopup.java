@@ -3,19 +3,17 @@ package Gui;
 import Data.Location;
 import Data.Roster;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class NewLocationPopup extends Observer{
+public class NewLocationPopup extends Observer {
     private Stage newLocationPopupDisplay;
     private Label instructionLabel;
     private Label instructionLabel1;
@@ -67,7 +65,8 @@ public class NewLocationPopup extends Observer{
         locationTypeBox.getSelectionModel().selectFirst();
         newLocationPopupDisplay.close();
     }
-   //todo add a label and textfield for id to class
+
+    //todo add a label and textfield for id to class
     //todo fix addLocation() and close()
     private void addLocation() {
         if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {

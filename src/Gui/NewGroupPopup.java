@@ -27,7 +27,7 @@ public class NewGroupPopup extends Observer {
     private Roster roster;
     private ErrorPopup errorPopup;
 
-    public NewGroupPopup (String title, Roster roster) {
+    public NewGroupPopup(String title, Roster roster) {
         this.newGroupPopupDisplay = new Stage();
         this.newGroupPopupDisplay.initModality(Modality.APPLICATION_MODAL);
         this.newGroupPopupDisplay.setTitle(title);
@@ -41,13 +41,13 @@ public class NewGroupPopup extends Observer {
         this.cancelButton = new Button("Cancel");
         this.securityTypeBox = new ComboBox<>();
         this.securityTypeBox.getItems().setAll(PrisonGroup.securityDetail.values());
-        this.roster = new Roster();
+        this.roster = roster;
         this.roster.attach(this);
     }
 
     public void display() {
-        this.cancelButton.setOnAction(e-> close());
-        this.addButton.setOnAction(e-> {
+        this.cancelButton.setOnAction(e -> close());
+        this.addButton.setOnAction(e -> {
             addGroup();
         });
         //TODO fix duplicate code (make a new class perhaps)
@@ -68,9 +68,10 @@ public class NewGroupPopup extends Observer {
 
     private void addGroup() {
         if (!roster.getGroups().contains(groupName.getText()) || !groupName.getText().equals("")) {
-            if(!groupId.getText().equals("")) {
+            if (!groupId.getText().equals("")) {
                 try {
-                    this.roster.getGroups().add(new PrisonGroup(groupName.getText(),Integer.parseInt(groupId.getText()),securityTypeBox.getSelectionModel().getSelectedItem()));
+                    this.roster.getGroups().add(new PrisonGroup(groupName.getText(), Integer.parseInt(groupId.getText()), securityTypeBox.getSelectionModel().getSelectedItem()));
+                    //TODO fill method can't be used this way!
                     close();
                     roster.notifyObservers();
                 } catch (NumberFormatException e) {

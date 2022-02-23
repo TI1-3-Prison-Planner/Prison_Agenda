@@ -4,6 +4,8 @@ import Data.Activity;
 import Data.Location;
 import Data.PrisonGroup;
 import Data.Roster;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class ActivityCreator extends Observer{
+public class ActivityCreator extends Observer {
     private LocalTime startTime;
     private LocalTime endTime;
     private Activity Activity;
@@ -26,7 +28,7 @@ public class ActivityCreator extends Observer{
     private ComboBox<Location> setLocation;
     private ComboBox<PrisonGroup> setGroup;
 
-    public ActivityCreator(Roster roster){
+    public ActivityCreator(Roster roster) {
         this.roster = roster;
         this.roster.attach(this);
     }
@@ -49,12 +51,13 @@ public class ActivityCreator extends Observer{
         TextField activityName = new TextField();
         this.setLocation = new ComboBox<>();
         this.setGroup = new ComboBox<>();
-        Spinner setStartTime = new Spinner();
+        Spinner<LocalTime> setStartTime = new Spinner<>();
         setStartTime.setEditable(true);
         setLocation.getItems().setAll(roster.getLocationDatabase().values());
         setGroup.getItems().setAll(this.roster.getGroups());
 
-        Spinner setEndTime = new Spinner();
+
+        Spinner<LocalTime> setEndTime = new Spinner<>();
         setEndTime.setEditable(true);
 
         Button cancel = new Button("Cancel");
@@ -68,16 +71,12 @@ public class ActivityCreator extends Observer{
         grid.add(timeEnd, 1, 50);
 
         grid.add(activityName, 2, 10);
-        grid.add(setLocation, 2,20);
+        grid.add(setLocation, 2, 20);
         grid.add(setGroup, 2, 30);
         grid.add(setStartTime, 2, 40);
         grid.add(setEndTime, 2, 50);
         grid.add(cancel, 2, 80);
         grid.add(add, 1, 80);
-
-
-
-
 
 
         cancel.setOnAction(event -> {
@@ -103,8 +102,6 @@ public class ActivityCreator extends Observer{
         });
 
 
-
-
         Scene activityScene = new Scene(grid);
 
         activityPlanner.setScene(activityScene);
@@ -113,11 +110,12 @@ public class ActivityCreator extends Observer{
 
         stage.show();
     }
-    public ArrayList<TimeBlock> getTimeBlocks(){
+
+    public ArrayList<TimeBlock> getTimeBlocks() {
         return this.timeBlocks;
     }
 
-    public void update(){
+    public void update() {
         setLocation.getItems().setAll(this.roster.getLocationDatabase().values());
         setGroup.getItems().setAll(this.roster.getGroups());
     }

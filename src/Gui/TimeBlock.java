@@ -16,13 +16,13 @@ public class TimeBlock {
     private int groupNumber;
 
 
-    public TimeBlock(String group, String location, int timeStart, int timeEnd,int groupNumber) {
+    public TimeBlock(String group, String location, int timeStart, int timeEnd, int groupNumber) {
         this.group = group;
         this.location = location;
-        this.timeStartMin = timeStart %100;
-        this.timeStartHour = timeStart /100;
+        this.timeStartMin = timeStart % 100;
+        this.timeStartHour = timeStart / 100;
         this.timeEndHour = timeEnd / 100;
-        this.timeEndMinute = timeEnd %100;
+        this.timeEndMinute = timeEnd % 100;
         this.groupNumber = groupNumber;
     }
 
@@ -66,22 +66,22 @@ public class TimeBlock {
         this.timeEnd = timeEnd;
     }
 
-    public void draw(FXGraphics2D g){
-        int x = groupNumber*100;
-        int y = timeStartHour*60+timeStartMin;
-        int height = ((timeEndHour - timeStartHour)*60+timeEndMinute-timeStartMin);
+    public void draw(FXGraphics2D g) {
+        int x = groupNumber * 100;
+        int y = timeStartHour * 60 + timeStartMin;
+        int height = ((timeEndHour - timeStartHour) * 60 + timeEndMinute - timeStartMin);
 
-       ;
+        ;
         System.out.println(this.group);
 
 
-        Rectangle2D rect = new Rectangle2D.Double(x,y,60,height);
+        Rectangle2D rect = new Rectangle2D.Double(x, y, 60, height);
         g.setColor(Color.BLACK);
         g.fill(rect);
         g.setColor(Color.WHITE);
-        g.drawString(this.group,x, y+height/4);
-        g.drawString(this.location,x,y+2*(height/4));
-        g.drawString(this.timeStartHour+":"+this.timeStartMin,x,y+3*(height/4));
-        g.drawString(this.timeEndHour+":"+this.timeEndMinute,x,y+4*(height/4));
+        g.drawString(this.group, x, y + height / 4);
+        g.drawString(this.location, x, y + 2 * (height / 4));
+        g.drawString(this.timeStartHour + ":" + this.timeStartMin, x, y + 3 * (height / 4));
+        g.drawString(this.timeEndHour + ":" + this.timeEndMinute, x, y + 4 * (height / 4));
     }
 }
