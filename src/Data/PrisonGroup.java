@@ -9,7 +9,7 @@ public class PrisonGroup implements Serializable {
 	private String groupName;
 	private ArrayList<Person> inmates;
 	private ArrayList<Person> guards;
-	private securityDetail securityDetail;
+	private SecurityDetail securityDetail;
 	private int groupID;
 
 
@@ -21,7 +21,7 @@ public class PrisonGroup implements Serializable {
 	}
 
 
-	public PrisonGroup(String groupName,int groupID, securityDetail securityDetail) {
+	public PrisonGroup(String groupName,int groupID, SecurityDetail securityDetail) {
 		this.groupName = groupName;
 		this.inmates = new ArrayList<>();
 		this.guards = new ArrayList<>();

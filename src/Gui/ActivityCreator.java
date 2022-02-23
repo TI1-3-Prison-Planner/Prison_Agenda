@@ -118,17 +118,22 @@ public class ActivityCreator extends Observer {
     }
 
     private boolean isOverlapping() {
-        for (Activity activity : this.roster.getActivities()) {
-            if (activity.getPrisonGroup().equals(setGroup.getValue())) {
-                if (setStartTime.getValue().isAfter(activity.getStartTime())
-                        && setStartTime.getValue().isBefore(activity.getStartTime())) {
-                    return true;
-                }
-                if (setEndTime.getValue().isAfter(activity.getStartTime())
-                        && setEndTime.getValue().isBefore(activity.getEndTime())) {
-                    return true;
+        try {
+            for (Activity activity : this.roster.getActivities()) {
+                if (activity.getPrisonGroup().equals(setGroup.getValue())) {
+                    if (setStartTime.getValue().isAfter(activity.getStartTime())
+                            && setStartTime.getValue().isBefore(activity.getStartTime())) {
+                        return true;
+                    }
+                    if (setEndTime.getValue().isAfter(activity.getStartTime())
+                            && setEndTime.getValue().isBefore(activity.getEndTime())) {
+                        return true;
+                    }
                 }
             }
+        } catch (Exception e) {
+            ErrorPopup EP = new ErrorPopup(e.toString());
+            EP.display();
         }
         return false;
     }

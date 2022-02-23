@@ -27,9 +27,9 @@ public class Main {
 
 
     public static void testcode(Roster roster) {
-        PrisonGroup a1 = new PrisonGroup("A1", PrisonGroup.SecurityDetail.LOW, false);
-        PrisonGroup a2 = new PrisonGroup("A2", PrisonGroup.SecurityDetail.MEDIUM, false);
-        PrisonGroup a3 = new PrisonGroup("A3", PrisonGroup.SecurityDetail.HIGH, false);
+        PrisonGroup a1 = new PrisonGroup("A1", 1, PrisonGroup.SecurityDetail.LOW );
+        PrisonGroup a2 = new PrisonGroup("A2", 2, PrisonGroup.SecurityDetail.MEDIUM);
+        PrisonGroup a3 = new PrisonGroup("A3", 3, PrisonGroup.SecurityDetail.HIGH);
 
 
         a1.addInmates(roster.getInmateDatabase());

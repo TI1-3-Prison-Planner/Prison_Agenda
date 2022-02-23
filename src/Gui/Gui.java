@@ -57,7 +57,7 @@ public class Gui extends Application {
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 //		this.roster = new Roster();
-		this.agendaCreator = new ActivityCreator();
+
 //		this.agendaCreator.init(this.roster);
 
 
@@ -70,7 +70,7 @@ public class Gui extends Application {
 		this.roster = fileIO.readData(file);
 		this.dataViewer = new DataViewer(this.roster);
 		fillTableTab();
-
+		this.agendaCreator = new ActivityCreator(this.roster);
 		
 //		testCode();
 
@@ -78,8 +78,6 @@ public class Gui extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-
-
 
 
 	public void init() {
@@ -93,13 +91,12 @@ public class Gui extends Application {
 //		graphics.setColor(Color.WHITE);
         graphics.setBackground(Color.white);
 //		graphics.drawRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
-		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
+		graphics.clearRect(0,0,(int)this.canvas.getWidth(),(int)this.canvas.getHeight());
 
 
 		int hours = 0;
-		for (TimeBlock timeBlock :agendaCreator.timeBlocks ) {
+		for (TimeBlock timeBlock :this.agendaCreator.timeBlocks ) {
 			timeBlock.draw(graphics);
-//			System.out.println("test");
 		}
 		graphics.setColor(Color.BLACK);
 
@@ -119,7 +116,7 @@ public class Gui extends Application {
 
 	public void fillMenuBar(Stage stage){
 		MenuItem itemNew = new MenuItem("New");
-		itemNew.setOnAction(e-> agendaCreator.display(stage));
+		itemNew.setOnAction(e-> agendaCreator.display());
 
 		this.fileMenu = new Menu("File");
 		this.fileMenu.getItems().add(itemNew);

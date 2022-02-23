@@ -22,7 +22,7 @@ public class NewGroupPopup extends Observer {
     private TextField groupName;
     private Label idInstruction;
     private TextField groupId;
-    private ComboBox<PrisonGroup.securityDetail> securityTypeBox;
+    private ComboBox<PrisonGroup.SecurityDetail> securityTypeBox;
     private Button addButton;
     private Button cancelButton;
     private Roster roster;
@@ -41,7 +41,7 @@ public class NewGroupPopup extends Observer {
         this.addButton = new Button("Add");
         this.cancelButton = new Button("Cancel");
         this.securityTypeBox = new ComboBox<>();
-        this.securityTypeBox.getItems().setAll(PrisonGroup.securityDetail.values());
+        this.securityTypeBox.getItems().setAll(PrisonGroup.SecurityDetail.values());
         this.roster = roster;
         this.roster.attach(this);
     }
@@ -114,6 +114,6 @@ public class NewGroupPopup extends Observer {
     }
     @Override
     public void update() {
-        this.securityTypeBox.getItems().setAll(PrisonGroup.securityDetail.values());
+        this.securityTypeBox.getItems().setAll(PrisonGroup.SecurityDetail.values());
     }
 }
