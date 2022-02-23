@@ -145,11 +145,13 @@ public class Gui extends Application {
 	}
 
 	private void setPaneSettings(BorderPane borderPane, HBox groupBox, StackPane flowPane, ScrollPane scrollableCenter) {
-		this.rosterTab.setClosable(false);
+		this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 		this.rosterTab.setContent(borderPane);
+		this.rosterTab.setText("Rooster");
 
-		this.tableTab.setClosable(false);
+
 		this.tabPane.setSide(Side.LEFT);
+		this.tableTab.setText("Data");
 		this.tabPane.getTabs().addAll(this.rosterTab, this.tableTab);
 
 		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);

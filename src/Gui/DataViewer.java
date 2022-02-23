@@ -45,18 +45,18 @@ public class DataViewer {
                                                 this.groups,
                                                 this.locations,
                                                 this.activities);
+        this.dataTab.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
     }
 
     public void fillGuardTab(){
-        TableView guards = new TableView();
+        TableView<Person> guards = new TableView<>();
         TableColumn<Person, String> name = new TableColumn<Person, String>("names");
         name.setMinWidth(250);
         TableColumn<Person, String> isInGroup = new TableColumn<Person, String>("Assigned");
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
-        for (Person pers : roster.getGuardDatabase().keySet()){
-            persons.add(pers);
-        }
+        persons.addAll(roster.getGuardDatabase().keySet());
 
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         isInGroup.setCellValueFactory(cellData -> {
@@ -76,15 +76,13 @@ public class DataViewer {
     }
 
     public void fillInmateTab(){
-        TableView guards = new TableView();
+        TableView<Person> guards = new TableView<>();
         TableColumn<Person, String> name = new TableColumn<Person, String>("names");
         name.setMinWidth(250);
         TableColumn<Person, String> isInGroup = new TableColumn<Person, String>("Assigned");
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
-        for (Person pers : roster.getInmateDatabase().keySet()){
-            persons.add(pers);
-        }
+        persons.addAll(roster.getInmateDatabase().keySet());
 
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         isInGroup.setCellValueFactory(cellData -> {
@@ -104,15 +102,14 @@ public class DataViewer {
     }
 
     public void fillGroupTab(){
-        TableView groups = new TableView();
+        TableView<PrisonGroup> groups = new TableView();
         TableColumn<PrisonGroup, String> groupName = new TableColumn<PrisonGroup, String>("group name");
         TableColumn<PrisonGroup, ArrayList<Person>> inmates = new TableColumn<PrisonGroup, ArrayList<Person>>("inmates");
         TableColumn<PrisonGroup, ArrayList<Person>> guards = new TableColumn<PrisonGroup, ArrayList<Person>>("guards");
         TableColumn<PrisonGroup, PrisonGroup.SecurityDetail> detail = new TableColumn<PrisonGroup, PrisonGroup.SecurityDetail>("securityDetail");
 
 
-        ObservableList<PrisonGroup> prisongroups = FXCollections.observableArrayList();
-        prisongroups.addAll(this.roster.getGroups());
+        ObservableList<PrisonGroup> prisonGroups = FXCollections.observableArrayList(this.roster.getGroups());
 
         groupName.setCellValueFactory(new PropertyValueFactory<PrisonGroup, String>("groupName"));
         inmates.setCellValueFactory(new PropertyValueFactory<PrisonGroup, ArrayList<Person>>("inmates"));
@@ -121,12 +118,12 @@ public class DataViewer {
 
 
         groups.getColumns().addAll(groupName, inmates, guards, detail);
-        groups.setItems(prisongroups);
+        groups.setItems(prisonGroups);
         this.groups.setContent(groups);
     }
 
     public void fillLoactionTab(){
-        TableView locations = new TableView();
+        TableView<Location> locations = new TableView();
         TableColumn<Location, String> locationName = new TableColumn<Location, String>("Name");
         TableColumn<Location, Location.LocationType> locationType = new TableColumn<Location, Location.LocationType>("Type");
 
@@ -146,7 +143,7 @@ public class DataViewer {
     }
 
     public void fillActivityTab(){
-        TableView activity = new TableView();
+        TableView<Activity> activity = new TableView<>();
         TableColumn<Activity, String> activityName = new TableColumn<Activity, String>("Name");
         TableColumn<Activity, LocalTime> startTime = new TableColumn<Activity, LocalTime>("Start Time");
         TableColumn<Activity, LocalTime> endTime = new TableColumn<Activity, LocalTime>("End Time");
@@ -154,15 +151,13 @@ public class DataViewer {
         TableColumn<Activity, Location> location = new TableColumn<Activity, Location>("Location");
 
 
-        ObservableList<Activity> activities = FXCollections.observableArrayList();
-        activities.addAll(this.roster.getActivities());
+        ObservableList<Activity> activities = FXCollections.observableArrayList(this.roster.getActivities());
 
         activityName.setCellValueFactory(new PropertyValueFactory<Activity, String>("activityName"));
         startTime.setCellValueFactory(new PropertyValueFactory<Activity, LocalTime>("startTime"));
         endTime.setCellValueFactory(new PropertyValueFactory<Activity, LocalTime>("endTime"));
         prisonGroup.setCellValueFactory(new PropertyValueFactory<Activity, PrisonGroup>("prisonGroup"));
         location.setCellValueFactory(new PropertyValueFactory<Activity, Location>("location"));
-
 
         activity.getColumns().addAll(activityName, startTime, endTime, prisonGroup, location);
         activity.setItems(activities);
