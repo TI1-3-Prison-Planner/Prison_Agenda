@@ -115,6 +115,20 @@ public class DataViewer extends Observer {
         groupName.setCellValueFactory(new PropertyValueFactory<PrisonGroup, String>("groupName"));
         inmates.setCellValueFactory(new PropertyValueFactory<PrisonGroup, ArrayList<Person>>("inmates"));
         guards.setCellValueFactory(new PropertyValueFactory<PrisonGroup, ArrayList<Person>>("guards"));
+        guards.setCellFactory(param -> {
+            return new TableCell<PrisonGroup, ArrayList<Person>>()
+            {
+                @Override
+                protected void updateItem(ArrayList<Person> item, boolean empty) {
+                    if(!empty) {
+                        String content = "";
+                        for(Person p : item)
+                            content += p.getName() + "\n";
+                        this.setText(content.trim());
+                    }
+                }
+            };
+        });
         detail.setCellValueFactory(new PropertyValueFactory<PrisonGroup, PrisonGroup.SecurityDetail>("securityDetail"));
 
 

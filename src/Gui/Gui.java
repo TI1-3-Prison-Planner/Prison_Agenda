@@ -50,10 +50,11 @@ public class Gui extends Application {
 	private ArrayList<TimeBlock>timeBlocks = new ArrayList<>();
 	private DataViewer dataViewer;
 	private TimeBlockManager TBM;
+	private Menu newMenu;
+	private NewGroupPopup newGroupPopup;
+	private NewLocationPopup newLocationPopup;
 
 
-
-	
 	@Override
 	public void start(Stage stage) {
 		//Testcode test = new Testcode();
@@ -63,6 +64,8 @@ public class Gui extends Application {
 		this.mainPane = new BorderPane();
 		this.tabPane = new TabPane();
 		this.rosterTab = new Tab();
+
+
 		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
 		
 		this.tableTab = new Tab();
@@ -76,9 +79,11 @@ public class Gui extends Application {
 		FileIO fileIO = new FileIO();
 		File file = new File("roster.json");
 		this.roster = fileIO.readData(file);
+
 		this.dataViewer = new DataViewer(this.roster);
 		this.agendaCreator = new ActivityCreator(this.roster);
-
+		this.newGroupPopup = new NewGroupPopup("add new group", this.roster);
+		this.newLocationPopup = new NewLocationPopup("add new location", this.roster);
 		fillMenuBar(stage);
 		createPanes();
 		fillTableTab();
@@ -112,24 +117,56 @@ public class Gui extends Application {
 	}
 
 
-	public void fillMenuBar(Stage stage){
-		MenuItem newActivity = new MenuItem("New activity");
+//	public void fillMenuBar(Stage stage){
+//		MenuItem newActivity = new MenuItem("New activity");
+//
+//		newActivity.setOnAction(e-> {
+//			agendaCreator.init(roster);
+//			agendaCreator.display();
+//		});
+//
+//		this.fileMenu = new Menu("File");
+//		this.fileMenu.getItems().add(newActivity);
+//
+//		this.editMenu = new Menu("Edit");
+//		this.editMenu.setOnAction(e->{
+//			//TODO, Edit code missing
+//		});
+//
+//		this.deleteMenu = new Menu("Delete");
+//		this.deleteMenu.setOnAction(e-> {
+//			//TODO, Delete code missing
+//		});
+//	}
 
-		newActivity.setOnAction(e-> {
-			agendaCreator.init(roster);
-			agendaCreator.display();
-		});
+	public void fillMenuBar(Stage stage) {
 
 		this.fileMenu = new Menu("File");
-		this.fileMenu.getItems().add(newActivity);
+//        this.fileMenu.getItems().add();
+
+		this.newMenu = new Menu("New");
+		MenuItem newActivity = new MenuItem("New activity");
+		newActivity.setOnAction(e -> {
+			this.agendaCreator.init(this.roster);
+			this.agendaCreator.display();
+		});
+		this.newMenu.getItems().add(newActivity);
+
+		MenuItem newGroup = new MenuItem("Add new group");
+		newGroup.setOnAction(e -> newGroupPopup.display());
+		this.newMenu.getItems().add(newGroup);
+
+		MenuItem newLocation = new MenuItem("Add new location");
+		newLocation.setOnAction(e -> newLocationPopup.display());
+		this.newMenu.getItems().add(newLocation);
 
 		this.editMenu = new Menu("Edit");
-		this.editMenu.setOnAction(e->{
+		this.editMenu.setOnAction(e -> {
 			//TODO, Edit code missing
 		});
 
 		this.deleteMenu = new Menu("Delete");
-		this.deleteMenu.setOnAction(e-> {
+		this.deleteMenu.setOnAction(e -> {
 			//TODO, Delete code missing
 		});
 	}
@@ -161,7 +198,7 @@ public class Gui extends Application {
 
 		borderPane.setTop(groupScroll);
 
-		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
+		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, this.deleteMenu);
 
 		this.mainPane.setTop(this.menuBar);
 		this.mainPane.setCenter(this.tabPane);
