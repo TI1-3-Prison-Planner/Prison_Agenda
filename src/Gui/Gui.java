@@ -113,19 +113,15 @@ public class Gui extends Application {
 
 
 	public void fillMenuBar(Stage stage){
-		MenuItem itemNew = new MenuItem("New");
+		MenuItem newActivity = new MenuItem("New activity");
 
-		itemNew.setOnAction(e-> {
-
+		newActivity.setOnAction(e-> {
 			agendaCreator.init(roster);
-
-			agendaCreator.display();});
-
-		itemNew.setOnAction(e-> agendaCreator.display());
-
+			agendaCreator.display();
+		});
 
 		this.fileMenu = new Menu("File");
-		this.fileMenu.getItems().add(itemNew);
+		this.fileMenu.getItems().add(newActivity);
 
 		this.editMenu = new Menu("Edit");
 		this.editMenu.setOnAction(e->{
