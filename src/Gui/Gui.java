@@ -24,7 +24,6 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 
 import java.io.File;
-import java.time.LocalTime;
 
 import java.util.ArrayList;
 
@@ -50,13 +49,14 @@ public class Gui extends Application {
 	private ActivityCreator agendaCreator;
 	private ArrayList<TimeBlock>timeBlocks = new ArrayList<>();
 	private DataViewer dataViewer;
+	private TimeBlockManager TBM;
 
 
 
 	
 	@Override
 	public void start(Stage stage) {
-		Testcode test = new Testcode();
+		//Testcode test = new Testcode();
 
 
 		stage.setTitle("Agenda GUI");
@@ -68,20 +68,20 @@ public class Gui extends Application {
 		this.tableTab = new Tab();
 		this.tableView = new TableView();
 
-//		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
+		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
 //		this.roster = new Roster();
 //		this.agendaCreator.init(this.roster);
 
-		fillMenuBar(stage);
-		createPanes();
 
 		FileIO fileIO = new FileIO();
 		File file = new File("roster.json");
 		this.roster = fileIO.readData(file);
 		this.dataViewer = new DataViewer(this.roster);
-		fillTableTab();
 		this.agendaCreator = new ActivityCreator(this.roster);
-		
+
+		fillMenuBar(stage);
+		createPanes();
+		fillTableTab();
 //		testCode();
 
 		Scene scene = new Scene(this.mainPane, 700, 700);
@@ -96,7 +96,6 @@ public class Gui extends Application {
 
 	}
 
-
 	public void draw(FXGraphics2D graphics) {
 		//TODO, improve time display left side
 //		graphics.setColor(Color.WHITE);
@@ -105,34 +104,13 @@ public class Gui extends Application {
 		graphics.clearRect(0,0,(int)this.canvas.getWidth(),(int)this.canvas.getHeight());
 
 
-		int hours = 0;
-		for (TimeBlock timeBlock :this.agendaCreator.timeBlocks ) {
-			timeBlock.draw(graphics);
-		}
-		graphics.setColor(Color.BLACK);
-
-		for (int i = 0; i < 1800; i += 60) {
-			graphics.draw(new Line2D.Double(0, i, 100, i));
-
-			if (i > 1 && hours < 23) {
-				graphics.drawString(hours + ":00 - " + (hours + 1) + ":00", 10, i - 25);
-				hours++;
-			} else if (hours == 23) {
-				graphics.drawString(hours + ":00 - 00:00", 10, i - 25);
-				hours++;
-			}
-		}
+		drawTime(graphics);
+		this.TBM = new TimeBlockManager(this.roster, graphics);
+		this.TBM.draw();
+//		drawTimeBlocks(graphics);
 
 	}
 
-//	public void draw(FXGraphics2D graphics) {
-//		//TODO, improve time display left side
-//
-//		graphics.setBackground(Color.white);
-//		graphics.clearRect(0,0,(int)canvas.getWidth(),(int)canvas.getHeight());
-//		drawTimeBlocks(graphics);
-//		drawTime(graphics);
-//	}
 
 	public void fillMenuBar(Stage stage){
 		MenuItem itemNew = new MenuItem("New");
@@ -179,15 +157,11 @@ public class Gui extends Application {
 		this.tableTab.setText("Data");
 		this.tabPane.getTabs().addAll(this.rosterTab, this.tableTab);
 
-		flowPane = new StackPane(this.canvas);
-
 		flowPane.setPrefHeight(1440);
 
 		canvas.setHeight(flowPane.getHeight());
-		scrollableCenter = new ScrollPane(flowPane);
 
 		ScrollPane groupScroll = new ScrollPane();
-		groupBox = new HBox();
 
 		borderPane.setTop(groupScroll);
 
@@ -206,16 +180,6 @@ public class Gui extends Application {
 
 		groupScroll.hvalueProperty().bindBidirectional(scrollableCenter.hvalueProperty()); //this statenebt binds the h-scrollbar from groupscroll to h scrollbar from scrollablecenter
 		groupScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
-		rosterTab.setClosable(false);
-		tableTab.setClosable(false);
-		tabPane.setSide(Side.LEFT);
-		rosterTab.setContent(borderPane);
-		tabPane.getTabs().addAll(rosterTab,tableTab);
-		this.menuBar = new MenuBar(this.fileMenu, this.editMenu, this.deleteMenu);
-		this.mainPane.setTop(this.menuBar);
-		this.mainPane.setCenter(tabPane);
-
 		scrollableCenter.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 	}
 
@@ -232,9 +196,9 @@ public class Gui extends Application {
 //			group.setPrefWidth(50);
 //
 //		}
-		for (PrisonGroup p : roster.getGroups()) {
+		for (PrisonGroup PG : roster.getGroups()) {
 			Label group;
-			groupBox.getChildren().add(group = new Label(p.getGroupName()));
+			groupBox.getChildren().add(group = new Label(PG.getGroupName()));
 
 			group.setPrefWidth(100);
 		}
@@ -253,17 +217,16 @@ public class Gui extends Application {
 
 	}
 
-	private void drawTimeBlocks(FXGraphics2D graphics) {
-
-if(roster.getActivities().size()>0) {
-	for (Activity a : roster.getActivities()) {
-
-		TimeBlock.convertToTimeblcok(a).draw(graphics);
-	}
-}
-
-		graphics.setColor(Color.BLACK);
-	}
+//	private void drawTimeBlocks(FXGraphics2D graphics) {
+//
+//	if(roster.getActivities().size()>0) {
+//		for (Activity a : roster.getActivities()) {
+//
+//			TimeBlock.convertToTimeblock(a).draw(graphics);
+//		}
+//	}
+//		graphics.setColor(Color.BLACK);
+//	}
 
 	private void drawTime(FXGraphics2D graphics) {
 		int hours = 0;

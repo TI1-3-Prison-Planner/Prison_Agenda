@@ -1,58 +1,45 @@
 package Gui;
 
-
 import Data.*;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Stylesheet;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ClassGenerator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-
 import javafx.scene.layout.HBox;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalTimeStringConverter;
-import org.jfree.fx.FXGraphics2D;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class ActivityCreator extends Observer {
     private ErrorPopup errorPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ObservableList<PrisonGroup> groups = FXCollections.observableArrayList();
-    private ObservableList<String> locations = FXCollections.observableArrayList();
+    private ObservableList<Location> locations = FXCollections.observableArrayList();
     private Roster roster;
-    private Canvas c;
-    private Gui g;
-
-
-    public void init(Roster roster) {
-        groups.clear();
-        groups.addAll(roster.getGroups());
-
-        this.roster = roster;
-        locations.clear();
-        locations.addAll(roster.getLocationDatabase().keySet());
-
-
-        this.c = c;
-    }
-
-
     private ComboBox<Location> setLocation;
     private ComboBox<PrisonGroup> setGroup;
     private Spinner<LocalTime> setStartTime;
     private Spinner<LocalTime> setEndTime;
     private TextField activityName;
     private Stage activityPlanner;
+
+
+    public void init(Roster roster) {
+        this.groups.clear();
+        this.groups.addAll(roster.getGroups());
+
+        this.roster = roster;
+        this.locations.clear();
+        this.locations.addAll(roster.getLocationDatabase().values());
+    }
+
     public ActivityCreator(Roster roster) {
         this.roster = roster;
         this.roster.attach(this);
@@ -63,8 +50,8 @@ public class ActivityCreator extends Observer {
         GridPane grid = new GridPane();
         this.activityPlanner = new Stage();
 
-        activityPlanner.initModality(Modality.APPLICATION_MODAL);
-        activityPlanner.setTitle("Activity Planner");
+        this.activityPlanner.initModality(Modality.APPLICATION_MODAL);
+        this.activityPlanner.setTitle("Activity Planner");
 
 
         Label activity = new Label("Activity:");
@@ -73,23 +60,22 @@ public class ActivityCreator extends Observer {
         Label timeStart = new Label("Time start: ");
         Label timeEnd = new Label("Time end: ");
 
-
-
-//        setLocation.setItems(locations);
-        setGroup.setItems(groups);
-        setStartTime.setEditable(true);
-
         this.activityName = new TextField();
         this.setLocation = new ComboBox<>();
         this.setGroup = new ComboBox<>();
-        this.setStartTime = new Spinner<>();
+        this.setStartTime = timeSpinner();
         this.setStartTime.setEditable(true);
-        setLocation.getItems().setAll(roster.getLocationDatabase().values());
-        setGroup.getItems().setAll(this.roster.getGroups());
+        this.setLocation.getItems().setAll(roster.getLocationDatabase().values());
+        this.setGroup.getItems().setAll(this.roster.getGroups());
 
-        this.setEndTime = new Spinner<>();
+        this.setEndTime = timeSpinner();
 
-        setEndTime.setEditable(true);
+//        setLocation.setItems(locations);
+//        setGroup.setItems(groups);
+        this.setStartTime.setEditable(true);
+
+
+        this.setEndTime.setEditable(true);
 
         Button cancel = new Button("Cancel");
         Button add = new Button("Add");
@@ -101,16 +87,16 @@ public class ActivityCreator extends Observer {
         grid.add(timeStart, 1, 40);
         grid.add(timeEnd, 1, 50);
 
-        grid.add(activityName, 2, 10);
-        grid.add(setLocation, 2, 20);
-        grid.add(setGroup, 2, 30);
-        grid.add(setStartTime, 2, 40);
-        grid.add(setEndTime, 2, 50);
+        grid.add(this.activityName, 2, 10);
+        grid.add(this.setLocation, 2, 20);
+        grid.add(this.setGroup, 2, 30);
+        grid.add(this.setStartTime, 2, 40);
+        grid.add(this.setEndTime, 2, 50);
         grid.add(cancel, 2, 80);
         grid.add(add, 1, 80);
 
         HBox hBox1;
-        grid.add(hBox1 = new HBox(setLocation), 2, 20);
+        grid.add(hBox1 = new HBox(this.setLocation), 2, 20);
         hBox1.setSpacing(70);
 
 //        newLocation.setOnAction(e -> {
@@ -118,7 +104,7 @@ public class ActivityCreator extends Observer {
 //        });
 
         HBox hbox2;
-        grid.add(hbox2 = new HBox(setGroup), 2, 30);
+        grid.add(hbox2 = new HBox(this.setGroup), 2, 30);
         hbox2.setSpacing(70);
 
 //        newGroup.setOnAction(e -> {
@@ -140,30 +126,16 @@ public class ActivityCreator extends Observer {
 
                 activityPlanner.close();
 
-                roster.getActivities().add(new Activity(activityName.getText(), setStartTime.getValue(), setEndTime.getValue(), (PrisonGroup) setGroup.getValue(), roster.getLocationDatabase().get(setLocation.getValue())));
-
-
-                System.out.println(setStartTime.getValue() + ":start, end :" + setEndTime.getValue());
-                System.out.println(timeBlocks.size());
-
-
+                roster.getActivities().add(new Activity(activityName.getText(), setStartTime.getValue(), setEndTime.getValue(), (PrisonGroup) setGroup.getValue(), this.setLocation.getValue()));
+                roster.notifyObservers();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("not Valid");
                 alert.showAndWait();
                 //TODO, Code missing until adding function is working
             }
-
-            addActivity();
-            close();
-            //creating a timeBlock;
-
-//            timeBlocks.add(new TimeBlock(setGroup.getValue().toString(),setLocation.getValue().toString(),Integer.parseInt(setStartTime.getValue().toString()),Integer.parseInt(setEndTime.getValue().toString()),5));
-
-//            startTime = setStartTime.getValue();
-//            Activity newActivity = new Activity(activityName.getText(), setStartTime);
-
-
+//            addActivity();
+//            close();
         });
 
 
@@ -195,8 +167,8 @@ public class ActivityCreator extends Observer {
         try {
             for (Activity activity : this.roster.getActivities()) {
                 if (activity.getPrisonGroup().equals(setGroup.getValue())) {
-                    if (setStartTime.getValue().isAfter(activity.getStartTime())
-                            && setStartTime.getValue().isBefore(activity.getStartTime())) {
+                    if (this.setStartTime.getValue().isAfter(activity.getStartTime())
+                            && this.setStartTime.getValue().isBefore(activity.getStartTime())) {
                         return true;
                     }
                     if (setEndTime.getValue().isAfter(activity.getStartTime())
@@ -246,8 +218,6 @@ public class ActivityCreator extends Observer {
     public Roster getRoster(){
         return this.roster;
     }
-
-
 
     public ArrayList<TimeBlock> getTimeBlocks() {
         return this.timeBlocks;

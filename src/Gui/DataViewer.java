@@ -13,7 +13,7 @@ import Data.*;
 import java.time.LocalTime;
 import java.util.*;
 
-public class DataViewer {
+public class DataViewer extends Observer {
     private TabPane dataTab;
     private Tab guards;
     private Tab inmates;
@@ -25,6 +25,7 @@ public class DataViewer {
     DataViewer(Roster roster){
         this.dataTab = new TabPane();
         this.roster = roster;
+        this.roster.attach(this);
         createTabs();
         fillGuardTab();
         fillInmateTab();
@@ -168,6 +169,15 @@ public class DataViewer {
         return this.dataTab;
     }
 
+
+    @Override
+    public void update() {
+        fillGuardTab();
+        fillInmateTab();
+        fillGroupTab();
+        fillLoactionTab();
+        fillActivityTab();
+    }
 
 
 }

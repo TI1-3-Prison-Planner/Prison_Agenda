@@ -3,6 +3,7 @@ package Gui;
 import Data.Activity;
 import Data.Location;
 import Data.PrisonGroup;
+import Data.Roster;
 import org.jfree.fx.FXGraphics2D;
 
 import java.awt.*;
@@ -14,7 +15,6 @@ public class TimeBlock {
     private String location;
     private int timeStartHour;
     private int timeStartMin;
-//    private int timeEnd;
     private int timeEndMinute;
     private int timeEndHour;
     private int groupNumber;
@@ -23,23 +23,22 @@ public class TimeBlock {
     private Rectangle2D rect;
 
 
-    public TimeBlock(PrisonGroup group, String location, LocalTime timeStart, LocalTime timeEnd, int groupNumber) {
+
+    public TimeBlock(PrisonGroup group, String location, LocalTime timeStart, LocalTime timeEnd) {
         this.group = group;
         this.location = location;
-        this.timeStartMin = timeStart % 100;
-        this.timeStartHour = timeStart / 100;
-        this.timeEndHour = timeEnd / 100;
-        this.timeEndMinute = timeEnd % 100;
+        this.timeStartMin = timeStart.getMinute();
+        this.timeStartHour = timeStart.getHour();
+        this.timeEndHour = timeEnd.getHour();
+        this.timeEndMinute = timeEnd.getMinute();
 
-        this.groupNumber = groupNumber;
+        this.groupNumber = group.getGroupNumber();
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-    }
-    public TimeBlock(){
 
     }
+
     public TimeBlock getTimeblock(Event e){
-
         return this;
     }
 
@@ -83,40 +82,28 @@ public class TimeBlock {
 //        this.timeEnd = timeEnd;
 //    }
 
-    public void draw(FXGraphics2D g) {
+    public void draw(FXGraphics2D g2d) {
         int x = groupNumber * 100;
         int y = timeStartHour * 60 + timeStartMin;
         int height = ((timeEndHour - timeStartHour) * 60 + timeEndMinute - timeStartMin);
 
-
-
-        g.setColor(Color.BLACK);
+        g2d.setColor(Color.BLACK);
         rect = new Rectangle2D.Double(x,y,100,height);
-        g.setColor(Color.BLACK);
-        g.fill(rect);
-        g.setColor(Color.WHITE);
-        g.drawString(this.group.getGroupName(),x, y+height/4);
-        g.drawString(this.location,x,y+2*(height/4));
-//        g.drawString(this.timeStart.toString(),x,y+3*(height/4));
-//        g.drawString(this.timeEnd.toString(),x,y+4*(height/4));
+        g2d.setColor(Color.BLACK);
+        g2d.fill(rect);
+        g2d.setColor(Color.WHITE);
+        g2d.drawString(this.group.getGroupName(),x, y+height/4);
+        g2d.drawString(this.location,x,y+2*(height/4));
+        g2d.drawString(this.timeStart.toString(),x,y+3*(height/4));
+        g2d.drawString(this.timeEnd.toString(),x,y+4*(height/4));
 
     }
 
 
-    public static TimeBlock convertToTimeblcok(Activity a){
-
-
-        TimeBlock b = new TimeBlock(a.getPrisonGroup(), a.getLocation().toString(), a.getStartTime(), a.getEndTime(), a.getPrisonGroup().getGroupNumber());
+    public static TimeBlock convertToTimeblock(Activity a){
+        TimeBlock b = new TimeBlock(a.getPrisonGroup(), a.getLocation().toString(), a.getStartTime(), a.getEndTime());
         return  b;
 
-//         Rectangle2D rect = new Rectangle2D.Double(x, y, 60, height);
-//         g.setColor(Color.BLACK);
-//         g.fill(rect);
-//         g.setColor(Color.WHITE);
-//         g.drawString(this.group, x, y + height / 4);
-//         g.drawString(this.location, x, y + 2 * (height / 4));
-//         g.drawString(this.timeStartHour + ":" + this.timeStartMin, x, y + 3 * (height / 4));
-//         g.drawString(this.timeEndHour + ":" + this.timeEndMinute, x, y + 4 * (height / 4));
-
     }
+
 }
