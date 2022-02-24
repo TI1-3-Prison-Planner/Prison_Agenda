@@ -132,8 +132,6 @@ public class DataViewer extends Observer{
             };
         });
         detail.setCellValueFactory(new PropertyValueFactory<PrisonGroup, PrisonGroup.SecurityDetail>("securityDetail"));
-
-
         groups.getColumns().addAll(groupName, inmates, guards, detail);
         groups.setItems(prisonGroups);
         this.groups.setContent(groups);
@@ -185,7 +183,6 @@ public class DataViewer extends Observer{
         return this.dataTab;
     }
 
-
     @Override
     public void update() {
         fillGuardTab();
@@ -194,4 +191,5 @@ public class DataViewer extends Observer{
         fillLoactionTab();
         fillActivityTab();
     }
+
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ObserverRefresh {
     private ArrayList<Observer> observers;
 
+    //TODO fix the entire observer pattern
     public ObserverRefresh(){
         this.observers = new ArrayList<>();
     }

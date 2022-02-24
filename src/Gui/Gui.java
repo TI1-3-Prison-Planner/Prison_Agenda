@@ -81,6 +81,7 @@ public class Gui extends Application {
 		File file = new File("roster.json");
 		this.roster = this.fileIO.readData(file);
 
+
 		this.dataViewer = new DataViewer(this.roster, this.obsRefresh);
 		this.agendaCreator = new ActivityCreator(this.roster, this.obsRefresh);
 		this.newGroupPopup = new NewGroupPopup("add new group", this.roster, this.obsRefresh);
@@ -95,11 +96,8 @@ public class Gui extends Application {
 		stage.show();
 	}
 
-
-
 	public void init() {
 		//TODO, Init code missing
-
 	}
 
 	public void draw(FXGraphics2D graphics) {
@@ -117,36 +115,16 @@ public class Gui extends Application {
 
 	}
 
-
-//	public void fillMenuBar(Stage stage){
-//		MenuItem newActivity = new MenuItem("New activity");
-//
-//		newActivity.setOnAction(e-> {
-//			agendaCreator.init(roster);
-//			agendaCreator.display();
-//		});
-//
-//		this.fileMenu = new Menu("File");
-//		this.fileMenu.getItems().add(newActivity);
-//
-//		this.editMenu = new Menu("Edit");
-//		this.editMenu.setOnAction(e->{
-//			//TODO, Edit code missing
-//		});
-//
-//		this.deleteMenu = new Menu("Delete");
-//		this.deleteMenu.setOnAction(e-> {
-//			//TODO, Delete code missing
-//		});
-//	}
-
 	public void fillMenuBar(Stage stage) {
 
 		this.fileMenu = new Menu("File");
 
-		MenuItem save = new MenuItem("Save");
+		MenuItem save = new MenuItem("Save file");
 		save.setOnAction(e -> saveFile(stage));
-        this.fileMenu.getItems().addAll(save);
+
+		MenuItem load = new MenuItem("Load file");
+		load.setOnAction(e -> loadFile(stage));
+        this.fileMenu.getItems().addAll(save, load);
 
 		this.newMenu = new Menu("New");
 		MenuItem newActivity = new MenuItem("New activity");
@@ -172,6 +150,21 @@ public class Gui extends Application {
 		this.deleteMenu.setOnAction(e -> {
 			//TODO, Delete code missing
 		});
+	}
+
+	private void loadFile(Stage stage) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"),
+				new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")
+		);
+		File file = fileChooser.showOpenDialog(stage);
+
+		if(file != null){
+			this.roster = this.fileIO.readData(file);
+			this.obsRefresh.update();
+			System.out.println(this.roster);
+		}
 	}
 
 	private void saveFile(Stage stage) {
@@ -262,6 +255,8 @@ public class Gui extends Application {
 	}
 
 	public void fillTableTab(){
+
+		this.obsRefresh.update();
 		this.tableTab.setContent(this.dataViewer.allTabs());
 
 	}
