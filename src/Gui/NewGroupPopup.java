@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class NewGroupPopup extends Observer {
+    private ObserverRefresh obsRefresh;
     private Stage newGroupPopupDisplay;
     private Label groupNameInstruction;
     private Label securityDetailInstruction;
@@ -28,7 +29,7 @@ public class NewGroupPopup extends Observer {
     private Roster roster;
     private ErrorPopup errorPopup;
 
-    public NewGroupPopup(String title, Roster roster) {
+    public NewGroupPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.newGroupPopupDisplay = new Stage();
         this.newGroupPopupDisplay.initModality(Modality.APPLICATION_MODAL);
         this.newGroupPopupDisplay.setTitle(title);
@@ -43,7 +44,8 @@ public class NewGroupPopup extends Observer {
         this.securityTypeBox = new ComboBox<>();
         this.securityTypeBox.getItems().setAll(PrisonGroup.SecurityDetail.values());
         this.roster = roster;
-        this.roster.attach(this);
+        this.obsRefresh = obsRefresh;
+        this.obsRefresh.addObservers(this);
     }
 
     public void display() {
@@ -79,7 +81,7 @@ public class NewGroupPopup extends Observer {
                     prisonGroup.addInmates(this.roster.getInmateDatabase());
                     this.roster.getGroups().add(prisonGroup);
                     //TODO fill method can't be used this way!
-                    roster.notifyObservers();
+                    this.obsRefresh.update();
                     close();
                 }
             }

@@ -29,6 +29,7 @@ public class ActivityCreator extends Observer {
     private Spinner<LocalTime> setEndTime;
     private TextField activityName;
     private Stage activityPlanner;
+    private ObserverRefresh obsRefresh;
 
 
     public void init(Roster roster) {
@@ -40,9 +41,10 @@ public class ActivityCreator extends Observer {
         this.locations.addAll(roster.getLocationDatabase().values());
     }
 
-    public ActivityCreator(Roster roster) {
+    public ActivityCreator(Roster roster, ObserverRefresh observer) {
         this.roster = roster;
-        this.roster.attach(this);
+        this.obsRefresh = observer;
+        this.obsRefresh.addObservers(this);
     }
 
     public void display() {
@@ -126,8 +128,8 @@ public class ActivityCreator extends Observer {
 
                 activityPlanner.close();
 
-                roster.getActivities().add(new Activity(activityName.getText(), setStartTime.getValue(), setEndTime.getValue(), (PrisonGroup) setGroup.getValue(), this.setLocation.getValue()));
-                roster.notifyObservers();
+                this.roster.getActivities().add(new Activity(this.activityName.getText(), this.setStartTime.getValue(), this.setEndTime.getValue(), this.setGroup.getValue(), this.setLocation.getValue()));
+                this.obsRefresh.update();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("not Valid");
@@ -159,7 +161,7 @@ public class ActivityCreator extends Observer {
             errorPopup.display();
         } else {
             this.roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),setGroup.getValue(),setLocation.getValue()));
-            this.roster.notifyObservers();
+            this.obsRefresh.update();
         }
     }
 

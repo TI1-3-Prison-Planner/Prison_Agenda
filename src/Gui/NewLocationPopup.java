@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class NewLocationPopup extends Observer {
+    private ObserverRefresh obsRefresh;
     private Stage newLocationPopupDisplay;
     private Label instructionLabel;
     private Label instructionLabel1;
@@ -23,7 +24,7 @@ public class NewLocationPopup extends Observer {
     private Button cancelButton;
     private Roster roster;
 
-    public NewLocationPopup(String title, Roster roster) {
+    public NewLocationPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.newLocationPopupDisplay = new Stage();
         this.newLocationPopupDisplay.initModality(Modality.APPLICATION_MODAL);
         this.newLocationPopupDisplay.setTitle(title);
@@ -36,7 +37,8 @@ public class NewLocationPopup extends Observer {
         this.locationTypeBox = new ComboBox<>();
         this.locationTypeBox.getItems().setAll(Location.LocationType.values());
         this.roster = roster;
-        this.roster.attach(this);
+        this.obsRefresh = obsRefresh;
+        this.obsRefresh.addObservers(this);
     }
 
     public void display() {
@@ -72,7 +74,7 @@ public class NewLocationPopup extends Observer {
         if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
             this.roster.getLocationDatabase().put(locationName.getText(),
                     new Location(locationName.getText(), locationTypeBox.getValue()));
-            roster.notifyObservers();
+            this.obsRefresh.update();
         }
     }
 

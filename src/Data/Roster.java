@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
 
-public class Roster extends Subject implements Comparator<LocalTime>, Serializable {
+public class Roster implements Comparator<LocalTime>, Serializable {
 
 
     private HashMap<Person, Boolean> guardDatabase;                //Guard database with boolean for being assinged to a group
@@ -105,25 +105,25 @@ public class Roster extends Subject implements Comparator<LocalTime>, Serializab
                 "locations=" + locationDatabase;
     }
 
-    private List<Observer> observers = new ArrayList<>();
+//    private transient List<Observer> observers = new ArrayList<>();
+//
+//    @Override
+//    public void attach(Observer observer) {
+//        this.observers.add(observer);
+//    }
+//
+//    @Override
+//    public void detach(Observer observer) {
+//        this.observers.remove(observer);
+//    }
+//
+//    @Override
+//    public void notifyObservers() {
+//        for (Observer observer : observers) {
+//            observer.update();
+//        }
+//    }
 
-    @Override
-    public void attach(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void detach(Observer observer) {
-        this.observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
-
-    }
 }
 
 

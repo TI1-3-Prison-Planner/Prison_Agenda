@@ -10,10 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Data.*;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
 
-public class DataViewer extends Observer {
+public class DataViewer extends Observer{
     private TabPane dataTab;
     private Tab guards;
     private Tab inmates;
@@ -21,11 +22,13 @@ public class DataViewer extends Observer {
     private Tab locations;
     private Tab activities;
     private Roster roster;
+    private ObserverRefresh obsRefresh;
 
-    DataViewer(Roster roster){
+    DataViewer(Roster roster, ObserverRefresh obsRefresh){
         this.dataTab = new TabPane();
         this.roster = roster;
-        this.roster.attach(this);
+        this.obsRefresh = obsRefresh;
+        this.obsRefresh.addObservers(this);
         createTabs();
         fillGuardTab();
         fillInmateTab();
@@ -191,6 +194,4 @@ public class DataViewer extends Observer {
         fillLoactionTab();
         fillActivityTab();
     }
-
-
 }

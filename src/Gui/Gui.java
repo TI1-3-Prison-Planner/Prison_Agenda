@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
@@ -53,6 +54,8 @@ public class Gui extends Application {
 	private Menu newMenu;
 	private NewGroupPopup newGroupPopup;
 	private NewLocationPopup newLocationPopup;
+	private FileIO fileIO;
+	private ObserverRefresh obsRefresh;
 
 
 	@Override
@@ -64,7 +67,7 @@ public class Gui extends Application {
 		this.mainPane = new BorderPane();
 		this.tabPane = new TabPane();
 		this.rosterTab = new Tab();
-
+		this.obsRefresh = new ObserverRefresh();
 
 		this.canvas = new ResizableCanvas(g -> draw(g), this.mainPane);
 		
@@ -72,18 +75,16 @@ public class Gui extends Application {
 		this.tableView = new TableView();
 
 		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
-//		this.roster = new Roster();
-//		this.agendaCreator.init(this.roster);
 
 
-		FileIO fileIO = new FileIO();
+		this.fileIO = new FileIO();
 		File file = new File("roster.json");
-		this.roster = fileIO.readData(file);
+		this.roster = this.fileIO.readData(file);
 
-		this.dataViewer = new DataViewer(this.roster);
-		this.agendaCreator = new ActivityCreator(this.roster);
-		this.newGroupPopup = new NewGroupPopup("add new group", this.roster);
-		this.newLocationPopup = new NewLocationPopup("add new location", this.roster);
+		this.dataViewer = new DataViewer(this.roster, this.obsRefresh);
+		this.agendaCreator = new ActivityCreator(this.roster, this.obsRefresh);
+		this.newGroupPopup = new NewGroupPopup("add new group", this.roster, this.obsRefresh);
+		this.newLocationPopup = new NewLocationPopup("add new location", this.roster, this.obsRefresh);
 		fillMenuBar(stage);
 		createPanes();
 		fillTableTab();
@@ -142,7 +143,10 @@ public class Gui extends Application {
 	public void fillMenuBar(Stage stage) {
 
 		this.fileMenu = new Menu("File");
-//        this.fileMenu.getItems().add();
+
+		MenuItem save = new MenuItem("Save");
+		save.setOnAction(e -> saveFile(stage));
+        this.fileMenu.getItems().addAll(save);
 
 		this.newMenu = new Menu("New");
 		MenuItem newActivity = new MenuItem("New activity");
@@ -150,15 +154,13 @@ public class Gui extends Application {
 			this.agendaCreator.init(this.roster);
 			this.agendaCreator.display();
 		});
-		this.newMenu.getItems().add(newActivity);
 
 		MenuItem newGroup = new MenuItem("Add new group");
 		newGroup.setOnAction(e -> newGroupPopup.display());
-		this.newMenu.getItems().add(newGroup);
 
 		MenuItem newLocation = new MenuItem("Add new location");
 		newLocation.setOnAction(e -> newLocationPopup.display());
-		this.newMenu.getItems().add(newLocation);
+		this.newMenu.getItems().addAll(newActivity, newGroup, newLocation);
 
 		//todo create functions
 		this.editMenu = new Menu("Edit");
@@ -170,6 +172,19 @@ public class Gui extends Application {
 		this.deleteMenu.setOnAction(e -> {
 			//TODO, Delete code missing
 		});
+	}
+
+	private void saveFile(Stage stage) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"),
+				new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")
+		);
+		File file = fileChooser.showSaveDialog(stage);
+
+		if(file != null){
+			this.fileIO.saveDataAsFile(file, this.roster);
+		}
 	}
 
 	private void createPanes() {
@@ -250,17 +265,6 @@ public class Gui extends Application {
 		this.tableTab.setContent(this.dataViewer.allTabs());
 
 	}
-
-//	private void drawTimeBlocks(FXGraphics2D graphics) {
-//
-//	if(roster.getActivities().size()>0) {
-//		for (Activity a : roster.getActivities()) {
-//
-//			TimeBlock.convertToTimeblock(a).draw(graphics);
-//		}
-//	}
-//		graphics.setColor(Color.BLACK);
-//	}
 
 	private void drawTime(FXGraphics2D graphics) {
 		int hours = 0;
