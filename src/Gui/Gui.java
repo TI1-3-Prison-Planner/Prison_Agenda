@@ -160,6 +160,7 @@ public class Gui extends Application {
 		newLocation.setOnAction(e -> newLocationPopup.display());
 		this.newMenu.getItems().add(newLocation);
 
+		//todo create functions
 		this.editMenu = new Menu("Edit");
 		this.editMenu.setOnAction(e -> {
 			//TODO, Edit code missing

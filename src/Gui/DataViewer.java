@@ -109,7 +109,6 @@ public class DataViewer extends Observer {
         TableColumn<PrisonGroup, ArrayList<Person>> guards = new TableColumn<PrisonGroup, ArrayList<Person>>("guards");
         TableColumn<PrisonGroup, PrisonGroup.SecurityDetail> detail = new TableColumn<PrisonGroup, PrisonGroup.SecurityDetail>("securityDetail");
 
-
         ObservableList<PrisonGroup> prisonGroups = FXCollections.observableArrayList(this.roster.getGroups());
 
         groupName.setCellValueFactory(new PropertyValueFactory<PrisonGroup, String>("groupName"));
