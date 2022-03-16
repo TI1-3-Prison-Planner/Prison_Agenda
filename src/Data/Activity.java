@@ -52,6 +52,10 @@ public class Activity implements Serializable {
         return location;
     }
 
+    public String getActivityName() {
+        return activityName;
+    }
+
     @Override
     public String toString() {
         return "Activity: " + this.activityName + ", " + this.startTime + " - " + this.endTime + ", " + this.location.getLocationName() + ", " + this.prisonGroup;

@@ -4,6 +4,7 @@ package Gui;
 import Data.*;
 import javafx.application.Application;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -56,6 +57,7 @@ public class Gui extends Application {
 	private NewLocationPopup newLocationPopup;
 	private FileIO fileIO;
 	private ObserverRefresh obsRefresh;
+	private Menu refreshMenu;
 
 
 	@Override
@@ -149,7 +151,17 @@ public class Gui extends Application {
 		this.deleteMenu = new Menu("Delete");
 		this.deleteMenu.setOnAction(e -> {
 			//TODO, Delete code missing
+			deleteObject();
 		});
+
+		this.refreshMenu = new Menu("Refresh");
+		this.refreshMenu.setOnAction(e -> {
+			this.obsRefresh.update();
+		});
+	}
+
+	private void deleteObject() {
+		System.out.println("I am doing something");
 	}
 
 	private void loadFile(Stage stage) {
@@ -207,7 +219,7 @@ public class Gui extends Application {
 
 		borderPane.setTop(groupScroll);
 
-		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, this.deleteMenu);
+		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, this.deleteMenu, this.refreshMenu);
 
 		this.mainPane.setTop(this.menuBar);
 		this.mainPane.setCenter(this.tabPane);

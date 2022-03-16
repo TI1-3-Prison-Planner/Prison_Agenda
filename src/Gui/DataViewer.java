@@ -192,4 +192,7 @@ public class DataViewer extends Observer{
         fillActivityTab();
     }
 
+    public TabPane getDataTab() {
+        return dataTab;
+    }
 }
