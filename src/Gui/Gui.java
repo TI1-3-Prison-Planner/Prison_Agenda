@@ -3,8 +3,8 @@ package Gui;
 
 import Data.*;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -45,7 +45,7 @@ public class Gui extends Application {
 	private MenuBar menuBar;
 	private Menu fileMenu;
 	private Menu editMenu;
-	private Menu deleteMenu;
+	private MenuItem delete;
 	private BorderPane mainPane;
 	private Roster roster;
 	private ActivityCreator agendaCreator;
@@ -57,7 +57,8 @@ public class Gui extends Application {
 	private NewLocationPopup newLocationPopup;
 	private FileIO fileIO;
 	private ObserverRefresh obsRefresh;
-	private Menu refreshMenu;
+	private MenuItem refresh;
+	private MenuItem edit;
 
 
 	@Override
@@ -126,7 +127,12 @@ public class Gui extends Application {
 
 		MenuItem load = new MenuItem("Load file");
 		load.setOnAction(e -> loadFile(stage));
-        this.fileMenu.getItems().addAll(save, load);
+
+		this.refresh = new MenuItem("Refresh");
+		this.refresh.setOnAction(e -> this.obsRefresh.update());
+
+        this.fileMenu.getItems().addAll(save, load, this.refresh);
+
 
 		this.newMenu = new Menu("New");
 		MenuItem newActivity = new MenuItem("New activity");
@@ -142,26 +148,55 @@ public class Gui extends Application {
 		newLocation.setOnAction(e -> newLocationPopup.display());
 		this.newMenu.getItems().addAll(newActivity, newGroup, newLocation);
 
+
+
 		//todo create functions
-		this.editMenu = new Menu("Edit");
-		this.editMenu.setOnAction(e -> {
+		this.edit = new MenuItem("Edit");
+		this.edit.setOnAction(e -> {
 			//TODO, Edit code missing
 		});
 
-		this.deleteMenu = new Menu("Delete");
-		this.deleteMenu.setOnAction(e -> {
-			//TODO, Delete code missing
+		this.delete = new MenuItem("Delete");
+		this.delete.setOnAction(e -> {
 			deleteObject();
 		});
 
-		this.refreshMenu = new Menu("Refresh");
-		this.refreshMenu.setOnAction(e -> {
-			this.obsRefresh.update();
-		});
+		this.editMenu = new Menu("Edit");
+		this.editMenu.getItems().addAll(this.edit, this.delete);
 	}
 
 	private void deleteObject() {
-		System.out.println("I am doing something");
+		String selectedTab = this.dataViewer.getDataTab().getSelectionModel().getSelectedItem().getText();
+
+		switch (selectedTab){
+			case "Guards":
+				Person guard = this.dataViewer.getGuardsTable().getSelectionModel().getSelectedItem();
+				this.roster.getGuardDatabase().remove(guard);
+				break;
+
+			case "Inmates":
+				Person inmate = this.dataViewer.getInmateTable().getSelectionModel().getSelectedItem();
+				this.roster.getInmateDatabase().remove(inmate);
+				break;
+
+			case "Groups":
+				PrisonGroup group = this.dataViewer.getGroupTable().getSelectionModel().getSelectedItem();
+				this.roster.getGroups().remove(group);
+				break;
+
+			case "Locations":
+				String location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem().toString();
+				this.roster.getLocationDatabase().remove(location);
+				System.out.println(location);
+				System.out.println(this.roster.getLocationDatabase());
+				break;
+
+			case "Activities":
+				Activity activity = this.dataViewer.getActivityTable().getSelectionModel().getSelectedItem();
+				this.roster.getActivities().remove(activity);
+				break;
+		}
+		this.obsRefresh.update();
 	}
 
 	private void loadFile(Stage stage) {
@@ -219,7 +254,7 @@ public class Gui extends Application {
 
 		borderPane.setTop(groupScroll);
 
-		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, this.deleteMenu, this.refreshMenu);
+		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu);
 
 		this.mainPane.setTop(this.menuBar);
 		this.mainPane.setCenter(this.tabPane);
