@@ -14,7 +14,8 @@ public class ObserverRefresh {
         this.observers.add(observer);
     }
 
-    public void update(){
+
+    public void updateAllObservers(){
         for (Observer observer : observers) {
             observer.update();
         }

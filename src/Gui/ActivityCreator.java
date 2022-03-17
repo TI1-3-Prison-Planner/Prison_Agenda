@@ -5,7 +5,6 @@ import Data.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -129,7 +128,7 @@ public class ActivityCreator extends Observer {
                 activityPlanner.close();
 
                 this.roster.getActivities().add(new Activity(this.activityName.getText(), this.setStartTime.getValue(), this.setEndTime.getValue(), this.setGroup.getValue(), this.setLocation.getValue()));
-                this.obsRefresh.update();
+                this.obsRefresh.updateAllObservers();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("not Valid");
@@ -161,7 +160,7 @@ public class ActivityCreator extends Observer {
             errorPopup.display();
         } else {
             this.roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),setGroup.getValue(),setLocation.getValue()));
-            this.obsRefresh.update();
+            this.obsRefresh.updateAllObservers();
         }
     }
 

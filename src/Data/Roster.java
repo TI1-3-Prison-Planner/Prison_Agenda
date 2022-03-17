@@ -120,7 +120,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 //    @Override
 //    public void notifyObservers() {
 //        for (Observer observer : observers) {
-//            observer.update();
+//            observer.updateAllObservers();
 //        }
 //    }
 

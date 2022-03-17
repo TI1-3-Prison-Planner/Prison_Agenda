@@ -4,7 +4,6 @@ package Gui;
 import Data.*;
 import javafx.application.Application;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -127,6 +126,7 @@ public class Gui extends Application {
 		MenuItem load = new MenuItem("Load file");
 		load.setOnAction(e -> loadFile(stage));
         this.fileMenu.getItems().addAll(save, load);
+		this.obsRefresh.updateAllObservers();
 
 		this.newMenu = new Menu("New");
 		MenuItem newActivity = new MenuItem("New activity");
@@ -156,7 +156,7 @@ public class Gui extends Application {
 
 		this.refreshMenu = new Menu("Refresh");
 		this.refreshMenu.setOnAction(e -> {
-			this.obsRefresh.update();
+			this.obsRefresh.updateAllObservers();
 		});
 	}
 
@@ -174,7 +174,8 @@ public class Gui extends Application {
 
 		if(file != null){
 			this.roster = this.fileIO.readData(file);
-			this.obsRefresh.update();
+			this.dataViewer.setRoster(this.roster); //update roster class of Dataviewer
+			this.obsRefresh.updateAllObservers();
 			System.out.println(this.roster);
 		}
 	}
@@ -268,7 +269,7 @@ public class Gui extends Application {
 
 	public void fillTableTab(){
 
-		this.obsRefresh.update();
+		this.obsRefresh.updateAllObservers();
 		this.tableTab.setContent(this.dataViewer.allTabs());
 
 	}

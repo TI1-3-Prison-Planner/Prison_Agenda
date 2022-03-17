@@ -192,6 +192,10 @@ public class DataViewer extends Observer{
         fillActivityTab();
     }
 
+    public void setRoster(Roster roster) {
+        this.roster = roster;
+    }
+
     public TabPane getDataTab() {
         return dataTab;
     }

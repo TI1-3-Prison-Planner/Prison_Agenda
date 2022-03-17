@@ -74,7 +74,7 @@ public class NewLocationPopup extends Observer {
         if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
             this.roster.getLocationDatabase().put(locationName.getText(),
                     new Location(locationName.getText(), locationTypeBox.getValue()));
-            this.obsRefresh.update();
+            this.obsRefresh.updateAllObservers();
         }
     }
 

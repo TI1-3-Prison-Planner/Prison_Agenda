@@ -1,6 +1,5 @@
 package Gui;
 
-import Data.Location;
 import Data.Person;
 import Data.PrisonGroup;
 import Data.Roster;
@@ -81,7 +80,7 @@ public class NewGroupPopup extends Observer {
                     prisonGroup.addInmates(this.roster.getInmateDatabase());
                     this.roster.getGroups().add(prisonGroup);
                     //TODO fill method can't be used this way!
-                    this.obsRefresh.update();
+                    this.obsRefresh.updateAllObservers();
                     close();
                 }
             }
