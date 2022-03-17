@@ -177,7 +177,8 @@ public class Gui extends Application {
 
 			case "Groups":
 				PrisonGroup group = this.dataViewer.getGroupTable().getSelectionModel().getSelectedItem();
-
+				NewGroupPopup editPop = new NewGroupPopup("edit", this.roster, group, this.obsRefresh);
+				editPop.display();
 				break;
 
 			case "Locations":

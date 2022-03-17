@@ -60,6 +60,10 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
+	public void addGuardArray(ArrayList<Person> guards){
+		this.guards = guards;
+	}
+
 	public void addInmates(HashMap<Person, Boolean> inmateList){
 		int inmateAmount = 20;
 		for (Person person : inmateList.keySet()) {
@@ -70,6 +74,10 @@ public class PrisonGroup implements Serializable {
 				inmateAmount--;
 			}
 		}
+	}
+
+	public void addinmateArray(ArrayList<Person> inmates){
+		this.inmates = inmates;
 	}
 
 	//method to set the right amount of guards to a certain group.
