@@ -142,27 +142,60 @@ public class Gui extends Application {
 		});
 
 		MenuItem newGroup = new MenuItem("Add new group");
-		newGroup.setOnAction(e -> newGroupPopup.display());
+		newGroup.setOnAction(e -> this.newGroupPopup.display());
 
 		MenuItem newLocation = new MenuItem("Add new location");
-		newLocation.setOnAction(e -> newLocationPopup.display());
+		newLocation.setOnAction(e -> this.newLocationPopup.display());
 		this.newMenu.getItems().addAll(newActivity, newGroup, newLocation);
 
-
-
-		//todo create functions
 		this.edit = new MenuItem("Edit");
 		this.edit.setOnAction(e -> {
 			//TODO, Edit code missing
+			editObject();
 		});
 
 		this.delete = new MenuItem("Delete");
-		this.delete.setOnAction(e -> {
-			deleteObject();
-		});
+		this.delete.setOnAction(e -> deleteObject());
 
 		this.editMenu = new Menu("Edit");
 		this.editMenu.getItems().addAll(this.edit, this.delete);
+	}
+
+	private void editObject() {
+		String selectedTab = this.dataViewer.getDataTab().getSelectionModel().getSelectedItem().getText();
+
+		switch (selectedTab){
+			case "Guards":
+				Person guard = this.dataViewer.getGuardsTable().getSelectionModel().getSelectedItem();
+
+				break;
+
+			case "Inmates":
+				Person inmate = this.dataViewer.getInmateTable().getSelectionModel().getSelectedItem();
+
+				break;
+
+			case "Groups":
+				PrisonGroup group = this.dataViewer.getGroupTable().getSelectionModel().getSelectedItem();
+
+				break;
+
+			case "Locations":
+				Location location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem();
+
+				break;
+
+			case "Activities":
+				Activity activity = this.dataViewer.getActivityTable().getSelectionModel().getSelectedItem();
+
+				break;
+
+			case "":
+				System.out.println("teest");
+				break;
+
+		}
+		this.obsRefresh.update();
 	}
 
 	private void deleteObject() {
@@ -185,10 +218,8 @@ public class Gui extends Application {
 				break;
 
 			case "Locations":
-				String location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem().toString();
-				this.roster.getLocationDatabase().remove(location);
-				System.out.println(location);
-				System.out.println(this.roster.getLocationDatabase());
+				Location location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem();
+				this.roster.getLocationDatabase().values().remove(location);
 				break;
 
 			case "Activities":
