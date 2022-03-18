@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * Author: Moustapha Azaimi & Ramon Rampaart
  */
 
-public class NewPersonPopup extends Observer implements Popup {
+public class NewPersonPopup implements Popup {
     private String title;
     private Roster roster;
     private ObserverRefresh obsRefresh;
@@ -72,7 +72,6 @@ public class NewPersonPopup extends Observer implements Popup {
         confirmButton.setOnAction(event -> {
             addPerson();
             this.obsRefresh.updateAllObservers();
-            close();
         });
         Button cancelButton = new Button("Cancel");
         cancelButton.setOnAction(e -> close());
@@ -164,6 +163,7 @@ public class NewPersonPopup extends Observer implements Popup {
                     this.roster.getInmateDatabase().add(new Person(this.insertedName.getText(), false));
                 }
             }
+            close();
         } catch (Exception e) {
             Alert addAlert = new Alert(Alert.AlertType.ERROR, "Wrong input");
             addAlert.show();
@@ -179,10 +179,5 @@ public class NewPersonPopup extends Observer implements Popup {
 //        if (this.inGroupCheck != null)
 //            this.inGroupCheck.setSelected(false);
         this.stage.close();
-    }
-
-    @Override
-    public void update() {
-
     }
 }

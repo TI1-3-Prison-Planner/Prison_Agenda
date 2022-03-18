@@ -10,11 +10,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ErrorPopup extends Observer {
+public class ErrorPopup extends Observer implements Popup {
 
     private String errorMessage;
 
     private Stage errorPopupDisplay;
+
     public ErrorPopup(String errorMessage) {
         this.errorMessage = errorMessage;
     }
@@ -23,6 +24,7 @@ public class ErrorPopup extends Observer {
         this.errorMessage = errorMessage;
     }
 
+    @Override
     public void display() {
         this.errorPopupDisplay = new Stage();
         GridPane grid = new GridPane();
@@ -39,7 +41,7 @@ public class ErrorPopup extends Observer {
 
         borderPane.setBottom(button);
         button.setOnAction(e -> {
-            errorPopupDisplay.close();
+            close();
 
         });
 
@@ -48,6 +50,11 @@ public class ErrorPopup extends Observer {
         errorPopupDisplay.setScene(activityScene);
         errorPopupDisplay.showAndWait();
 
+    }
+
+    @Override
+    public void close() {
+        this.errorPopupDisplay.close();
     }
 
     @Override

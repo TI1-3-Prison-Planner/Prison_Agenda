@@ -16,7 +16,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ActivityCreator extends Observer {
+public class ActivityCreator extends Observer implements Popup{
     private ErrorPopup errorPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ObservableList<PrisonGroup> groups = FXCollections.observableArrayList();
@@ -53,7 +53,7 @@ public class ActivityCreator extends Observer {
         this.obsRefresh.addObservers(this);
         this.activity = activity;
     }
-
+    @Override
     public void display() {
         this.errorPopup = new ErrorPopup("");
         GridPane grid = new GridPane();
@@ -151,8 +151,8 @@ public class ActivityCreator extends Observer {
 
     private void editActivity() {
     }
-
-    private void close() {
+    @Override
+    public void close() {
         activityName.clear();
         setLocation.getSelectionModel().selectFirst();
         setGroup.getSelectionModel().selectFirst();
