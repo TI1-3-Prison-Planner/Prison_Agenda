@@ -190,7 +190,8 @@ public class Gui extends Application {
 
 			case "Locations":
 				Location location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem();
-
+				NewLocationPopup editpop = new NewLocationPopup("edit", this.roster , this.obsRefresh, location);
+				editpop.display();
 				break;
 
 			case "Activities":

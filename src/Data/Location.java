@@ -23,6 +23,14 @@ public class Location implements Serializable {
         this.type = locationtype;
     }
 
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public void setType(LocationType type) {
+        this.type = type;
+    }
+
     public String getLocationName(){
         return this.locationName;
     }

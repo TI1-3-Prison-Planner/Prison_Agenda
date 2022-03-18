@@ -3,14 +3,10 @@ package Gui;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import Data.*;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -40,7 +36,7 @@ public class DataViewer extends Observer{
         fillGuardTab();
         fillInmateTab();
         fillGroupTab();
-        fillLoactionTab();
+        fillLocationTab();
         fillActivityTab();
     }
 
@@ -144,7 +140,7 @@ public class DataViewer extends Observer{
         this.groups.setContent(this.groupTable);
     }
 
-    public void fillLoactionTab(){
+    public void fillLocationTab(){
         this.locationTable = new TableView<>();
         TableColumn<Location, String> locationName = new TableColumn<Location, String>("Name");
         TableColumn<Location, Location.LocationType> locationType = new TableColumn<Location, Location.LocationType>("Type");
@@ -219,7 +215,7 @@ public class DataViewer extends Observer{
         fillGuardTab();
         fillInmateTab();
         fillGroupTab();
-        fillLoactionTab();
+        fillLocationTab();
         fillActivityTab();
     }
 

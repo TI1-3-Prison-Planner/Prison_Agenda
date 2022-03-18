@@ -22,7 +22,9 @@ public class NewLocationPopup extends Observer {
     private ComboBox<Location.LocationType> locationTypeBox;
     private Button addButton;
     private Button cancelButton;
+    private Button editButton;
     private Roster roster;
+    private Location location;
 
     public NewLocationPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.newLocationPopupDisplay = new Stage();
@@ -31,7 +33,7 @@ public class NewLocationPopup extends Observer {
         this.instructionLabel = new Label("Type the name of the location:");
         this.instructionLabel1 = new Label("Choose the type of location:");
         this.locationName = new TextField();
-        locationName.setMaxWidth(200);
+        this.locationName.setMaxWidth(200);
         this.addButton = new Button("Add");
         this.cancelButton = new Button("Cancel");
         this.locationTypeBox = new ComboBox<>();
@@ -41,16 +43,43 @@ public class NewLocationPopup extends Observer {
         this.obsRefresh.addObservers(this);
     }
 
+    public NewLocationPopup(String title, Roster roster, ObserverRefresh obsRefresh, Location location) {
+        this.newLocationPopupDisplay = new Stage();
+        this.newLocationPopupDisplay.initModality(Modality.APPLICATION_MODAL);
+        this.newLocationPopupDisplay.setTitle(title);
+        this.instructionLabel = new Label("Type the name of the location:");
+        this.instructionLabel1 = new Label("Choose the type of location:");
+        this.locationName = new TextField();
+        this.locationName.setMaxWidth(200);
+        this.editButton = new Button("Edit");
+        this.cancelButton = new Button("Cancel");
+        this.locationTypeBox = new ComboBox<>();
+        this.locationTypeBox.getItems().setAll(Location.LocationType.values());
+        this.roster = roster;
+        this.obsRefresh = obsRefresh;
+        this.obsRefresh.addObservers(this);
+        this.location = location;
+    }
+
     public void display() {
         this.cancelButton.setOnAction(e -> close());
-        this.addButton.setOnAction(e -> {
-            addLocation();
-            close();
-        });
 
         VBox vBox = new VBox();
         HBox buttonBox = new HBox();
-        buttonBox.getChildren().addAll(addButton, cancelButton);
+
+        if(this.location != null){
+            this.editButton.setOnAction(event -> editLocation());
+            this.locationName.setText(this.location.getLocationName());
+            this.locationTypeBox.getSelectionModel().select(this.location.getType());
+            buttonBox.getChildren().addAll(this.editButton, this.cancelButton);
+        } else {
+            this.addButton.setOnAction(e -> {
+                addLocation();
+                close();
+            });
+            buttonBox.getChildren().addAll(addButton, cancelButton);
+        }
+
         buttonBox.setSpacing(50);
         vBox.getChildren().addAll(instructionLabel, locationName, instructionLabel1, locationTypeBox, buttonBox);
         vBox.setSpacing(10);
@@ -60,6 +89,19 @@ public class NewLocationPopup extends Observer {
         newLocationPopupDisplay.setScene(scene);
         newLocationPopupDisplay.setResizable(false);
         newLocationPopupDisplay.showAndWait();
+    }
+
+    //TODO andere indexering voor locatie hashmap nodig
+    private void editLocation() {
+//      String loc = this.roster.getLocationDatabase().get(this.location.getLocationName()).getLocationName();
+        this.roster.getLocationDatabase().remove(this.location.getLocationName());
+
+        this.location.setLocationName(this.locationName.getText());
+        this.location.setType(this.locationTypeBox.getSelectionModel().getSelectedItem());
+
+//        this.roster.getLocationDatabase().put(this.location.getLocationName(), this.location);
+        this.obsRefresh.updateAllObservers();
+        close();
     }
 
     private void close() {
