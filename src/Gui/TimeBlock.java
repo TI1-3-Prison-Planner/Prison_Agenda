@@ -32,55 +32,43 @@ public class TimeBlock {
         this.timeEndHour = timeEnd.getHour();
         this.timeEndMinute = timeEnd.getMinute();
 
-        this.groupNumber = group.getGroupNumber();
+        this.groupNumber = group.getGroupID();
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
+    }
+    
+    public void setGroup(PrisonGroup group) {
+        this.group = group;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    public void setTimeStartHour(int timeStartHour) {
+        this.timeStartHour = timeStartHour;
+    }
+    public void setTimeStartMin(int timeStartMin) {
+        this.timeStartMin = timeStartMin;
+    }
 
+    public String getGroup() {
+        return group.getGroupName();
+    }
+    public String getLocation() {
+        return location;
+    }
+    public int getTimeStartHour() {
+        return timeStartHour;
+    }
+    public int getTimeStartMin() {
+        return timeStartMin;
     }
 
     public TimeBlock getTimeblock(Event e){
         return this;
     }
 
-    public String getGroup() {
-        return group.getGroupName();
-    }
 
-    public void setGroup(PrisonGroup group) {
-        this.group = group;
-    }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getTimeStartHour() {
-        return timeStartHour;
-    }
-
-    public void setTimeStartHour(int timeStartHour) {
-        this.timeStartHour = timeStartHour;
-    }
-
-    public int getTimeStartMin() {
-        return timeStartMin;
-    }
-
-    public void setTimeStartMin(int timeStartMin) {
-        this.timeStartMin = timeStartMin;
-    }
-
-//    public int getTimeEnd() {
-//        return timeEnd;
-//    }
-
-//    public void setTimeEnd(int timeEnd) {
-//        this.timeEnd = timeEnd;
-//    }
 
     public void draw(FXGraphics2D g2d) {
         int x = groupNumber * 100;

@@ -25,8 +25,10 @@ public class NewGroupPopup extends Observer {
     private ComboBox<PrisonGroup.SecurityDetail> securityTypeBox;
     private Button addButton;
     private Button cancelButton;
+    private Button editButton;
     private Roster roster;
     private ErrorPopup errorPopup;
+    private PrisonGroup pGroup;
 
     public NewGroupPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.newGroupPopupDisplay = new Stage();
@@ -47,34 +49,79 @@ public class NewGroupPopup extends Observer {
         this.obsRefresh.addObservers(this);
     }
 
+    public NewGroupPopup(String title, Roster roster, PrisonGroup group, ObserverRefresh obsRefresh){
+        this.newGroupPopupDisplay = new Stage();
+        this.newGroupPopupDisplay.initModality(Modality.APPLICATION_MODAL);
+        this.newGroupPopupDisplay.setTitle(title);
+        this.groupNameInstruction = new Label("Type the name of the group:");
+        this.securityDetailInstruction = new Label("Choose the type of security:");
+        this.idInstruction = new Label("Type in the group ID:");
+        this.groupName = new TextField();
+        this.groupName.setMaxWidth(200);
+        this.groupId = new TextField();
+        this.editButton = new Button("edit");
+        this.cancelButton = new Button("Cancel");
+        this.securityTypeBox = new ComboBox<>();
+        this.securityTypeBox.getItems().setAll(PrisonGroup.SecurityDetail.values());
+        this.roster = roster;
+        this.obsRefresh = obsRefresh;
+        this.obsRefresh.addObservers(this);
+        this.pGroup = group;
+    }
+
     public void display() {
-        this.roster.getGuardDatabase().put(new Person("Bobby", true), false);
         this.cancelButton.setOnAction(e -> close());
-        this.addButton.setOnAction(e -> {
-            addGroup();
-        });
+
+
         //TODO fix duplicate code (make a new class perhaps)
         VBox vBox = new VBox();
         HBox buttonBox = new HBox();
-        buttonBox.getChildren().addAll(addButton, cancelButton);
+
+        if(this.pGroup != null){
+            this.editButton.setOnAction(event -> editGroup());
+            this.groupName.setText(pGroup.getGroupName());
+            this.groupId.setText(String.valueOf(pGroup.getGroupID()));
+            this.securityTypeBox.getSelectionModel().select(pGroup.getSecurityDetail());
+            buttonBox.getChildren().addAll(this.editButton, this.cancelButton);
+
+        } else {
+            this.addButton.setOnAction(e -> addGroup());
+            buttonBox.getChildren().addAll(this.addButton, this.cancelButton);
+        }
+
         buttonBox.setSpacing(50);
-        vBox.getChildren().addAll(groupNameInstruction, groupName, idInstruction, groupId, securityDetailInstruction, securityTypeBox, buttonBox);
+        vBox.getChildren().addAll(this.groupNameInstruction, this.groupName, this.idInstruction, this.groupId, this.securityDetailInstruction, this.securityTypeBox, buttonBox);
         vBox.setSpacing(10);
         HBox displayItemBox = new HBox(vBox);
         displayItemBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(displayItemBox, 300, 275);
-        newGroupPopupDisplay.setScene(scene);
-        newGroupPopupDisplay.setResizable(false);
-        newGroupPopupDisplay.showAndWait();
+        this.newGroupPopupDisplay.setScene(scene);
+        this.newGroupPopupDisplay.setResizable(false);
+        this.newGroupPopupDisplay.showAndWait();
 
+
+    }
+
+    private void editGroup() {
+        int index = this.roster.getGroups().indexOf(this.pGroup);
+
+        this.pGroup.setGroupName(this.groupName.getText());
+        this.pGroup.setGroupID(Integer.parseInt(this.groupId.getText()));
+        this.pGroup.setSecurityDetail(this.securityTypeBox.getSelectionModel().getSelectedItem());
+
+        this.roster.getGroups().set(index, pGroup);
+        this.obsRefresh.update();
+        close();
     }
 
     private void addGroup() {
         PrisonGroup prisonGroup = null;
         try {
-            prisonGroup = new PrisonGroup(groupName.getText(), Integer.parseInt(groupId.getText()), securityTypeBox.getSelectionModel().getSelectedItem());
+            prisonGroup = new PrisonGroup(this.groupName.getText(),
+                    Integer.parseInt(this.groupId.getText()),
+                    this.securityTypeBox.getSelectionModel().getSelectedItem());
 
-            if (!roster.getGroups().contains(prisonGroup) || !groupName.getText().equals("")) {
+            if (!this.roster.getGroups().contains(prisonGroup) || !this.groupName.getText().equals("")) {
                 if (hasText()) {
                     prisonGroup.addGuard(this.roster.getGuardDatabase());
                     prisonGroup.addInmates(this.roster.getInmateDatabase());

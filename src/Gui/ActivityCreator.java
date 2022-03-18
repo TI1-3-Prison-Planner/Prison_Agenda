@@ -185,7 +185,6 @@ public class ActivityCreator extends Observer {
         return false;
     }
 
-
     //this method creates a time spinner.
     public Spinner<LocalTime> timeSpinner(){
         return  new Spinner<>(new SpinnerValueFactory<LocalTime>() {

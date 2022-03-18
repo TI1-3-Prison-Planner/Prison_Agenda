@@ -6,12 +6,6 @@ import java.util.HashMap;
 
 public class PrisonGroup implements Serializable {
 
-	private String groupName;
-	private ArrayList<Person> inmates;
-	private ArrayList<Person> guards;
-	private SecurityDetail securityDetail;
-	private int groupID;
-
 	//enumeration for the types of security on a group. For each securityDetail is a different amount of guards with the group.
 	public enum SecurityDetail {
 		LOW,
@@ -19,7 +13,11 @@ public class PrisonGroup implements Serializable {
 		HIGH
 	}
 
-
+	private String groupName;
+	private ArrayList<Person> inmates;
+	private ArrayList<Person> guards;
+	private SecurityDetail securityDetail;
+	private int groupID;
 
 	public PrisonGroup(String groupName,int groupID, SecurityDetail securityDetail) {
 		this.groupName = groupName;
@@ -27,24 +25,6 @@ public class PrisonGroup implements Serializable {
 		this.guards = new ArrayList<>();
 		this.groupID = groupID;
 		this.securityDetail = securityDetail;
-
-	}
-
-	//methode to add a person to a group. An ArrayList and a boolean are used to add the person to the right group.
-	public void addPerson(Person person) {
-		if (!this.inmates.contains(person) && !person.isGuard()) {
-			this.inmates.add(person);
-		}
-	}
-
-	//Getter to return the name of a certain prisongroup.
-	public String getGroupName() {
-		return this.groupName;
-	}
-
-	//method to return the inmates in a certain prisongroup.
-	public ArrayList<Person> getInmates() {
-		return this.inmates;
 	}
 
 	//method to check how much guards a group needs, then add that amount of guards to the hashmap given as parameter and a ArrayList of guards.
@@ -86,45 +66,38 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
-	public int getGroupNumber() {
-		return this.groupID;
-	}
-
-	public void setGroupNumber(int groupNumber) {
-		this.groupID = groupNumber;
-	}
-
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-
 	public void setInmates(ArrayList<Person> inmates) {
 		this.inmates = inmates;
 	}
-
-	public ArrayList<Person> getGuards() {
-		return guards;
-	}
-
 	public void setGuards(ArrayList<Person> guards) {
 		this.guards = guards;
 	}
-
-	public SecurityDetail getSecurityDetail() {
-		return securityDetail;
-	}
-
 	public void setSecurityDetail(SecurityDetail securityDetail) {
 		this.securityDetail = securityDetail;
 	}
+	public void setGroupID(int groupID) {
+		this.groupID = groupID;
+	}
 
+	public String getGroupName() {
+		return this.groupName;
+	}
+	public ArrayList<Person> getInmates() {
+		return this.inmates;
+	}
+	public ArrayList<Person> getGuards() {
+		return guards;
+	}
+	public SecurityDetail getSecurityDetail() {
+		return securityDetail;
+	}
 	public int getGroupID() {
 		return groupID;
 	}
 
-	public void setGroupID(int groupID) {
-		this.groupID = groupID;
-	}
 
 	@Override
 	public String toString() {

@@ -24,6 +24,13 @@ public class DataViewer extends Observer{
     private Roster roster;
     private ObserverRefresh obsRefresh;
 
+    private TableView<Person> guardsTable;
+    private TableView<Person> inmateTable;
+    private TableView<PrisonGroup> groupTable;
+    private TableView<Location> locationTable;
+    private TableView<Activity> activityTable;
+
+
     DataViewer(Roster roster, ObserverRefresh obsRefresh){
         this.dataTab = new TabPane();
         this.roster = roster;
@@ -54,13 +61,13 @@ public class DataViewer extends Observer{
     }
 
     public void fillGuardTab(){
-        TableView<Person> guards = new TableView<>();
+        this.guardsTable = new TableView<>();
         TableColumn<Person, String> name = new TableColumn<Person, String>("names");
         name.setMinWidth(250);
         TableColumn<Person, String> isInGroup = new TableColumn<Person, String>("Assigned");
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
-        persons.addAll(roster.getGuardDatabase().keySet());
+        persons.addAll(this.roster.getGuardDatabase().keySet());
 
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         isInGroup.setCellValueFactory(cellData -> {
@@ -74,13 +81,13 @@ public class DataViewer extends Observer{
             return new ReadOnlyStringWrapper(TF);
         });
 
-        guards.getColumns().addAll(name, isInGroup);
-        guards.setItems(persons);
-        this.guards.setContent(guards);
+        this.guardsTable.getColumns().addAll(name, isInGroup);
+        this.guardsTable.setItems(persons);
+        this.guards.setContent(this.guardsTable);
     }
 
     public void fillInmateTab(){
-        TableView<Person> guards = new TableView<>();
+        this.inmateTable = new TableView<>();
         TableColumn<Person, String> name = new TableColumn<Person, String>("names");
         name.setMinWidth(250);
         TableColumn<Person, String> isInGroup = new TableColumn<Person, String>("Assigned");
@@ -100,13 +107,13 @@ public class DataViewer extends Observer{
             return new ReadOnlyStringWrapper(TF);
         });
 
-        guards.getColumns().addAll(name, isInGroup);
-        guards.setItems(persons);
-        this.inmates.setContent(guards);
+        this.inmateTable.getColumns().addAll(name, isInGroup);
+        this.inmateTable.setItems(persons);
+        this.inmates.setContent(this.inmateTable);
     }
 
     public void fillGroupTab(){
-        TableView<PrisonGroup> groups = new TableView();
+        this.groupTable = new TableView<>();
         TableColumn<PrisonGroup, String> groupName = new TableColumn<PrisonGroup, String>("group name");
         TableColumn<PrisonGroup, ArrayList<Person>> inmates = new TableColumn<PrisonGroup, ArrayList<Person>>("inmates");
         TableColumn<PrisonGroup, ArrayList<Person>> guards = new TableColumn<PrisonGroup, ArrayList<Person>>("guards");
@@ -132,33 +139,31 @@ public class DataViewer extends Observer{
             };
         });
         detail.setCellValueFactory(new PropertyValueFactory<PrisonGroup, PrisonGroup.SecurityDetail>("securityDetail"));
-        groups.getColumns().addAll(groupName, inmates, guards, detail);
-        groups.setItems(prisonGroups);
-        this.groups.setContent(groups);
+        this.groupTable.getColumns().addAll(groupName, inmates, guards, detail);
+        this.groupTable.setItems(prisonGroups);
+        this.groups.setContent(this.groupTable);
     }
 
     public void fillLoactionTab(){
-        TableView<Location> locations = new TableView();
+        this.locationTable = new TableView<>();
         TableColumn<Location, String> locationName = new TableColumn<Location, String>("Name");
         TableColumn<Location, Location.LocationType> locationType = new TableColumn<Location, Location.LocationType>("Type");
 
 
         ObservableList<Location> location = FXCollections.observableArrayList();
-        for (Location locs : this.roster.getLocationDatabase().values()){
-            location.add(locs);
-        }
+        location.addAll(this.roster.getLocationDatabase().values());
 
         locationName.setCellValueFactory(new PropertyValueFactory<Location, String>("locationName"));
         locationType.setCellValueFactory(new PropertyValueFactory<Location, Location.LocationType>("type"));
 
 
-        locations.getColumns().addAll(locationName, locationType);
-        locations.setItems(location);
-        this.locations.setContent(locations);
+        this.locationTable.getColumns().addAll(locationName, locationType);
+        this.locationTable.setItems(location);
+        this.locations.setContent(this.locationTable);
     }
 
     public void fillActivityTab(){
-        TableView<Activity> activity = new TableView<>();
+        this.activityTable = new TableView<>();
         TableColumn<Activity, String> activityName = new TableColumn<Activity, String>("Name");
         TableColumn<Activity, LocalTime> startTime = new TableColumn<Activity, LocalTime>("Start Time");
         TableColumn<Activity, LocalTime> endTime = new TableColumn<Activity, LocalTime>("End Time");
@@ -174,13 +179,39 @@ public class DataViewer extends Observer{
         prisonGroup.setCellValueFactory(new PropertyValueFactory<Activity, PrisonGroup>("prisonGroup"));
         location.setCellValueFactory(new PropertyValueFactory<Activity, Location>("location"));
 
-        activity.getColumns().addAll(activityName, startTime, endTime, prisonGroup, location);
-        activity.setItems(activities);
-        this.activities.setContent(activity);
+        this.activityTable.getColumns().addAll(activityName, startTime, endTime, prisonGroup, location);
+        this.activityTable.setItems(activities);
+        this.activities.setContent(this.activityTable);
     }
 
     public TabPane allTabs(){
         return this.dataTab;
+    }
+
+
+
+    public TabPane getDataTab() {
+        return dataTab;
+    }
+
+    public TableView<Person> getGuardsTable() {
+        return guardsTable;
+    }
+
+    public TableView<Activity> getActivityTable() {
+        return activityTable;
+    }
+
+    public TableView<Person> getInmateTable() {
+        return inmateTable;
+    }
+
+    public TableView<PrisonGroup> getGroupTable() {
+        return groupTable;
+    }
+
+    public TableView<Location> getLocationTable() {
+        return locationTable;
     }
 
     @Override

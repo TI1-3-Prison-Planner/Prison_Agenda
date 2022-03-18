@@ -23,8 +23,6 @@ public class ErrorPopup extends Observer {
         this.errorMessage = errorMessage;
     }
 
-
-
     public void display() {
         this.errorPopupDisplay = new Stage();
         GridPane grid = new GridPane();
