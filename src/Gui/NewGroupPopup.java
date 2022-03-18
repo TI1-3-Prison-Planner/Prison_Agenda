@@ -109,6 +109,9 @@ public class NewGroupPopup extends Observer {
         this.pGroup.setGroupID(Integer.parseInt(this.groupId.getText()));
         this.pGroup.setSecurityDetail(this.securityTypeBox.getSelectionModel().getSelectedItem());
 
+        if (this.roster.getGroups().get(index).getSecurityDetail().equals(this.pGroup.getSecurityDetail()))
+            this.pGroup.refreshGuards(this.roster);
+
         this.roster.getGroups().set(index, pGroup);
         this.obsRefresh.updateAllObservers();
         close();

@@ -30,12 +30,27 @@ public class PrisonGroup implements Serializable {
 	//method to check how much guards a group needs, then add that amount of guards to the hashmap given as parameter and a ArrayList of guards.
 	public void addGuard(HashMap<Person, Boolean> guardList) {
 		int guardAmount = guardsPerDetail();
+		int currentAmount = this.guards.size();
 		for (Person person : guardList.keySet()) {
-			if (!guardList.get(person) && guardAmount > 0) {
+			if (!guardList.get(person) && (guardAmount - currentAmount) > 0) {
 				this.guards.add(person);
 				person.setInGroup(true);
 				guardList.put(person, person.isInGroup());
 				guardAmount--;
+			}
+		}
+	}
+
+	public void removeGuard(HashMap<Person, Boolean> guardList){
+		int guardAmount = guardsPerDetail();
+		int currentAmount = this.guards.size();
+
+		for (Person person : guardList.keySet()) {
+			if (this.guards.contains(person) && (guardAmount < currentAmount)) {
+				this.guards.remove(person);
+				person.setInGroup(false);
+				guardList.put(person, person.isInGroup());
+				currentAmount--;
 			}
 		}
 	}
@@ -65,6 +80,18 @@ public class PrisonGroup implements Serializable {
 				return -1;
 		}
 	}
+
+	public void refreshGuards(Roster roster){
+		int currentGuardAmmount = this.guards.size();
+		int neededGuardAmmount = guardsPerDetail();
+
+		if (neededGuardAmmount > currentGuardAmmount){
+			addGuard(roster.getGuardDatabase());
+		} else {
+			removeGuard(roster.getGuardDatabase());
+		}
+	}
+
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
