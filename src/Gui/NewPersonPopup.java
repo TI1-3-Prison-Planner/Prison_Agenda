@@ -27,6 +27,7 @@ public class NewPersonPopup extends Observer implements Popup {
     private CheckBox inGroupCheck;
     private boolean inGroup;
     private ComboBox<PrisonGroup> groupSelection;
+    private Person person;
 
     public NewPersonPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.title = title;
@@ -35,6 +36,16 @@ public class NewPersonPopup extends Observer implements Popup {
         this.stage = new Stage();
         this.stage.initModality(Modality.APPLICATION_MODAL);
         this.stage.setTitle(title);
+    }
+
+    public NewPersonPopup(String title, Roster roster, ObserverRefresh obsRefresh, Person person) {
+        this.title = title;
+        this.roster = roster;
+        this.obsRefresh = obsRefresh;
+        this.stage = new Stage();
+        this.stage.initModality(Modality.APPLICATION_MODAL);
+        this.stage.setTitle(title);
+        this.person = person;
     }
 
     @Override
@@ -66,11 +77,27 @@ public class NewPersonPopup extends Observer implements Popup {
         Button cancelButton = new Button("Cancel");
         cancelButton.setOnAction(e -> close());
 
+        Button editButton = new Button("Edit");
+        editButton.setOnAction(event -> editPerson());
+
         HBox radioBox = new HBox(guardButton, inmateButton);
         radioBox.setAlignment(Pos.CENTER);
         radioBox.setSpacing(10);
 
-        HBox buttonBox = new HBox(confirmButton, cancelButton);
+        HBox buttonBox = new HBox();
+
+        if(this.person != null){
+            buttonBox.getChildren().addAll(editButton, cancelButton);
+            this.insertedName.setText(this.person.getName());
+            if (this.person.isGuard()) {
+                this.guardButton.setSelected(true);
+            } else {
+                this.inmateButton.setSelected(true);
+            }
+        } else {
+            buttonBox.getChildren().addAll(confirmButton, cancelButton);
+        }
+
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setSpacing(20);
 
@@ -102,13 +129,33 @@ public class NewPersonPopup extends Observer implements Popup {
         this.stage.showAndWait();
     }
 
+    //TODO update groups to see the new name
+    private void editPerson() {
+        int old = this.roster.getGuardDatabase().indexOf(this.person);
+
+        this.person.setName(this.insertedName.getText());
+        if (guardButton.isSelected()) {
+            this.person.setGuard(true);
+
+            this.roster.getGuardDatabase().set(old, this.person );
+        } else {
+            this.person.setGuard(false);
+
+            this.roster.getInmateDatabase().set(old, this.person);
+        }
+
+        this.obsRefresh.updateAllObservers();
+        close();
+
+    }
+
     private void addPerson() {
         try {
             if (this.insertedName != null && this.toggleGroup.getSelectedToggle().isSelected()) {
                 if (guardButton.isSelected()) {
-                    this.roster.getGuardDatabase().put(new Person(this.insertedName.getText(), true), false);
+                    this.roster.getGuardDatabase().add(new Person(this.insertedName.getText(), true));
                 } else {
-                    this.roster.getInmateDatabase().put(new Person(this.insertedName.getText(), false), false);
+                    this.roster.getInmateDatabase().add(new Person(this.insertedName.getText(), false));
                 }
             }
         } catch (Exception e) {

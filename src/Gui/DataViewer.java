@@ -63,7 +63,7 @@ public class DataViewer extends Observer{
         TableColumn<Person, String> isInGroup = new TableColumn<Person, String>("Assigned");
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
-        persons.addAll(this.roster.getGuardDatabase().keySet());
+        persons.addAll(this.roster.getGuardDatabase());
 
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         isInGroup.setCellValueFactory(cellData -> {
@@ -89,7 +89,7 @@ public class DataViewer extends Observer{
         TableColumn<Person, String> isInGroup = new TableColumn<Person, String>("Assigned");
 
         ObservableList<Person> persons = FXCollections.observableArrayList();
-        persons.addAll(roster.getInmateDatabase().keySet());
+        persons.addAll(roster.getInmateDatabase());
 
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         isInGroup.setCellValueFactory(cellData -> {

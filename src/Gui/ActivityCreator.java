@@ -29,6 +29,7 @@ public class ActivityCreator extends Observer {
     private TextField activityName;
     private Stage activityPlanner;
     private ObserverRefresh obsRefresh;
+    private Activity activity;
 
 
     public void init(Roster roster) {
@@ -44,6 +45,13 @@ public class ActivityCreator extends Observer {
         this.roster = roster;
         this.obsRefresh = observer;
         this.obsRefresh.addObservers(this);
+    }
+
+    public ActivityCreator(Roster roster, ObserverRefresh observer, Activity activity) {
+        this.roster = roster;
+        this.obsRefresh = observer;
+        this.obsRefresh.addObservers(this);
+        this.activity = activity;
     }
 
     public void display() {
@@ -70,16 +78,12 @@ public class ActivityCreator extends Observer {
         this.setGroup.getItems().setAll(this.roster.getGroups());
 
         this.setEndTime = timeSpinner();
-
-//        setLocation.setItems(locations);
-//        setGroup.setItems(groups);
         this.setStartTime.setEditable(true);
-
-
         this.setEndTime.setEditable(true);
 
         Button cancel = new Button("Cancel");
         Button add = new Button("Add");
+        Button edit = new Button("Edit");
 
 
         grid.add(activity, 1, 10);
@@ -94,25 +98,23 @@ public class ActivityCreator extends Observer {
         grid.add(this.setStartTime, 2, 40);
         grid.add(this.setEndTime, 2, 50);
         grid.add(cancel, 2, 80);
-        grid.add(add, 1, 80);
+
+        if (this.activity != null){
+            grid.add(edit,1,80);
+            this.activityName.setText(this.activity.getActivityName());
+            this.setLocation.getSelectionModel().select(this.activity.getLocation());
+            this.setGroup.getSelectionModel().select(this.activity.getPrisonGroup());
+        }else {
+            grid.add(add, 1, 80);
+        }
 
         HBox hBox1;
         grid.add(hBox1 = new HBox(this.setLocation), 2, 20);
         hBox1.setSpacing(70);
 
-//        newLocation.setOnAction(e -> {
-//
-//        });
-
         HBox hbox2;
         grid.add(hbox2 = new HBox(this.setGroup), 2, 30);
         hbox2.setSpacing(70);
-
-//        newGroup.setOnAction(e -> {
-//
-//        });
-
-
 
         cancel.setOnAction(event -> {
             activityPlanner.close();
@@ -135,9 +137,9 @@ public class ActivityCreator extends Observer {
                 alert.showAndWait();
                 //TODO, Code missing until adding function is working
             }
-//            addActivity();
-//            close();
         });
+
+        edit.setOnAction(event -> editActivity());
 
 
         Scene activityScene = new Scene(grid);
@@ -145,6 +147,9 @@ public class ActivityCreator extends Observer {
         activityPlanner.setScene(activityScene);
         activityPlanner.showAndWait();
 
+    }
+
+    private void editActivity() {
     }
 
     private void close() {

@@ -28,40 +28,40 @@ public class PrisonGroup implements Serializable {
 	}
 
 	//method to check how much guards a group needs, then add that amount of guards to the hashmap given as parameter and a ArrayList of guards.
-	public void addGuard(HashMap<Person, Boolean> guardList) {
+	public void addGuard(ArrayList<Person> guardList) {
 		int guardAmount = guardsPerDetail();
 		int currentAmount = this.guards.size();
-		for (Person person : guardList.keySet()) {
-			if (!guardList.get(person) && (guardAmount - currentAmount) > 0) {
+		for (Person person : guardList) {
+			if (!person.isInGroup() && (guardAmount - currentAmount) > 0) {
 				this.guards.add(person);
 				person.setInGroup(true);
-				guardList.put(person, person.isInGroup());
+				guardList.set(guardList.indexOf(person), person);
 				guardAmount--;
 			}
 		}
 	}
 
-	public void removeGuard(HashMap<Person, Boolean> guardList){
+	public void removeGuard(ArrayList<Person> guardList){
 		int guardAmount = guardsPerDetail();
 		int currentAmount = this.guards.size();
 
-		for (Person person : guardList.keySet()) {
+		for (Person person : guardList) {
 			if (this.guards.contains(person) && (guardAmount < currentAmount)) {
 				this.guards.remove(person);
 				person.setInGroup(false);
-				guardList.put(person, person.isInGroup());
+				guardList.add(person);
 				currentAmount--;
 			}
 		}
 	}
 
-	public void addInmates(HashMap<Person, Boolean> inmateList){
+	public void addInmates(ArrayList<Person> inmateList){
 		int inmateAmount = 20;
-		for (Person person : inmateList.keySet()) {
-			if (!inmateList.get(person) && inmateAmount > 0) {
+		for (Person person : inmateList) {
+			if (!person.isInGroup() && inmateAmount > 0) {
 				this.inmates.add(person);
 				person.setInGroup(true);
-				inmateList.put(person, person.isInGroup());
+				inmateList.set(inmateList.indexOf(person), person);
 				inmateAmount--;
 			}
 		}

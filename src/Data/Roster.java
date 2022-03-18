@@ -10,16 +10,16 @@ import java.util.*;
 public class Roster implements Comparator<LocalTime>, Serializable {
 
 
-    private HashMap<Person, Boolean> guardDatabase;                //Guard database with boolean for being assinged to a group
-    private HashMap<Person, Boolean> inmateDatabase;            //inmate database with boolean for being assinged to a group
+    private ArrayList<Person> guardDatabase;                //Guard database with boolean for being assinged to a group
+    private ArrayList<Person> inmateDatabase;            //inmate database with boolean for being assinged to a group
     private HashMap<String, Location> locationDatabase;            //Location database with ID for each Location
     private ArrayList<PrisonGroup> groups;                        //List with all prison groups to assign inmates and guards to
     private ArrayList<Activity> activities;                        //List with all activity's for all groups
 
     public Roster() {
-        this.guardDatabase = new HashMap<>();
+        this.guardDatabase = new ArrayList<>();
         this.groups = new ArrayList<>();
-        this.inmateDatabase = new HashMap<>();
+        this.inmateDatabase = new ArrayList<>();
         this.locationDatabase = new HashMap<>();
         this.activities = new ArrayList<>();
     }
@@ -35,14 +35,14 @@ public class Roster implements Comparator<LocalTime>, Serializable {
     public void fillInmatesDataBase(ArrayList<String> persons) {
         for (String name : persons) {
             Person inmate = new Person(name, false);
-            this.inmateDatabase.put(inmate, false);
+            this.inmateDatabase.add(inmate);
         }
     }
 
     public void fillGuardDatabase(ArrayList<String> persons) {
         for (String name : persons) {
             Person guard = new Person(name, true);
-            this.guardDatabase.put(guard, false);
+            this.guardDatabase.add(guard);
         }
     }
 
@@ -74,10 +74,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
-    public HashMap<Person, Boolean> getGuardDatabase() {
+    public ArrayList<Person> getGuardDatabase() {
         return this.guardDatabase;
     }
-    public HashMap<Person, Boolean> getInmateDatabase() {
+    public ArrayList<Person> getInmateDatabase() {
         return this.inmateDatabase;
     }
     public HashMap<String, Location> getLocationDatabase() {

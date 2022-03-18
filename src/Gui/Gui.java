@@ -174,29 +174,32 @@ public class Gui extends Application {
 		switch (selectedTab){
 			case "Guards":
 				Person guard = this.dataViewer.getGuardsTable().getSelectionModel().getSelectedItem();
-
+				NewPersonPopup editGuard = new NewPersonPopup("Edit guard", this.roster, this.obsRefresh, guard);
+				editGuard.display();
 				break;
 
 			case "Inmates":
 				Person inmate = this.dataViewer.getInmateTable().getSelectionModel().getSelectedItem();
-
+				NewPersonPopup editInmate = new NewPersonPopup("Edit guard", this.roster, this.obsRefresh, inmate);
+				editInmate.display();
 				break;
 
 			case "Groups":
 				PrisonGroup group = this.dataViewer.getGroupTable().getSelectionModel().getSelectedItem();
-				NewGroupPopup editPop = new NewGroupPopup("edit", this.roster, group, this.obsRefresh);
-				editPop.display();
+				NewGroupPopup editgroup = new NewGroupPopup("edit", this.roster, group, this.obsRefresh);
+				editgroup.display();
 				break;
 
 			case "Locations":
 				Location location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem();
-				NewLocationPopup editpop = new NewLocationPopup("edit", this.roster , this.obsRefresh, location);
-				editpop.display();
+				NewLocationPopup editLoc = new NewLocationPopup("edit", this.roster , this.obsRefresh, location);
+				editLoc.display();
 				break;
 
 			case "Activities":
 				Activity activity = this.dataViewer.getActivityTable().getSelectionModel().getSelectedItem();
-
+				ActivityCreator editAct = new ActivityCreator(this.roster, this.obsRefresh, activity);
+				editAct.display();
 				break;
 
 			case "":
