@@ -13,9 +13,8 @@ public class Person implements Serializable {
         this.isInGroup = false;
     }
 
-    //Getter to return the name of a person.
-    public String getName() {
-        return this.name;
+    public boolean isInGroup() {
+        return this.isInGroup;
     }
 
     //boolean to check if the person is a guard.
@@ -23,16 +22,19 @@ public class Person implements Serializable {
         return this.isGuard;
     }
 
-    @Override
-    public String toString() {
-        return '\n' + this.name;
-    }
+
 
     public void setInGroup(boolean inGroup) {
         this.isInGroup = inGroup;
     }
 
-    public boolean isInGroup() {
-        return this.isInGroup;
+    //Getter to return the name of a person.
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String toString() {
+        return '\n' + this.name;
     }
 }

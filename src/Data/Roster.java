@@ -24,26 +24,6 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         this.activities = new ArrayList<>();
     }
 
-    public HashMap<Person, Boolean> getGuardDatabase() {
-        return this.guardDatabase;
-    }
-
-    public HashMap<Person, Boolean> getInmateDatabase() {
-        return this.inmateDatabase;
-    }
-
-    public ArrayList<PrisonGroup> getGroups() {
-        return this.groups;
-    }
-
-    public ArrayList<Activity> getActivities() {
-        return this.activities;
-    }
-
-    public HashMap<String, Location> getLocationDatabase() {
-        return this.locationDatabase;
-    }
-
     public void clear() {
         this.guardDatabase.clear();
         this.groups.clear();
@@ -94,6 +74,21 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
+    public HashMap<Person, Boolean> getGuardDatabase() {
+        return this.guardDatabase;
+    }
+    public HashMap<Person, Boolean> getInmateDatabase() {
+        return this.inmateDatabase;
+    }
+    public HashMap<String, Location> getLocationDatabase() {
+        return this.locationDatabase;
+    }
+    public ArrayList<PrisonGroup> getGroups() {
+        return this.groups;
+    }
+    public ArrayList<Activity> getActivities() {
+        return this.activities;
+    }
 
     @Override
     public String toString() {
@@ -104,25 +99,6 @@ public class Roster implements Comparator<LocalTime>, Serializable {
                 "activities=" + activities + '\n' + '\n' +
                 "locations=" + locationDatabase;
     }
-
-//    private transient List<Observer> observers = new ArrayList<>();
-//
-//    @Override
-//    public void attach(Observer observer) {
-//        this.observers.add(observer);
-//    }
-//
-//    @Override
-//    public void detach(Observer observer) {
-//        this.observers.remove(observer);
-//    }
-//
-//    @Override
-//    public void notifyObservers() {
-//        for (Observer observer : observers) {
-//            observer.update();
-//        }
-//    }
 
 }
 

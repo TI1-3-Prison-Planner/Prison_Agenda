@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 
 /**
- * Author: Moustapha Azaimi, Thomas Dam, Martijn van der Linden en Simon van der Wulp, Midas filius.
+ * Author: Moustapha Azaimi, Thomas Dam, Martijn van der Linden en Simon van der Wulp, Midas filius, Ramon Rampaart.
  */
 
 public class Gui extends Application {

@@ -188,14 +188,7 @@ public class DataViewer extends Observer{
         return this.dataTab;
     }
 
-    @Override
-    public void update() {
-        fillGuardTab();
-        fillInmateTab();
-        fillGroupTab();
-        fillLoactionTab();
-        fillActivityTab();
-    }
+
 
     public TabPane getDataTab() {
         return dataTab;
@@ -219,5 +212,14 @@ public class DataViewer extends Observer{
 
     public TableView<Location> getLocationTable() {
         return locationTable;
+    }
+
+    @Override
+    public void update() {
+        fillGuardTab();
+        fillInmateTab();
+        fillGroupTab();
+        fillLoactionTab();
+        fillActivityTab();
     }
 }

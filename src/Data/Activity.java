@@ -20,38 +20,31 @@ public class Activity implements Serializable {
         this.location = location;
     }
 
-    public LocalTime getStartTime() {
-        return this.startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
-
     public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
-
     public void setPrisonGroup(PrisonGroup prisonGroup) {
         this.prisonGroup = prisonGroup;
     }
-
     public void setLocation(Location location) {
         this.location = location;
     }
 
+    public LocalTime getStartTime() {
+        return this.startTime;
+    }
+    public LocalTime getEndTime() {
+        return endTime;
+    }
     public PrisonGroup getPrisonGroup() {
         return prisonGroup;
     }
-
     public Location getLocation() {
         return location;
     }
-
     public String getActivityName() {
         return activityName;
     }

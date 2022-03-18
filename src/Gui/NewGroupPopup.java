@@ -106,14 +106,10 @@ public class NewGroupPopup extends Observer {
     private void editGroup() {
         int index = this.roster.getGroups().indexOf(this.pGroup);
 
-        try {
-            this.pGroup.setGroupName(this.groupName.getText());
-            this.pGroup.setGroupID(Integer.parseInt(this.groupId.getText()));
-            this.pGroup.setSecurityDetail(this.securityTypeBox.getSelectionModel().getSelectedItem());
+        this.pGroup.setGroupName(this.groupName.getText());
+        this.pGroup.setGroupID(Integer.parseInt(this.groupId.getText()));
+        this.pGroup.setSecurityDetail(this.securityTypeBox.getSelectionModel().getSelectedItem());
 
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
         this.roster.getGroups().set(index, pGroup);
         this.obsRefresh.update();
         close();
