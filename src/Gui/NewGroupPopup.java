@@ -5,10 +5,7 @@ import Data.PrisonGroup;
 import Data.Roster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -27,7 +24,6 @@ public class NewGroupPopup extends Observer implements Popup {
     private Button cancelButton;
     private Button editButton;
     private Roster roster;
-    private ErrorPopup errorPopup;
     private PrisonGroup pGroup;
 
     public NewGroupPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
@@ -120,6 +116,7 @@ public class NewGroupPopup extends Observer implements Popup {
 
     private void addGroup() {
         PrisonGroup prisonGroup = null;
+        Alert inputAlert = new Alert(Alert.AlertType.ERROR,"Incorrect input. Please fill every cell correctly.");
         try {
             prisonGroup = new PrisonGroup(this.groupName.getText(),
                     Integer.parseInt(this.groupId.getText()),
@@ -137,15 +134,12 @@ public class NewGroupPopup extends Observer implements Popup {
             }
 
             if (!hasText()) {
-                this.errorPopup.setErrorMessage("Incorrect input. Please fill every cell correctly.");
-                this.errorPopup.display();
+                inputAlert.show();
             }
 
         } catch (NumberFormatException | NullPointerException e) {
             prisonGroup = null;
-            ErrorPopup exceptionPopup = new ErrorPopup("Incorrect input. Please fill every cell correctly.");
-//            exceptionPopup.setErrorMessage("Incorrect input. Please fill every cell correctly.");
-            exceptionPopup.display();
+            inputAlert.show();
         }
     }
 

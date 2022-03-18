@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ActivityCreator extends Observer implements Popup{
-    private ErrorPopup errorPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ObservableList<PrisonGroup> groups = FXCollections.observableArrayList();
     private ObservableList<Location> locations = FXCollections.observableArrayList();
@@ -55,7 +54,6 @@ public class ActivityCreator extends Observer implements Popup{
     }
     @Override
     public void display() {
-        this.errorPopup = new ErrorPopup("");
         GridPane grid = new GridPane();
         this.activityPlanner = new Stage();
 
@@ -161,8 +159,8 @@ public class ActivityCreator extends Observer implements Popup{
 
     private void addActivity() {
         if (isOverlapping()) {
-            this.errorPopup.setErrorMessage("Overlap with other activities");
-            errorPopup.display();
+            Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "Overlap with other activities");
+            overlapAlert.show();
         } else {
             this.roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),setGroup.getValue(),setLocation.getValue()));
             this.obsRefresh.updateAllObservers();
@@ -184,8 +182,8 @@ public class ActivityCreator extends Observer implements Popup{
                 }
             }
         } catch (Exception e) {
-            ErrorPopup EP = new ErrorPopup(e.toString());
-            EP.display();
+            Alert exceptionAlert = new Alert(Alert.AlertType.ERROR,e.toString());
+            exceptionAlert.show();
         }
         return false;
     }
