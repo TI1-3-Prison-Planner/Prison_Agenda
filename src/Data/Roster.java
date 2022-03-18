@@ -74,6 +74,14 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
+    public void manageGroups(Person person) {
+        for (PrisonGroup group : this.getGroups()) {
+            if (group.getInmates().remove(person))
+                group.addInmates(this.getInmateDatabase());
+            if(group.getGuards().remove(person))
+                group.addGuard(this.getGuardDatabase());
+        }
+    }
     public ArrayList<Person> getGuardDatabase() {
         return this.guardDatabase;
     }

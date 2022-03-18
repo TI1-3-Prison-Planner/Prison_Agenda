@@ -12,7 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Author: Moustapha Azaimi
+ * Author: Moustapha Azaimi & Ramon Rampaart
  */
 
 public class NewPersonPopup extends Observer implements Popup {
@@ -86,7 +86,7 @@ public class NewPersonPopup extends Observer implements Popup {
 
         HBox buttonBox = new HBox();
 
-        if(this.person != null){
+        if (this.person != null) {
             buttonBox.getChildren().addAll(editButton, cancelButton);
             this.insertedName.setText(this.person.getName());
             if (this.person.isGuard()) {
@@ -131,23 +131,29 @@ public class NewPersonPopup extends Observer implements Popup {
 
     //TODO update groups to see the new name
     private void editPerson() {
-        int old = this.roster.getGuardDatabase().indexOf(this.person);
+//        int old = this.roster.getGuardDatabase().indexOf(this.person);
 
         this.person.setName(this.insertedName.getText());
         if (guardButton.isSelected()) {
             this.person.setGuard(true);
 
-            this.roster.getGuardDatabase().set(old, this.person );
+            this.roster.getGuardDatabase().add(this.person);
+            this.roster.getInmateDatabase().remove(this.person);
         } else {
             this.person.setGuard(false);
 
-            this.roster.getInmateDatabase().set(old, this.person);
+            this.roster.getInmateDatabase().add(this.person);
+            this.roster.getGuardDatabase().remove(this.person);
         }
+        this.roster.manageGroups(this.person);
+        //todo
 
         this.obsRefresh.updateAllObservers();
         close();
 
     }
+
+
 
     private void addPerson() {
         try {

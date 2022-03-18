@@ -84,7 +84,7 @@ public class Gui extends Application {
 
 		this.fileIO = new FileIO();
 		File file = new File("roster.json");
-		this.roster = this.fileIO.readData(file);
+		this.roster = fileIO.readData(file);
 
 
 		this.dataViewer = new DataViewer(this.roster, this.obsRefresh);
@@ -217,11 +217,13 @@ public class Gui extends Application {
 			case "Guards":
 				Person guard = this.dataViewer.getGuardsTable().getSelectionModel().getSelectedItem();
 				this.roster.getGuardDatabase().remove(guard);
+				this.roster.manageGroups(guard);
 				break;
 
 			case "Inmates":
 				Person inmate = this.dataViewer.getInmateTable().getSelectionModel().getSelectedItem();
 				this.roster.getInmateDatabase().remove(inmate);
+				this.roster.manageGroups(inmate);
 				break;
 
 			case "Groups":

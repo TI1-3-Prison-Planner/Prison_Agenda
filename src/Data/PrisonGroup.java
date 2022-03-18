@@ -56,13 +56,14 @@ public class PrisonGroup implements Serializable {
 	}
 
 	public void addInmates(ArrayList<Person> inmateList){
-		int inmateAmount = 20;
+		int inmatesNeeded = 20;
+		int inmateAmount = this.inmates.size();
 		for (Person person : inmateList) {
-			if (!person.isInGroup() && inmateAmount > 0) {
+			if (!person.isInGroup() && inmateAmount < inmatesNeeded) {
 				this.inmates.add(person);
 				person.setInGroup(true);
 				inmateList.set(inmateList.indexOf(person), person);
-				inmateAmount--;
+				inmateAmount++;
 			}
 		}
 	}
