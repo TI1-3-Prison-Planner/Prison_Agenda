@@ -55,6 +55,7 @@ public class Gui extends Application {
 	private Menu newMenu;
 	private NewGroupPopup newGroupPopup;
 	private NewLocationPopup newLocationPopup;
+	private NewPersonPopup newPersonPopup;
 	private FileIO fileIO;
 	private ObserverRefresh obsRefresh;
 	private MenuItem refresh;
@@ -90,6 +91,7 @@ public class Gui extends Application {
 		this.agendaCreator = new ActivityCreator(this.roster, this.obsRefresh);
 		this.newGroupPopup = new NewGroupPopup("add new group", this.roster, this.obsRefresh);
 		this.newLocationPopup = new NewLocationPopup("add new location", this.roster, this.obsRefresh);
+		this.newPersonPopup = new NewPersonPopup("Add person to database", this.roster, this.obsRefresh);
 		fillMenuBar(stage);
 		createPanes();
 		fillTableTab();
@@ -142,12 +144,15 @@ public class Gui extends Application {
 			this.agendaCreator.display();
 		});
 
+		MenuItem newPerson = new MenuItem("Add new person");
+		newPerson.setOnAction(e -> this.newPersonPopup.display());
+
 		MenuItem newGroup = new MenuItem("Add new group");
 		newGroup.setOnAction(e -> this.newGroupPopup.display());
 
 		MenuItem newLocation = new MenuItem("Add new location");
 		newLocation.setOnAction(e -> this.newLocationPopup.display());
-		this.newMenu.getItems().addAll(newActivity, newGroup, newLocation);
+		this.newMenu.getItems().addAll(newActivity, newPerson, newGroup, newLocation);
 
 		this.edit = new MenuItem("Edit");
 		this.edit.setOnAction(e -> {
