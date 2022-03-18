@@ -59,6 +59,7 @@ public class Gui extends Application {
 	private ObserverRefresh obsRefresh;
 	private MenuItem refresh;
 	private MenuItem edit;
+	private Menu refreshMenu;
 
 
 	@Override
@@ -127,14 +128,12 @@ public class Gui extends Application {
 
 		MenuItem load = new MenuItem("Load file");
 		load.setOnAction(e -> loadFile(stage));
-        this.fileMenu.getItems().addAll(save, load);
 		this.obsRefresh.updateAllObservers();
 
 		this.refresh = new MenuItem("Refresh");
-		this.refresh.setOnAction(e -> this.obsRefresh.update());
+		this.refresh.setOnAction(e -> this.obsRefresh.updateAllObservers());
 
         this.fileMenu.getItems().addAll(save, load, this.refresh);
-
 
 		this.newMenu = new Menu("New");
 		MenuItem newActivity = new MenuItem("New activity");
@@ -161,10 +160,7 @@ public class Gui extends Application {
 
 		this.editMenu = new Menu("Edit");
 		this.editMenu.getItems().addAll(this.edit, this.delete);
-		this.refreshMenu = new Menu("Refresh");
-		this.refreshMenu.setOnAction(e -> {
-			this.obsRefresh.updateAllObservers();
-		});
+
 	}
 
 	private void editObject() {
@@ -202,7 +198,7 @@ public class Gui extends Application {
 				break;
 
 		}
-		this.obsRefresh.update();
+		this.obsRefresh.updateAllObservers();
 	}
 
 	private void deleteObject() {
@@ -234,7 +230,7 @@ public class Gui extends Application {
 				this.roster.getActivities().remove(activity);
 				break;
 		}
-		this.obsRefresh.update();
+		this.obsRefresh.updateAllObservers();
 	}
 
 	private void loadFile(Stage stage) {

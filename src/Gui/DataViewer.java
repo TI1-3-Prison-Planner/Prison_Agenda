@@ -227,7 +227,4 @@ public class DataViewer extends Observer{
         this.roster = roster;
     }
 
-    public TabPane getDataTab() {
-        return dataTab;
-    }
 }

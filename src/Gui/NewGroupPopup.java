@@ -110,7 +110,7 @@ public class NewGroupPopup extends Observer {
         this.pGroup.setSecurityDetail(this.securityTypeBox.getSelectionModel().getSelectedItem());
 
         this.roster.getGroups().set(index, pGroup);
-        this.obsRefresh.update();
+        this.obsRefresh.updateAllObservers();
         close();
     }
 
