@@ -147,6 +147,7 @@ public class DataViewer extends Observer{
 
 
         ObservableList<Location> location = FXCollections.observableArrayList();
+
         location.addAll(this.roster.getLocationDatabase().values());
 
         locationName.setCellValueFactory(new PropertyValueFactory<Location, String>("locationName"));

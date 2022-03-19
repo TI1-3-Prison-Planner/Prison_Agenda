@@ -1,6 +1,7 @@
 package Gui;
 
 import Data.Location;
+import Data.LocationIndexCreator;
 import Data.Roster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -113,11 +114,27 @@ public class NewLocationPopup extends Observer {
     //todo add a label and textfield for id to class
     //todo fix addLocation() and close()
     private void addLocation() {
-        if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
-            this.roster.getLocationDatabase().put(locationName.getText(),
-                    new Location(locationName.getText(), locationTypeBox.getValue()));
-            this.obsRefresh.updateAllObservers();
+//        if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
+//            this.roster.getLocationDatabase().put(locationName.getText(),
+//                    new Location(locationName.getText(), locationTypeBox.getValue()));
+//            this.obsRefresh.updateAllObservers();
+//        }
+        try {
+            LocationIndexCreator indexer = new LocationIndexCreator(this.locationTypeBox.getValue(), this.roster, this.locationName.getText());
+            Boolean check = !this.roster.getLocationDatabase().containsKey(indexer.indexCreator(true));
+            Boolean check2 = !locationName.getText().equals("");
+            if (check && check2) {
+
+                this.roster.getLocationDatabase().put(indexer.indexCreator(false), new Location(this.locationName.getText(), this.locationTypeBox.getValue()));
+                System.out.println(this.roster.getLocationDatabase());
+                this.obsRefresh.updateAllObservers();
+            } else {
+                //TODO set error popup
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override

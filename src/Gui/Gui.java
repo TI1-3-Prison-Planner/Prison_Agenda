@@ -201,11 +201,6 @@ public class Gui extends Application {
 				ActivityCreator editAct = new ActivityCreator(this.roster, this.obsRefresh, activity);
 				editAct.display();
 				break;
-
-			case "":
-				System.out.println("teest");
-				break;
-
 		}
 		this.obsRefresh.updateAllObservers();
 	}
@@ -233,7 +228,7 @@ public class Gui extends Application {
 
 			case "Locations":
 				Location location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem();
-				this.roster.getLocationDatabase().values().remove(location);
+				this.roster.getLocationDatabase().remove(location);
 				break;
 
 			case "Activities":
