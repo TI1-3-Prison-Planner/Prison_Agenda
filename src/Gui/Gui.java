@@ -251,7 +251,6 @@ public class Gui extends Application {
 			this.roster = this.fileIO.readData(file);
 			this.dataViewer.setRoster(this.roster); //update roster class of Dataviewer
 			this.obsRefresh.updateAllObservers();
-			System.out.println(this.roster);
 		}
 	}
 

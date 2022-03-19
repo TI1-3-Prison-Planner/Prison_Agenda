@@ -14,6 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class NewLocationPopup extends Observer {
     private ObserverRefresh obsRefresh;
     private Stage newLocationPopupDisplay;
@@ -111,8 +113,6 @@ public class NewLocationPopup extends Observer {
         newLocationPopupDisplay.close();
     }
 
-    //todo add a label and textfield for id to class
-    //todo fix addLocation() and close()
     private void addLocation() {
 //        if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
 //            this.roster.getLocationDatabase().put(locationName.getText(),
@@ -120,16 +120,14 @@ public class NewLocationPopup extends Observer {
 //            this.obsRefresh.updateAllObservers();
 //        }
         try {
-            LocationIndexCreator indexer = new LocationIndexCreator(this.locationTypeBox.getValue(), this.roster, this.locationName.getText());
-            Boolean check = !this.roster.getLocationDatabase().containsKey(indexer.indexCreator(true));
-            Boolean check2 = !locationName.getText().equals("");
-            if (check && check2) {
-
+            LocationIndexCreator indexer = new LocationIndexCreator(this.locationTypeBox.getValue(), this.roster);
+            if (!locationName.getText().equals("")) {
                 this.roster.getLocationDatabase().put(indexer.indexCreator(false), new Location(this.locationName.getText(), this.locationTypeBox.getValue()));
                 System.out.println(this.roster.getLocationDatabase());
                 this.obsRefresh.updateAllObservers();
             } else {
-                //TODO set error popup
+                //TODO create error popuop
+                System.out.println("fill a name in");
             }
         } catch (Exception e) {
             e.printStackTrace();
