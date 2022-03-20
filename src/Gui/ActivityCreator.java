@@ -16,7 +16,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ActivityCreator extends Observer implements Popup{
+public class ActivityCreator extends Observer implements Popup {
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
     private ObservableList<PrisonGroup> groups = FXCollections.observableArrayList();
     private ObservableList<Location> locations = FXCollections.observableArrayList();
@@ -52,6 +52,7 @@ public class ActivityCreator extends Observer implements Popup{
         this.obsRefresh.addObservers(this);
         this.activity = activity;
     }
+
     @Override
     public void display() {
         GridPane grid = new GridPane();
@@ -97,12 +98,12 @@ public class ActivityCreator extends Observer implements Popup{
         grid.add(this.setEndTime, 2, 50);
         grid.add(cancel, 2, 80);
 
-        if (this.activity != null){
-            grid.add(edit,1,80);
+        if (this.activity != null) {
+            grid.add(edit, 1, 80);
             this.activityName.setText(this.activity.getActivityName());
             this.setLocation.getSelectionModel().select(this.activity.getLocation());
             this.setGroup.getSelectionModel().select(this.activity.getPrisonGroup());
-        }else {
+        } else {
             grid.add(add, 1, 80);
         }
 
@@ -120,20 +121,23 @@ public class ActivityCreator extends Observer implements Popup{
 
         add.setOnAction(event -> {
 
-            if(!setStartTime.getValue().isAfter(setEndTime.getValue())
-                    &&setEndTime.getValue().isAfter(setStartTime.getValue())
-                    && setLocation.getValue() != null
-                    && setGroup.getValue() != null) {
+            try {
+                if (!setStartTime.getValue().isAfter(setEndTime.getValue()) && setEndTime.getValue().isAfter(setStartTime.getValue()) && setLocation.getValue() != null && setGroup.getValue() != null && !isOverlapping()) {
 
-                activityPlanner.close();
+                    activityPlanner.close();
+                    this.roster.getActivities().add(new Activity(this.activityName.getText(), this.setStartTime.getValue(), this.setEndTime.getValue(), this.setGroup.getValue(), this.setLocation.getValue()));
+                    this.obsRefresh.updateAllObservers();
 
-                this.roster.getActivities().add(new Activity(this.activityName.getText(), this.setStartTime.getValue(), this.setEndTime.getValue(), this.setGroup.getValue(), this.setLocation.getValue()));
-                this.obsRefresh.updateAllObservers();
-            } else {
+                } else {
+                    Alert overlapWarning = new Alert(Alert.AlertType.WARNING);
+                    overlapWarning.setContentText("Time overlaps with existing activities. Please enter a valid time.");
+                    overlapWarning.showAndWait();
+                    //TODO, Code missing until adding function is working
+                }
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("not Valid");
+                alert.setContentText("An error has occurred. " + e.toString());
                 alert.showAndWait();
-                //TODO, Code missing until adding function is working
             }
         });
 
@@ -149,6 +153,7 @@ public class ActivityCreator extends Observer implements Popup{
 
     private void editActivity() {
     }
+
     @Override
     public void close() {
         activityName.clear();
@@ -162,35 +167,36 @@ public class ActivityCreator extends Observer implements Popup{
             Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "Overlap with other activities");
             overlapAlert.show();
         } else {
-            this.roster.getActivities().add(new Activity(activityName.getText(),setStartTime.getValue(),setEndTime.getValue(),setGroup.getValue(),setLocation.getValue()));
+            this.roster.getActivities().add(new Activity(activityName.getText(), setStartTime.getValue(), setEndTime.getValue(), setGroup.getValue(), setLocation.getValue()));
             this.obsRefresh.updateAllObservers();
         }
     }
 
+    //TODO: fix overlapping function - doesn't work
     private boolean isOverlapping() {
         try {
             for (Activity activity : this.roster.getActivities()) {
                 if (activity.getPrisonGroup().equals(setGroup.getValue())) {
-                    if (this.setStartTime.getValue().isAfter(activity.getStartTime())
-                            && this.setStartTime.getValue().isBefore(activity.getStartTime())) {
+                    if (this.setStartTime.getValue().isAfter(activity.getStartTime()) && this.setStartTime.getValue().isBefore(activity.getEndTime())
+                            && (this.setStartTime.getValue().equals(activity.getStartTime()) || this.setStartTime.getValue().equals(activity.getEndTime()))) {
                         return true;
                     }
-                    if (setEndTime.getValue().isAfter(activity.getStartTime())
-                            && setEndTime.getValue().isBefore(activity.getEndTime())) {
+                    if (setEndTime.getValue().isAfter(activity.getStartTime()) && setEndTime.getValue().isBefore(activity.getEndTime())
+                            && (setEndTime.getValue().equals(activity.getStartTime()) || setEndTime.getValue().equals(activity.getEndTime()))) {
                         return true;
                     }
                 }
             }
         } catch (Exception e) {
-            Alert exceptionAlert = new Alert(Alert.AlertType.ERROR,e.toString());
+            Alert exceptionAlert = new Alert(Alert.AlertType.ERROR, e.toString());
             exceptionAlert.show();
         }
         return false;
     }
 
     //this method creates a time spinner.
-    public Spinner<LocalTime> timeSpinner(){
-        return  new Spinner<>(new SpinnerValueFactory<LocalTime>() {
+    public Spinner<LocalTime> timeSpinner() {
+        return new Spinner<>(new SpinnerValueFactory<LocalTime>() {
             {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                 setConverter(new LocalTimeStringConverter(formatter, null));
@@ -208,8 +214,7 @@ public class ActivityCreator extends Observer implements Popup{
 
             @Override
             public void increment(int steps) {
-                if (this.getValue() == null)
-                    setValue(LocalTime.now());
+                if (this.getValue() == null) setValue(LocalTime.now());
                 else {
                     LocalTime time = (LocalTime) getValue();
                     setValue(time.plusMinutes(steps));
@@ -218,7 +223,7 @@ public class ActivityCreator extends Observer implements Popup{
         });
     }
 
-    public Roster getRoster(){
+    public Roster getRoster() {
         return this.roster;
     }
 
