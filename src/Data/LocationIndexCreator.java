@@ -6,7 +6,6 @@ import java.util.ArrayList;
 //Class to create a String to use as Key value in the Roster Hashmap LocationDatabase
 public class LocationIndexCreator implements Serializable {
     private Integer index;
-    private String fullName;
     private Location.LocationType locationType;
     private Roster roster;
     private ArrayList<Location> locations;
@@ -27,10 +26,9 @@ public class LocationIndexCreator implements Serializable {
         }
         this.index = ammount;
         if(check){
-            return this.fullName = this.locationType + " " + (this.index - 1);
+            return this.locationType + " " + (this.index - 1);
         } else {
-            return this.fullName = this.locationType + " " + this.index;
-
+            return this.locationType + " " + this.index;
         }
     }
 }

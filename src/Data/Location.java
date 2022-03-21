@@ -15,12 +15,19 @@ public class Location implements Serializable {
         BREAKROOOM
     }
 
+    private String locationID;
     private String locationName;
     private LocationType type;
 
     public Location(String locationName, LocationType locationtype){
         this.locationName = locationName;
         this.type = locationtype;
+    }
+
+    public Location(String locationName, LocationType locationType, String locationID){
+        this.locationName = locationName;
+        this.type = locationType;
+        this.locationID = locationID;
     }
 
     public void setLocationName(String locationName) {
@@ -31,11 +38,19 @@ public class Location implements Serializable {
         this.type = type;
     }
 
+    public void setLocationID(String locationID) {
+        this.locationID = locationID;
+    }
+
     public String getLocationName(){
         return this.locationName;
     }
 
     public LocationType getType(){return this.type;}
+
+    public String getLocationID() {
+        return locationID;
+    }
 
     public String toString() {
         return this.locationName;

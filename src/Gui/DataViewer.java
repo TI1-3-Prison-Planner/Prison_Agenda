@@ -4,6 +4,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import Data.*;
 
@@ -37,6 +38,7 @@ public class DataViewer extends Observer{
         fillInmateTab();
         fillGroupTab();
         fillLocationTab();
+//        test();
         fillActivityTab();
     }
 
@@ -142,21 +144,22 @@ public class DataViewer extends Observer{
 
     public void fillLocationTab(){
         this.locationTable = new TableView<>();
+
+        TableColumn<Location, String> locationID = new TableColumn<>("ID");
         TableColumn<Location, String> locationName = new TableColumn<Location, String>("Name");
         TableColumn<Location, Location.LocationType> locationType = new TableColumn<Location, Location.LocationType>("Type");
 
-
         ObservableList<Location> location = FXCollections.observableArrayList();
-
         location.addAll(this.roster.getLocationDatabase().values());
 
+        locationID.setCellValueFactory(new PropertyValueFactory<Location, String>("locationID"));
         locationName.setCellValueFactory(new PropertyValueFactory<Location, String>("locationName"));
         locationType.setCellValueFactory(new PropertyValueFactory<Location, Location.LocationType>("type"));
 
-
-        this.locationTable.getColumns().addAll(locationName, locationType);
+        this.locationTable.getColumns().addAll(locationID, locationName, locationType);
         this.locationTable.setItems(location);
         this.locations.setContent(this.locationTable);
+        this.locationTable.getSortOrder().add(locationID);
     }
 
     public void fillActivityTab(){
@@ -217,6 +220,7 @@ public class DataViewer extends Observer{
         fillInmateTab();
         fillGroupTab();
         fillLocationTab();
+//        test();
         fillActivityTab();
     }
 

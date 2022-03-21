@@ -121,8 +121,10 @@ public class NewLocationPopup extends Observer {
 //        }
         try {
             LocationIndexCreator indexer = new LocationIndexCreator(this.locationTypeBox.getValue(), this.roster);
+            String index = indexer.indexCreator(false);
+
             if (!locationName.getText().equals("")) {
-                this.roster.getLocationDatabase().put(indexer.indexCreator(false), new Location(this.locationName.getText(), this.locationTypeBox.getValue()));
+                this.roster.getLocationDatabase().put(index, new Location(this.locationName.getText(), this.locationTypeBox.getValue(), index));
                 System.out.println(this.roster.getLocationDatabase());
                 this.obsRefresh.updateAllObservers();
             } else {
