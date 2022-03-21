@@ -9,9 +9,7 @@ public class Activity implements Serializable {
     private LocalTime endTime;
     private PrisonGroup prisonGroup;
     private Location location;
-
-
-
+    
     public Activity(String activityName, LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location) {
         this.activityName = activityName;
         this.startTime = startTime;

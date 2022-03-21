@@ -80,45 +80,35 @@ public class NewLocationPopup extends Observer {
                 addLocation();
                 close();
             });
-            buttonBox.getChildren().addAll(addButton, cancelButton);
+            buttonBox.getChildren().addAll(this.addButton, this.cancelButton);
         }
 
         buttonBox.setSpacing(50);
-        vBox.getChildren().addAll(instructionLabel, locationName, instructionLabel1, locationTypeBox, buttonBox);
+        vBox.getChildren().addAll(this.instructionLabel, this.locationName, this.instructionLabel1, this.locationTypeBox, buttonBox);
         vBox.setSpacing(10);
         HBox displayBox = new HBox(vBox);
         displayBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(displayBox, 300, 200);
-        newLocationPopupDisplay.setScene(scene);
-        newLocationPopupDisplay.setResizable(false);
-        newLocationPopupDisplay.showAndWait();
+        this.newLocationPopupDisplay.setScene(scene);
+        this.newLocationPopupDisplay.setResizable(false);
+        this.newLocationPopupDisplay.showAndWait();
     }
 
     //TODO andere indexering voor locatie hashmap nodig
     private void editLocation() {
-//      String loc = this.roster.getLocationDatabase().get(this.location.getLocationName()).getLocationName();
-        this.roster.getLocationDatabase().remove(this.location.getLocationName());
-
         this.location.setLocationName(this.locationName.getText());
         this.location.setType(this.locationTypeBox.getSelectionModel().getSelectedItem());
-
-//        this.roster.getLocationDatabase().put(this.location.getLocationName(), this.location);
         this.obsRefresh.updateAllObservers();
         close();
     }
 
     private void close() {
-        locationName.clear();
-        locationTypeBox.getSelectionModel().selectFirst();
-        newLocationPopupDisplay.close();
+        this.locationName.clear();
+        this.locationTypeBox.getSelectionModel().clearSelection();
+        this.newLocationPopupDisplay.close();
     }
 
     private void addLocation() {
-//        if (!roster.getLocationDatabase().containsKey(locationName.getText()) || !locationName.getText().equals("")) {
-//            this.roster.getLocationDatabase().put(locationName.getText(),
-//                    new Location(locationName.getText(), locationTypeBox.getValue()));
-//            this.obsRefresh.updateAllObservers();
-//        }
         try {
             LocationIndexCreator indexer = new LocationIndexCreator(this.locationTypeBox.getValue(), this.roster);
             String index = indexer.indexCreator(false);
@@ -134,7 +124,6 @@ public class NewLocationPopup extends Observer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

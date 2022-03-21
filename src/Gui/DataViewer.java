@@ -38,7 +38,6 @@ public class DataViewer extends Observer{
         fillInmateTab();
         fillGroupTab();
         fillLocationTab();
-//        test();
         fillActivityTab();
     }
 
@@ -187,8 +186,6 @@ public class DataViewer extends Observer{
     public TabPane allTabs(){
         return this.dataTab;
     }
-
-
 
     public TabPane getDataTab() {
         return dataTab;

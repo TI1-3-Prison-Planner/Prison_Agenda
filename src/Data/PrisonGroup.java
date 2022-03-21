@@ -93,7 +93,6 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
-
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}

@@ -17,8 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ActivityCreator extends Observer {
-    private ErrorPopup errorPopup;
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
+    private ErrorPopup errorPopup;
     private ObservableList<PrisonGroup> groups = FXCollections.observableArrayList();
     private ObservableList<Location> locations = FXCollections.observableArrayList();
     private Roster roster;
@@ -30,7 +30,6 @@ public class ActivityCreator extends Observer {
     private Stage activityPlanner;
     private ObserverRefresh obsRefresh;
     private Activity activity;
-
 
     public void init(Roster roster) {
         this.groups.clear();

@@ -12,7 +12,6 @@ public class Main {
         Roster testRoster = new Roster();
         FileIO fio = new FileIO();
 
-
         String FileName = "namen.txt";
         testRoster.fillGuardDatabase(fio.setUpNamelist(FileName));
         testRoster.fillInmatesDataBase(fio.setUpNamelist(FileName));
@@ -26,8 +25,6 @@ public class Main {
 
 
     }
-
-
 
     public static void testcode(Roster roster) {
         PrisonGroup a1 = new PrisonGroup("A1", 1, PrisonGroup.SecurityDetail.LOW );

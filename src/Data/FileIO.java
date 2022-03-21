@@ -7,7 +7,6 @@ import java.io.*;
 
 public class FileIO {
 
-
     //method to save the data in roster as a file.
     public void saveDataAsFile(File path, Roster roster) {
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.getAbsolutePath()))) {
@@ -15,7 +14,6 @@ public class FileIO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     //method to read the data in a file given as a parameter.
