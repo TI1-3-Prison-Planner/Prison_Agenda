@@ -156,7 +156,6 @@ public class Gui extends Application {
 
 		this.edit = new MenuItem("Edit");
 		this.edit.setOnAction(e -> {
-			//TODO, Edit code missing
 			editObject();
 		});
 
@@ -166,6 +165,15 @@ public class Gui extends Application {
 		this.editMenu = new Menu("Edit");
 		this.editMenu.getItems().addAll(this.edit, this.delete);
 
+		Menu simulatie = new Menu("Simulatie");
+		MenuItem startSim = new MenuItem("Start");
+		simulatie.getItems().addAll(startSim);
+
+		startSim.setOnAction(event -> {
+			//TODO Start simulatie
+		});
+
+		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, simulatie);
 	}
 
 	private void editObject() {
@@ -293,8 +301,6 @@ public class Gui extends Application {
 		ScrollPane groupScroll = new ScrollPane();
 
 		borderPane.setTop(groupScroll);
-
-		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu);
 
 		this.mainPane.setTop(this.menuBar);
 		this.mainPane.setCenter(this.tabPane);
