@@ -118,30 +118,9 @@ public class ActivityCreator extends Observer implements Popup {
             activityPlanner.close();
         });
 
-        add.setOnAction(event -> {
-
-            try {
-                if (!setStartTime.getValue().isAfter(setEndTime.getValue()) && setEndTime.getValue().isAfter(setStartTime.getValue()) && setLocation.getValue() != null && setGroup.getValue() != null && !isOverlapping()) {
-
-                    activityPlanner.close();
-                    this.roster.getActivities().add(new Activity(this.activityName.getText(), this.setStartTime.getValue(), this.setEndTime.getValue(), this.setGroup.getValue(), this.setLocation.getValue()));
-                    this.obsRefresh.updateAllObservers();
-
-                } else {
-                    Alert overlapWarning = new Alert(Alert.AlertType.WARNING);
-                    overlapWarning.setContentText("Time overlaps with existing activities. Please enter a valid time.");
-                    overlapWarning.showAndWait();
-                    //TODO, Code missing until adding function is working
-                }
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("An error has occurred. " + e.toString());
-                alert.showAndWait();
-            }
-        });
+        add.setOnAction(event -> addActivity());
 
         edit.setOnAction(event -> editActivity());
-
 
         Scene activityScene = new Scene(grid);
 
@@ -163,26 +142,35 @@ public class ActivityCreator extends Observer implements Popup {
     }
 
     private void addActivity() {
-        if (isOverlapping()) {
-            Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "Overlap with other activities");
-            overlapAlert.show();
-        } else {
-            this.roster.getActivities().add(new Activity(activityName.getText(), setStartTime.getValue(), setEndTime.getValue(), setGroup.getValue(), setLocation.getValue()));
-            this.obsRefresh.updateAllObservers();
+        try {
+            LocalTime startTime = this.setStartTime.getValue();
+            LocalTime endTime = this.setEndTime.getValue();
+            if (setLocation.getValue() != null && setGroup.getValue() != null && !isOverlapping(startTime, endTime)) {
+
+                activityPlanner.close();
+                this.roster.getActivities().add(new Activity(this.activityName.getText(), startTime,
+                        endTime, this.setGroup.getValue(), this.setLocation.getValue()));
+                this.obsRefresh.updateAllObservers();
+
+            } else {
+                Alert overlapWarning = new Alert(Alert.AlertType.ERROR);
+                overlapWarning.setContentText("Time overlaps with existing activities. Please enter a valid time.");
+                overlapWarning.showAndWait();
+                //TODO, Code missing until adding function is working
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("An error has occurred. " + e.toString());
+            alert.showAndWait();
         }
     }
 
     //TODO: fix overlapping function - doesn't work
-    private boolean isOverlapping() {
+    private boolean isOverlapping(LocalTime startTime, LocalTime endTime) {
         try {
             for (Activity activity : this.roster.getActivities()) {
                 if (activity.getPrisonGroup().equals(setGroup.getValue())) {
-                    if (this.setStartTime.getValue().isAfter(activity.getStartTime()) && this.setStartTime.getValue().isBefore(activity.getEndTime())
-                            && (this.setStartTime.getValue().equals(activity.getStartTime()) || this.setStartTime.getValue().equals(activity.getEndTime()))) {
-                        return true;
-                    }
-                    if (setEndTime.getValue().isAfter(activity.getStartTime()) && setEndTime.getValue().isBefore(activity.getEndTime())
-                            && (setEndTime.getValue().equals(activity.getStartTime()) || setEndTime.getValue().equals(activity.getEndTime()))) {
+                    if (startTime.isBefore(activity.getEndTime()) && activity.getStartTime().isBefore(endTime)) {
                         return true;
                     }
                 }
