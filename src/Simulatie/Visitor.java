@@ -33,7 +33,7 @@ public class Visitor
         this.sprites = new ArrayList<>();
         try
         {
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("images/npc.png"));
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/images/npc.png"));
             int w = image.getWidth()/2;
             int h = image.getHeight()/3;
             for(int y = 0; y < 3; y++) {

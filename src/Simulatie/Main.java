@@ -10,6 +10,7 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -53,9 +54,16 @@ public class Main extends Application {
         draw(g2d);
 
         canvas.setOnMouseMoved(event -> {
-            for(Visitor visitor : this.visitors) {
-                visitor.setTarget(new Point2D.Double(event.getX(), event.getY()));
+            try {
+                Point2D clickPos = camera.getTransform(1024, 1024).inverseTransform(new Point2D.Double(event.getX(), event.getY()), null);
+
+                for(Visitor visitor : this.visitors) {
+                    visitor.setTarget(clickPos);
+                }
+            } catch (NoninvertibleTransformException e) {
+                e.printStackTrace();
             }
+
         });
 
 

@@ -51,14 +51,14 @@ public class Camera {
                     centerPoint.getY() - (lastMousePos.getY() - e.getY()) / zoom
             );
             lastMousePos = new Point2D.Double(e.getX(), e.getY());
-            resizable.draw(g2d);
-            System.out.println(centerPoint.getX()+ "  " + centerPoint.getY());
+            //resizable.draw(g2d);
+            //System.out.println(centerPoint.getX()+ "  " + centerPoint.getY());
         }
     }
 
     public void mouseScroll(ScrollEvent e) {
         zoom *= (1 + e.getDeltaY()/250.0f);
-        resizable.draw(g2d);
+       // resizable.draw(g2d);
     }
 
     public Point2D getCenter(){
