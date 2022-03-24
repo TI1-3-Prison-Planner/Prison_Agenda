@@ -151,7 +151,11 @@ public class ActivityCreator extends Observer implements Popup {
     }
 
     private void editActivity() {
-
+        int indexActiv = this.roster.getActivities().indexOf(this.activity);
+        Activity tempActiv = new Activity(this.activityName.getText(), this.setStartTime.getValue(), this.setEndTime.getValue(), this.setGroup.getValue(), this.setLocation.getValue());
+        this.roster.getActivities().set(indexActiv, tempActiv);
+        this.obsRefresh.updateAllObservers();
+        close();
     }
 
     @Override
