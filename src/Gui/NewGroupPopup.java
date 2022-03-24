@@ -5,16 +5,13 @@ import Data.PrisonGroup;
 import Data.Roster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class NewGroupPopup extends Observer {
+public class NewGroupPopup extends Observer implements Popup {
     private ObserverRefresh obsRefresh;
     private Stage newGroupPopupDisplay;
     private Label groupNameInstruction;
@@ -27,7 +24,6 @@ public class NewGroupPopup extends Observer {
     private Button cancelButton;
     private Button editButton;
     private Roster roster;
-    private ErrorPopup errorPopup;
     private PrisonGroup pGroup;
 
     public NewGroupPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
@@ -49,7 +45,7 @@ public class NewGroupPopup extends Observer {
         this.obsRefresh.addObservers(this);
     }
 
-    public NewGroupPopup(String title, Roster roster, PrisonGroup group, ObserverRefresh obsRefresh){
+    public NewGroupPopup(String title, Roster roster, PrisonGroup group, ObserverRefresh obsRefresh) {
         this.newGroupPopupDisplay = new Stage();
         this.newGroupPopupDisplay.initModality(Modality.APPLICATION_MODAL);
         this.newGroupPopupDisplay.setTitle(title);
@@ -69,6 +65,7 @@ public class NewGroupPopup extends Observer {
         this.pGroup = group;
     }
 
+    @Override
     public void display() {
         this.cancelButton.setOnAction(e -> close());
 
@@ -77,7 +74,7 @@ public class NewGroupPopup extends Observer {
         VBox vBox = new VBox();
         HBox buttonBox = new HBox();
 
-        if(this.pGroup != null){
+        if (this.pGroup != null) {
             this.editButton.setOnAction(event -> editGroup());
             this.groupName.setText(pGroup.getGroupName());
             this.groupId.setText(String.valueOf(pGroup.getGroupID()));
@@ -119,6 +116,7 @@ public class NewGroupPopup extends Observer {
 
     private void addGroup() {
         PrisonGroup prisonGroup = null;
+        Alert inputAlert = new Alert(Alert.AlertType.ERROR,"Incorrect input. Please fill every cell correctly.");
         try {
             prisonGroup = new PrisonGroup(this.groupName.getText(),
                     Integer.parseInt(this.groupId.getText()),
@@ -136,25 +134,23 @@ public class NewGroupPopup extends Observer {
             }
 
             if (!hasText()) {
-                this.errorPopup.setErrorMessage("Incorrect input. Please fill every cell correctly.");
-                this.errorPopup.display();
+                inputAlert.show();
             }
 
         } catch (NumberFormatException | NullPointerException e) {
             prisonGroup = null;
-            ErrorPopup exceptionPopup = new ErrorPopup("Incorrect input. Please fill every cell correctly.");
-//            exceptionPopup.setErrorMessage("Incorrect input. Please fill every cell correctly.");
-            exceptionPopup.display();
+            inputAlert.show();
         }
     }
 
-    private void close() {
+    @Override
+    public void close() {
         groupName.clear();
         securityTypeBox.getSelectionModel().selectFirst();
         newGroupPopupDisplay.close();
     }
 
-    public boolean hasText(){
+    public boolean hasText() {
         boolean hasText = false;
         for (char character : groupName.getText().toCharArray()) {
             if (Character.isLetterOrDigit(character)) {
@@ -163,6 +159,7 @@ public class NewGroupPopup extends Observer {
         }
         return hasText;
     }
+
     @Override
     public void update() {
         this.securityTypeBox.getItems().setAll(PrisonGroup.SecurityDetail.values());

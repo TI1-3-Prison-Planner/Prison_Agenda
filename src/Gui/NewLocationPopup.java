@@ -15,8 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-
-public class NewLocationPopup extends Observer {
+public class NewLocationPopup extends Observer implements Popup {
     private ObserverRefresh obsRefresh;
     private Stage newLocationPopupDisplay;
     private Label instructionLabel;
@@ -64,13 +63,14 @@ public class NewLocationPopup extends Observer {
         this.location = location;
     }
 
+    @Override
     public void display() {
         this.cancelButton.setOnAction(e -> close());
 
         VBox vBox = new VBox();
         HBox buttonBox = new HBox();
 
-        if(this.location != null){
+        if (this.location != null) {
             this.editButton.setOnAction(event -> editLocation());
             this.locationName.setText(this.location.getLocationName());
             this.locationTypeBox.getSelectionModel().select(this.location.getType());
@@ -102,10 +102,11 @@ public class NewLocationPopup extends Observer {
         close();
     }
 
-    private void close() {
-        this.locationName.clear();
-        this.locationTypeBox.getSelectionModel().clearSelection();
-        this.newLocationPopupDisplay.close();
+    @Override
+    public void close() {
+        locationName.clear();
+        locationTypeBox.getSelectionModel().selectFirst();
+        newLocationPopupDisplay.close();
     }
 
     private void addLocation() {
