@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class ActivityCreator extends Observer implements Popup {
     public ArrayList<TimeBlock> timeBlocks = new ArrayList<TimeBlock>();
-    private ErrorPopup errorPopup;
     private ObservableList<PrisonGroup> groups = FXCollections.observableArrayList();
     private ObservableList<Location> locations = FXCollections.observableArrayList();
     private Roster roster;
