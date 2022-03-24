@@ -71,7 +71,6 @@ public class ActivityCreator extends Observer implements Popup {
         this.setLocation = new ComboBox<>();
         this.setGroup = new ComboBox<>();
         this.setStartTime = timeSpinner();
-        this.setStartTime.setEditable(true);
         this.setLocation.getItems().setAll(roster.getLocationDatabase().values());
         this.setGroup.getItems().setAll(this.roster.getGroups());
 
@@ -110,9 +109,9 @@ public class ActivityCreator extends Observer implements Popup {
         grid.add(hBox1 = new HBox(this.setLocation), 2, 20);
         hBox1.setSpacing(70);
 
-        HBox hbox2;
-        grid.add(hbox2 = new HBox(this.setGroup), 2, 30);
-        hbox2.setSpacing(70);
+        HBox hBox2;
+        grid.add(hBox2 = new HBox(this.setGroup), 2, 30);
+        hBox2.setSpacing(70);
 
         cancel.setOnAction(event -> {
             activityPlanner.close();
