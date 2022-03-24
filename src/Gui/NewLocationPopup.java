@@ -5,10 +5,7 @@ import Data.LocationIndexCreator;
 import Data.Roster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -65,6 +62,7 @@ public class NewLocationPopup extends Observer implements Popup {
 
     @Override
     public void display() {
+        this.locationTypeBox.getSelectionModel().clearSelection();
         this.cancelButton.setOnAction(e -> close());
 
         VBox vBox = new VBox();
@@ -78,7 +76,6 @@ public class NewLocationPopup extends Observer implements Popup {
         } else {
             this.addButton.setOnAction(e -> {
                 addLocation();
-                close();
             });
             buttonBox.getChildren().addAll(this.addButton, this.cancelButton);
         }
@@ -114,13 +111,14 @@ public class NewLocationPopup extends Observer implements Popup {
             LocationIndexCreator indexer = new LocationIndexCreator(this.locationTypeBox.getValue(), this.roster);
             String index = indexer.indexCreator(false);
 
-            if (!locationName.getText().equals("")) {
+            if (!locationName.getText().equals("") && !this.locationTypeBox.getSelectionModel().isEmpty()) {
                 this.roster.getLocationDatabase().put(index, new Location(this.locationName.getText(), this.locationTypeBox.getValue(), index));
                 System.out.println(this.roster.getLocationDatabase());
                 this.obsRefresh.updateAllObservers();
+                close();
             } else {
-                //TODO create error popuop
-                System.out.println("fill a name in");
+                Alert locationFail = new Alert(Alert.AlertType.ERROR, "Fill in Location name and/or Location type");
+                locationFail.showAndWait();
             }
         } catch (Exception e) {
             e.printStackTrace();
