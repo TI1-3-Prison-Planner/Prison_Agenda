@@ -228,7 +228,7 @@ public class Gui extends Application {
 
 			case "Locations":
 				Location location = this.dataViewer.getLocationTable().getSelectionModel().getSelectedItem();
-				this.roster.getLocationDatabase().remove(location);
+				this.roster.getLocationDatabase().remove(location.getLocationID());
 				break;
 
 			case "Activities":

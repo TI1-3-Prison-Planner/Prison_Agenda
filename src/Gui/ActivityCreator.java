@@ -149,6 +149,7 @@ public class ActivityCreator extends Observer {
     }
 
     private void editActivity() {
+
     }
 
     private void close() {
