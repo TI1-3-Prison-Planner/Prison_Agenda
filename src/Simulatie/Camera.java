@@ -15,7 +15,7 @@ import java.awt.geom.Point2D;
  * Created by johan on 15-2-2017.
  */
 public class Camera {
-    private Point2D centerPoint = new Point2D.Double(0,0);
+    private Point2D centerPoint = new Point2D.Double(-2400,-2400);
     private double zoom = 1;
     private double rotation = 0;
     private Point2D lastMousePos;

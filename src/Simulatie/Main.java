@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
@@ -24,6 +25,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane mainPane = new BorderPane();
+        javafx.scene.control.Label mouseX = new javafx.scene.control.Label();
+        javafx.scene.control.Label mouseY = new javafx.scene.control.Label();
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(mouseX,mouseY);
+        mainPane.setTop(hBox);
+
 
         canvas = new ResizableCanvas(g->draw(g),mainPane);
 
@@ -56,7 +63,8 @@ public class Main extends Application {
         canvas.setOnMouseMoved(event -> {
             try {
                 Point2D clickPos = camera.getTransform(1024, 1024).inverseTransform(new Point2D.Double(event.getX(), event.getY()), null);
-
+                mouseX.setText("x: "+  (int)  clickPos.getX());
+                mouseY.setText("Y: "+  (int) clickPos.getY());
                 for(Visitor visitor : this.visitors) {
                     visitor.setTarget(clickPos);
                 }
@@ -73,18 +81,27 @@ public class Main extends Application {
     private double timer;
     public void init()
     {
-        maps = new Map();
-
-
         this.visitors = new ArrayList<>();
-        while(this.visitors.size() < 1)
-        {
-            Visitor visitor = new Visitor(new Point2D.Double(Math.random()*1000, Math.random()*1000), 0);
+        maps = new Map();
+        for (String s : maps.locationObjects.keySet()) {
+            System.out.println("hoi");
+             Visitor visitor = new Visitor(new Point2D.Double(maps.locationObjects.get(s).getPosition().getX()+maps.locationObjects.get(s).getSize().getX()/2,
+                                                                maps.locationObjects.get(s).getPosition().getY()+maps.locationObjects.get(s).getSize().getY()/2), 0,maps);
             if(!visitor.checkCollision(this.visitors))
             {
                 this.visitors.add(visitor);
             }
         }
+
+
+//        while(this.visitors.size() < 200)
+//        {
+//            Visitor visitor = new Visitor(new Point2D.Double(Math.random()*4800, Math.random()*4800), 0,maps);
+//            if(!visitor.checkCollision(this.visitors))
+//            {
+//                this.visitors.add(visitor);
+//            }
+//        }
 
         timer = 0;
     }
@@ -121,7 +138,7 @@ public class Main extends Application {
             timer -= 10;
             for(Visitor visitor : this.visitors)
             {
-                visitor.setTarget(new Point2D.Double(Math.random()*1000, Math.random()*1000));
+                visitor.setTarget(new Point2D.Double(Math.random()*4800, Math.random()*4800));
             }
         }
 

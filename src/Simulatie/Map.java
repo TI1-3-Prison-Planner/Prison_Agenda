@@ -10,6 +10,7 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Map {
@@ -24,9 +25,10 @@ public class Map {
 
     private ArrayList<BufferedImage> tiles = new ArrayList<>();
     private ArrayList<BufferedImage> tileSets = new ArrayList<>();
-    private ArrayList<int[][]> layers = new ArrayList<>();
+    public ArrayList<int[][]> layers = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<BufferedImage>>> layerImageCache = new ArrayList<>();
     private static int chunksize = 16;
+    public HashMap<String, LocationObject> locationObjects = new HashMap<>();
 
 
     public Map() {
@@ -47,6 +49,17 @@ public class Map {
 
             this.tileHeight = root.getInt("tileheight");
             this.tileWidth = root.getInt("tilewidth");
+            for (int i = 0; i < root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").size(); i++) {
+
+                locationObjects.put(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
+                        ,new LocationObject(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
+                                ,new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("x"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("y")),
+                                new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("width"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("height"))));
+
+            }
+
+            ;
+
 
             for (BufferedImage tilemap : tileSets) {
                 for (int y = 0; y < tilemap.getHeight(); y += this.tileHeight) {
@@ -74,13 +87,11 @@ public class Map {
             layers.add(layer);
 
             ArrayList<ArrayList<BufferedImage>> layerImages = new ArrayList<>();
-            for(int x = 0; x < this.mapWidth; x+=chunksize)
-            {
+            for (int x = 0; x < this.mapWidth; x += chunksize) {
                 ArrayList<BufferedImage> row = new ArrayList<>();
-                for(int y = 0; y < this.mapHeight; y += chunksize)
-                {
-                    BufferedImage img = new BufferedImage(chunksize*tileWidth, chunksize*tileHeight, BufferedImage.TYPE_INT_ARGB);
-                    drawLayer((Graphics2D) img.getGraphics(), layer, x, y, x+chunksize, y+chunksize);
+                for (int y = 0; y < this.mapHeight; y += chunksize) {
+                    BufferedImage img = new BufferedImage(chunksize * tileWidth, chunksize * tileHeight, BufferedImage.TYPE_INT_ARGB);
+                    drawLayer((Graphics2D) img.getGraphics(), layer, x, y, x + chunksize, y + chunksize);
                     row.add(img);
                 }
                 layerImages.add(row);
@@ -94,11 +105,9 @@ public class Map {
             Point2D topLeft = camera.getTransform(1024, 1024).inverseTransform(new Point2D.Double(0, 0), null);
             Point2D botRight = camera.getTransform(1024, 1024).inverseTransform(new Point2D.Double(1024, 1024), null);
             for (ArrayList<ArrayList<BufferedImage>> layer : layerImageCache) {
-                for(int x = Math.max(0, (int)topLeft.getX()/32/chunksize); x < Math.min(mapWidth/chunksize, botRight.getX()/32/chunksize); x++)
-                {
-                    for(int y = Math.max(0, (int)topLeft.getY()/32/chunksize); y < Math.min(mapHeight/chunksize, botRight.getY()/32/chunksize); y++)
-                    {
-                        g.drawImage(layer.get(x).get(y), AffineTransform.getTranslateInstance(x*tileWidth*chunksize, y*tileHeight*chunksize), null);
+                for (int x = Math.max(0, (int) topLeft.getX() / 32 / chunksize); x < Math.min(mapWidth / chunksize, botRight.getX() / 32 / chunksize); x++) {
+                    for (int y = Math.max(0, (int) topLeft.getY() / 32 / chunksize); y < Math.min(mapHeight / chunksize, botRight.getY() / 32 / chunksize); y++) {
+                        g.drawImage(layer.get(x).get(y), AffineTransform.getTranslateInstance(x * tileWidth * chunksize, y * tileHeight * chunksize), null);
                     }
 
                 }
@@ -117,7 +126,7 @@ public class Map {
                 }
                 g.drawImage(
                         tiles.get(layer[y][x]),
-                        AffineTransform.getTranslateInstance((x-xMin) * tileWidth, (y-yMin) * tileHeight),
+                        AffineTransform.getTranslateInstance((x - xMin) * tileWidth, (y - yMin) * tileHeight),
                         null);
             }
 

@@ -22,13 +22,14 @@ public class Visitor
     private Map map;
 
 
-    public Visitor(Point2D position, double angle)
+    public Visitor(Point2D position, double angle,Map map)
     {
         this.position = position;
         this.angle = angle;
         this.speed = 1+5 * Math.random();
         this.target = position;
         this.frame = Math.random()*10;
+        this.map = map;
 
         this.sprites = new ArrayList<>();
         try
@@ -92,7 +93,12 @@ public class Visitor
 
     public boolean checkCollision(ArrayList<Visitor> visitors)
     {
+
         boolean hasCollision = false;
+        if(map.layers.get(1)[(int) Math.max(0,this.position.getY()/32) ][(int) Math.max(0,this.position.getX()/32)] ==-1 ){
+            hasCollision = true;
+        }
+
         for(Visitor visitor : visitors) {
             if(visitor != this) {
                 if(visitor.position.distanceSq(position) < 64*64) {
@@ -118,7 +124,7 @@ public class Visitor
 
         g2d.setColor(Color.white);
         g2d.draw(new Ellipse2D.Double(position.getX()-32, position.getY()-32, 64, 64));
-        g2d.draw(new Line2D.Double(position, target));
+//        g2d.draw(new Line2D.Double(position, target));
     }
 
     public void setTarget(Point2D newTarget)
