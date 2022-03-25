@@ -91,7 +91,6 @@ public class NewLocationPopup extends Observer implements Popup {
         this.newLocationPopupDisplay.showAndWait();
     }
 
-    //TODO andere indexering voor locatie hashmap nodig
     private void editLocation() {
         this.location.setLocationName(this.locationName.getText());
         this.location.setType(this.locationTypeBox.getSelectionModel().getSelectedItem());

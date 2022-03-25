@@ -69,7 +69,6 @@ public class NewGroupPopup extends Observer implements Popup {
     public void display() {
         this.cancelButton.setOnAction(e -> close());
 
-
         //TODO fix duplicate code (make a new class perhaps)
         VBox vBox = new VBox();
         HBox buttonBox = new HBox();
@@ -95,8 +94,6 @@ public class NewGroupPopup extends Observer implements Popup {
         this.newGroupPopupDisplay.setScene(scene);
         this.newGroupPopupDisplay.setResizable(false);
         this.newGroupPopupDisplay.showAndWait();
-
-
     }
 
     private void editGroup() {
@@ -138,7 +135,6 @@ public class NewGroupPopup extends Observer implements Popup {
             }
 
         } catch (NumberFormatException | NullPointerException e) {
-            prisonGroup = null;
             inputAlert.show();
         }
     }

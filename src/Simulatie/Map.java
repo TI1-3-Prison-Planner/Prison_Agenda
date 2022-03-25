@@ -1,6 +1,5 @@
 package Simulatie;
 
-import javafx.scene.transform.NonInvertibleTransformException;
 import org.jfree.fx.FXGraphics2D;
 
 import javax.imageio.ImageIO;
@@ -10,9 +9,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 

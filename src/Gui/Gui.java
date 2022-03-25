@@ -251,7 +251,8 @@ public class Gui extends Application {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().addAll(
 				new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"),
-				new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")
+				new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt"),
+				new FileChooser.ExtensionFilter("SER files (*.ser)","*.ser")
 		);
 		File file = fileChooser.showOpenDialog(stage);
 
@@ -266,7 +267,8 @@ public class Gui extends Application {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.getExtensionFilters().addAll(
 				new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"),
-				new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")
+				new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt"),
+				new FileChooser.ExtensionFilter("SER files (*.ser)","*.ser")
 		);
 		File file = fileChooser.showSaveDialog(stage);
 

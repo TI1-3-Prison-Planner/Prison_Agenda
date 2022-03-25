@@ -103,10 +103,7 @@ public class NewPersonPopup implements Popup {
         this.stage.showAndWait();
     }
 
-    //TODO update groups to see the new name
     private void editPerson() {
-//        int old = this.roster.getGuardDatabase().indexOf(this.person);
-
         this.person.setName(this.insertedName.getText());
         if (guardButton.isSelected()) {
             this.person.setGuard(true);
@@ -120,8 +117,6 @@ public class NewPersonPopup implements Popup {
             this.roster.getGuardDatabase().remove(this.person);
         }
         this.roster.manageGroups(this.person);
-        //todo
-
         this.obsRefresh.updateAllObservers();
         close();
     }
@@ -150,8 +145,6 @@ public class NewPersonPopup implements Popup {
         this.insertedName.clear();
         if (this.toggleGroup.getSelectedToggle() != null)
             this.toggleGroup.getSelectedToggle().setSelected(false);
-//        if (this.inGroupCheck != null)
-//            this.inGroupCheck.setSelected(false);
         this.stage.close();
     }
 }
