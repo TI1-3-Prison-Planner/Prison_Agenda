@@ -54,6 +54,7 @@ public class Main extends Application {
 
 
         stage.setScene(new Scene(mainPane));
+        stage.setResizable(false);
         stage.setTitle("Fading image");
         stage.setWidth(1024);
         stage.setHeight(1024);
@@ -62,7 +63,7 @@ public class Main extends Application {
 
         canvas.setOnMouseMoved(event -> {
             try {
-                Point2D clickPos = camera.getTransform(1024, 1024).inverseTransform(new Point2D.Double(event.getX(), event.getY()), null);
+                Point2D clickPos = camera.getTransform((int)this.canvas.getWidth(), (int)this.canvas.getHeight()).inverseTransform(new Point2D.Double(event.getX(), event.getY()), null);
                 mouseX.setText("x: "+  (int)  clickPos.getX());
                 mouseY.setText("Y: "+  (int) clickPos.getY());
                 for(Visitor visitor : this.visitors) {
