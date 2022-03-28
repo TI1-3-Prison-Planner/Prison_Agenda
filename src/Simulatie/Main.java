@@ -85,7 +85,7 @@ public class Main extends Application {
         this.visitors = new ArrayList<>();
         maps = new Map();
         for (String s : maps.locationObjects.keySet()) {
-            System.out.println("hoi");
+//            System.out.println("hoi");
              Visitor visitor = new Visitor(new Point2D.Double(maps.locationObjects.get(s).getPosition().getX()+maps.locationObjects.get(s).getSize().getX()/2,
                                                                 maps.locationObjects.get(s).getPosition().getY()+maps.locationObjects.get(s).getSize().getY()/2), 0,maps);
             if(!visitor.checkCollision(this.visitors))
