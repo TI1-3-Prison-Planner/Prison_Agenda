@@ -17,13 +17,15 @@ public class Visitor {
     private ArrayList<BufferedImage> inmateSprites;
     private ArrayList<BufferedImage> guardSprites;
     private boolean isGuard;
+    private int group;
+    private String name;
     private double speed;
     private double frame;
     private Point2D target;
     private static double rotationSpeed = 0.1;
     private Map map;
 
-    public Visitor(Point2D position, double angle, Map map, boolean isGuard) {
+    public Visitor(Point2D position, double angle, Map map, boolean isGuard, int groupID, String Name) {
         this.position = position;
         this.angle = angle;
         this.speed = 1 + 5 * Math.random();
@@ -31,6 +33,8 @@ public class Visitor {
         this.frame = Math.random() * 10;
         this.map = map;
         this.isGuard = isGuard;
+        this.group = groupID;
+        this.name = Name;
 
         this.inmateSprites = new ArrayList<>();
         this.guardSprites = new ArrayList<>();

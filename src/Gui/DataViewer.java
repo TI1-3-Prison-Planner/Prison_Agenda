@@ -111,6 +111,7 @@ public class DataViewer extends Observer{
 
     public void fillGroupTab(){
         this.groupTable = new TableView<>();
+        TableColumn<PrisonGroup, String> groupID = new TableColumn<>("Group ID");
         TableColumn<PrisonGroup, String> groupName = new TableColumn<PrisonGroup, String>("group name");
         TableColumn<PrisonGroup, ArrayList<Person>> inmates = new TableColumn<PrisonGroup, ArrayList<Person>>("inmates");
         TableColumn<PrisonGroup, ArrayList<Person>> guards = new TableColumn<PrisonGroup, ArrayList<Person>>("guards");
@@ -118,6 +119,7 @@ public class DataViewer extends Observer{
 
         ObservableList<PrisonGroup> prisonGroups = FXCollections.observableArrayList(this.roster.getGroups());
 
+        groupID.setCellValueFactory(new PropertyValueFactory<PrisonGroup, String>("groupID"));
         groupName.setCellValueFactory(new PropertyValueFactory<PrisonGroup, String>("groupName"));
         inmates.setCellValueFactory(new PropertyValueFactory<PrisonGroup, ArrayList<Person>>("inmates"));
         inmates.setCellFactory(param -> {
@@ -150,7 +152,7 @@ public class DataViewer extends Observer{
             };
         });
         detail.setCellValueFactory(new PropertyValueFactory<PrisonGroup, PrisonGroup.SecurityDetail>("securityDetail"));
-        this.groupTable.getColumns().addAll(groupName, inmates, guards, detail);
+        this.groupTable.getColumns().addAll(groupID, groupName, inmates, guards, detail);
         this.groupTable.setItems(prisonGroups);
         this.groups.setContent(this.groupTable);
     }

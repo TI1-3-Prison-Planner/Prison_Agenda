@@ -1,5 +1,9 @@
 package Simulatie;
 
+import Data.FileIO;
+import Data.Person;
+import Data.PrisonGroup;
+import Data.Roster;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,6 +18,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -83,28 +88,36 @@ public class Main extends Application {
     private double timer;
 
     public void init() {
-        this.visitors = new ArrayList<>();
-        maps = new Map();
-        for (String s : maps.locationObjects.keySet()) {
-//            System.out.println("hoi");
-            Visitor visitor = new Visitor(new Point2D.Double(maps.locationObjects.get(s).getPosition().getX() + maps.locationObjects.get(s).getSize().getX() / 2,
-                    maps.locationObjects.get(s).getPosition().getY() + maps.locationObjects.get(s).getSize().getY() / 2), 0, maps, true);
-            this.visitors.add(visitor);
-            break;
-
-        }
-
-
-//        while(this.visitors.size() < 200)
-//        {
-//            Visitor visitor = new Visitor(new Point2D.Double(Math.random()*4800, Math.random()*4800), 0,maps);
-//            if(!visitor.checkCollision(this.visitors))
-//            {
-//                this.visitors.add(visitor);
-//            }
+//        for (String s : maps.locationObjects.keySet()) {
+////            System.out.println("hoi");
+//            Visitor visitor = new Visitor(new Point2D.Double(maps.locationObjects.get(s).getPosition().getX() + maps.locationObjects.get(s).getSize().getX() / 2,
+//                    maps.locationObjects.get(s).getPosition().getY() + maps.locationObjects.get(s).getSize().getY() / 2), 0, maps, true);
+//            this.visitors.add(visitor);
+//
 //        }
-
+        Map map = new Map();
+        FileIO fileIO = new FileIO();
+        Roster roster = fileIO.readData(new File("roster.ser"));
+        createVisitors(roster, map);
+        linkLocations();
         timer = 0;
+    }
+
+    private void linkLocations() {
+
+    }
+
+    private void createVisitors(Roster roster, Map map) {
+        for (PrisonGroup group : roster.getGroups()) {
+            for (Person inmate : group.getInmates()) {
+                Visitor prisoner = new Visitor(new Point2D.Double(0,0), 0, map, false, group.getGroupID(), inmate.getName());
+                visitors.add(prisoner);
+            }
+            for (Person guard : group.getGuards()) {
+                Visitor guardian = new Visitor(new Point2D.Double(0,0), 0, map, true, group.getGroupID(), guard.getName());
+                visitors.add(guardian);
+            }
+        }
     }
 
 
@@ -117,7 +130,7 @@ public class Main extends Application {
         g.setTransform(camera.getTransform((int) canvas.getWidth(), (int) canvas.getHeight()));
 
         g.setTransform(camera.getTransform((int) canvas.getWidth(), (int) canvas.getHeight()));
-        maps.draw(g, camera);
+        this.maps.draw(g, camera);
         for (Visitor visitor : this.visitors) {
             visitor.draw(g);
             //todo: implementeer connectie met agendalocaties
