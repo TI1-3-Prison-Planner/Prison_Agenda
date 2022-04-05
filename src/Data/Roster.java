@@ -2,6 +2,8 @@ package Data;
 
 
 import Gui.Observer;
+import Simulatie.*;
+import Simulatie.Map;
 
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -15,6 +17,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
     private HashMap<String, Location> locationDatabase;         //Location database with ID for each Location
     private ArrayList<PrisonGroup> groups;                      //List with all prison groups to assign inmates and guards to
     private ArrayList<Activity> activities;                     //List with all activity's for all groups
+    private Map map;
 
     public Roster() {
         this.guardDatabase = new ArrayList<>();
@@ -22,6 +25,8 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         this.inmateDatabase = new ArrayList<>();
         this.locationDatabase = new HashMap<>();
         this.activities = new ArrayList<>();
+        this.map = new Map();
+
     }
 
     public void clear() {
@@ -108,6 +113,16 @@ public class Roster implements Comparator<LocalTime>, Serializable {
                 "locations=" + locationDatabase;
     }
 
+    public void locationConnection(){
+        ArrayList<Location.LocationType> locationList = new ArrayList<>();
+        for (Activity activity : activities) {
+            locationList.add(activity.getLocation().getType());
+            if (map.getLocationObjects().values().contains(activity.getLocation().getType())) {
+                System.out.println(activity.getLocation().getType());
+            }
+
+        }
+    }
 }
 
 

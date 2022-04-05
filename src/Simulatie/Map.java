@@ -1,5 +1,7 @@
 package Simulatie;
 
+import Data.Activity;
+import Data.Roster;
 import org.jfree.fx.FXGraphics2D;
 
 import javax.imageio.ImageIO;
@@ -52,7 +54,7 @@ public class Map {
             for (int i = 0; i < root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").size(); i++) {
 
                 locationObjects.put(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
-                        ,new LocationObject(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
+                        ,new LocationObject(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("type").getString()
                                 ,new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("x"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("y")),
                                 new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("width"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("height"))));
 
@@ -141,6 +143,10 @@ public class Map {
     public void setOffset(int xOfset, int yOfset) {
         this.xOfset = xOfset;
         this.yOfset = yOfset;
+    }
+
+    public HashMap<String, LocationObject> getLocationObjects() {
+        return locationObjects;
     }
 
     //    public int[][] getMap() {
