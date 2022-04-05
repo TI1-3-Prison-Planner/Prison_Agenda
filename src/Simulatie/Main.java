@@ -39,6 +39,7 @@ public class Main extends Application {
         mainPane.setCenter(canvas);
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
         camera = new Camera(canvas, g -> draw(g), g2d);
+
         new AnimationTimer() {
             long last = -1;
 
@@ -77,21 +78,30 @@ public class Main extends Application {
 
     private ArrayList<Visitor> visitors;
     private double timer;
+    private ArrayList<Activity> activities;
 
     public void init() {
         FileIO fileIO = new FileIO();
         Roster roster = fileIO.readData(new File("roster.ser"));
+        this.activities = roster.getActivities();
         this.maps = new Map();
         this.visitors = new ArrayList<>();
         createVisitors(roster);
         timer = 0;
     }
 
+    //local time -> int
+    //localTime hour * 100 + min
     private Point2D goToNewTarget(Roster roster) {
-        ArrayList<Activity> temp2 = roster.getActivities();
+        String newLocation = "";
 
         //TODO timeline link aan startTime in activity
-        String newLocation = temp2.get(1).getLocation().getLocationName();
+        for (Activity activity : activities) {
+            //activity tijd overeen komen met timeline tijd
+            int time = activity.getStartTime().getHour() * 100 + activity.getStartTime().getMinute();
+            System.out.println(time);
+            newLocation = activities.get(1).getLocation().getLocationName();
+        }
 
         return this.maps.locationObjects.get(newLocation).getPosition();
     }
