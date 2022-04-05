@@ -140,6 +140,12 @@ public class Main extends Application {
             //todo: implementeer connectie met agendalocaties
         }
         g.setTransform(originalTransform);
+
+        Shape simBorder = new Rectangle2D.Double(0,0,canvas.getWidth()*-10,-10*canvas.getHeight()+100);
+//        g.clip(simBorder);
+//        g.setColor(Color.red);
+//        g.setStroke();
+
     }
 
     private LocalTime timeLine = LocalTime.MIN;
