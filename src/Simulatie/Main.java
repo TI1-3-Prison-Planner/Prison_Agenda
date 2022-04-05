@@ -55,7 +55,7 @@ public class Main extends Application {
 
         stage.setScene(new Scene(mainPane));
         stage.setResizable(false);
-        stage.setTitle("Fading image");
+        stage.setTitle("Prison Sim");
         stage.setWidth(1024);
         stage.setHeight(1024);
         stage.show();
@@ -67,8 +67,9 @@ public class Main extends Application {
                 mouseX.setText("x: "+  (int)  clickPos.getX());
                 mouseY.setText("Y: "+  (int) clickPos.getY());
                 for(Visitor visitor : this.visitors) {
-                    visitor.setTarget(clickPos);
+                    visitor.setTarget(new Point2D.Double(clickPos.getX(),clickPos.getY()));
                 }
+
             } catch (NoninvertibleTransformException e) {
                 e.printStackTrace();
             }
@@ -86,13 +87,19 @@ public class Main extends Application {
         maps = new Map();
         for (String s : maps.locationObjects.keySet()) {
 //            System.out.println("hoi");
-             Visitor visitor = new Visitor(new Point2D.Double(maps.locationObjects.get(s).getPosition().getX()+maps.locationObjects.get(s).getSize().getX()/2,
-                                                                maps.locationObjects.get(s).getPosition().getY()+maps.locationObjects.get(s).getSize().getY()/2), 0,maps);
+//             Visitor visitor = new Visitor(new Point2D.Double(maps.locationObjects.get(s).getPosition().getX()+maps.locationObjects.get(s).getSize().getX()/2,
+//                                                                maps.locationObjects.get(s).getPosition().getY()+maps.locationObjects.get(s).getSize().getY()/2), 0,maps);
+            Visitor visitor = new Visitor(new Point2D.Double(830,748),0,maps);
             if(!visitor.checkCollision(this.visitors))
             {
                 this.visitors.add(visitor);
+                this.visitors.get(0).pathFinding();
             }
+
+            break;
+
         }
+
 
 
 //        while(this.visitors.size() < 200)
@@ -139,7 +146,7 @@ public class Main extends Application {
             timer -= 10;
             for(Visitor visitor : this.visitors)
             {
-                visitor.setTarget(new Point2D.Double(Math.random()*4800, Math.random()*4800));
+                visitor.setTarget(new Point2D.Double(4344,1086));
             }
         }
 
