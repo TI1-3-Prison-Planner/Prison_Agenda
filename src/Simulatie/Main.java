@@ -23,8 +23,6 @@ public class Main extends Application {
 
     private Map maps;
     private ResizableCanvas canvas;
-
-
     private Camera camera;
 
     @Override
@@ -36,9 +34,7 @@ public class Main extends Application {
         hBox.getChildren().addAll(mouseX, mouseY);
         mainPane.setTop(hBox);
 
-
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
-
 
         mainPane.setCenter(canvas);
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
@@ -83,13 +79,6 @@ public class Main extends Application {
     private double timer;
 
     public void init() {
-//        for (String s : maps.locationObjects.keySet()) {
-////            System.out.println("hoi");
-//            Visitor visitor = new Visitor(new Point2D.Double(maps.locationObjects.get(s).getPosition().getX() + maps.locationObjects.get(s).getSize().getX() / 2,
-//                    maps.locationObjects.get(s).getPosition().getY() + maps.locationObjects.get(s).getSize().getY() / 2), 0, maps, true);
-//            this.visitors.add(visitor);
-//
-//        }
         FileIO fileIO = new FileIO();
         Roster roster = fileIO.readData(new File("roster.ser"));
         this.maps = new Map();
@@ -134,16 +123,11 @@ public class Main extends Application {
         for (Visitor visitor : this.visitors) {
             visitor.draw(g);
             //todo: implementeer connectie met agendalocaties
-
         }
-
         g.setTransform(originalTransform);
-
-
     }
 
     public void update(double deltaTime) {
-
 //        maps.setTx(camera.getTransform((int)canvas.getWidth(),(int)canvas.getHeight()).);
         timer += deltaTime;
         if (timer > 10) {
