@@ -161,4 +161,12 @@ public class Visitor {
     public Point2D getPosition() {
         return position;
     }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

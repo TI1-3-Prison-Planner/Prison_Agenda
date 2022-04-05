@@ -79,36 +79,15 @@ public class Main extends Application {
 
     private ArrayList<Visitor> visitors;
     private double timer;
-    private ArrayList<Activity> activities;
+    private Roster roster;
 
     public void init() {
         FileIO fileIO = new FileIO();
-        Roster roster = fileIO.readData(new File("roster.ser"));
-        this.activities = roster.getActivities();
+        this.roster = fileIO.readData(new File("roster.ser"));
         this.maps = new Map();
         this.visitors = new ArrayList<>();
-        createVisitors(roster);
+        createVisitors(this.roster);
         timer = 0;
-    }
-
-    //todo: activities sort on time
-    //
-
-
-    //local time -> int
-    //localTime hour * 100 + min
-    private Point2D goToNewTarget(Roster roster) {
-        String newLocation = "";
-
-        //TODO timeline link aan startTime in activity
-        for (Activity activity : activities) {
-            //activity tijd overeen komen met timeline tijd
-            int time = activity.getStartTime().getHour() * 100 + activity.getStartTime().getMinute();
-            System.out.println(time);
-            newLocation = activities.get(1).getLocation().getLocationName();
-        }
-
-        return this.maps.locationObjects.get(newLocation).getPosition();
     }
 
     private void createVisitors(Roster roster) {
@@ -173,8 +152,19 @@ public class Main extends Application {
         }
 
         for (Visitor visitor : this.visitors) {
+            visitor.setTarget(goToNewTarget(this.roster, visitor.getGroup()));
             visitor.update(this.visitors);
         }
+    }
+
+    private Point2D goToNewTarget(Roster roster, int groupID) {
+        String newLocation = "";
+        for (Activity activity : roster.getActivities()) {
+            if (activity.getPrisonGroup().getGroupID() == groupID)
+                if(activity.getStartTime().equals(this.timeLine))
+                    newLocation = activity.getLocation().getLocationName();
+        }
+        return this.maps.locationObjects.get(newLocation).getPosition();
     }
 
 
