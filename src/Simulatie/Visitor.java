@@ -24,6 +24,7 @@ public class Visitor {
     private Point2D target;
     private static double rotationSpeed = 0.1;
     private Map map;
+    private Font nameFont;
 
     public Visitor(Point2D position, double angle, Map map, boolean isGuard, int groupID, String Name) {
         this.position = position;
@@ -35,6 +36,7 @@ public class Visitor {
         this.isGuard = isGuard;
         this.group = groupID;
         this.name = Name;
+        this.nameFont = new Font("Arial", Font.PLAIN, 12);
 
         this.inmateSprites = new ArrayList<>();
         this.guardSprites = new ArrayList<>();
@@ -144,7 +146,7 @@ public class Visitor {
 
         g2d.drawImage(sprites.get((int) Math.floor(frame) % sprites.size()), tx, null);
 
-
+        g2d.setFont(nameFont);
         g2d.setColor(Color.black);
         g2d.drawString(name, (int) (tx.getTranslateX()), (int) (tx.getTranslateY()));
         g2d.draw(new Ellipse2D.Double(position.getX() - 32, position.getY() - 32, 64, 64));

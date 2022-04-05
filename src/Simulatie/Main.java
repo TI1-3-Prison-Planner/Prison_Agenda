@@ -25,7 +25,7 @@ public class Main extends Application {
     private Map maps;
     private ResizableCanvas canvas;
     private Camera camera;
-
+    private Font alarmFont;
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane mainPane = new BorderPane();
@@ -36,7 +36,8 @@ public class Main extends Application {
         mainPane.setTop(hBox);
 
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
-
+//        alarmFont = Font.createFont(Font.TRUETYPE_FONT, new File("res/alarm clock.ttf"));
+        alarmFont= new Font("Arial", Font.PLAIN, 50);
         mainPane.setCenter(canvas);
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
         camera = new Camera(canvas, g -> draw(g), g2d);
@@ -120,10 +121,14 @@ public class Main extends Application {
         }
         g.setTransform(originalTransform);
 
-        Shape simBorder = new Rectangle2D.Double(0,0,canvas.getWidth()*-10,-10*canvas.getHeight()+100);
-//        g.clip(simBorder);
-//        g.setColor(Color.red);
-//        g.setStroke();
+
+        //timeLine displayed on the top-left
+        g.setFont(alarmFont);
+        AffineTransform timeTx = new AffineTransform();
+        timeTx.translate(0,50);
+        g.setColor(Color.WHITE);
+        Shape shape = alarmFont.createGlyphVector(g.getFontRenderContext(), timeLine.toString()).getOutline();
+        g.fill(timeTx.createTransformedShape(shape));
 
     }
 
