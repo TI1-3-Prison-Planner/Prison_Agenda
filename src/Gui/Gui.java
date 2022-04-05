@@ -83,7 +83,7 @@ public class Gui extends Application {
 
 
 		this.fileIO = new FileIO();
-		File file = new File("roster.json");
+		File file = new File("roster.ser");
 		this.roster = fileIO.readData(file);
 
 

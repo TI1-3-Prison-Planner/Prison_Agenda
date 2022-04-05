@@ -43,7 +43,7 @@ public class Main {
         roster.getLocationDatabase().put("Cellblock_A", new Location("Cell block A", Location.LocationType.CELLBLOCK));
         roster.getLocationDatabase().put("Commonroom1", new Location("Common room A", Location.LocationType.COMMONROOM));
         roster.getLocationDatabase().put("Kitchen1", 	new Location("Kitchen", Location.LocationType.KITCHEN));
-        roster.getLocationDatabase().put("Workshop1", 	new Location("Workshop", Location.LocationType.WORKSKHOP));
+        roster.getLocationDatabase().put("Workshop1", 	new Location("Workshop", Location.LocationType.WORKSHOP));
         roster.getLocationDatabase().put("Yard1", 		new Location("Yard", Location.LocationType.YARD));
 
 

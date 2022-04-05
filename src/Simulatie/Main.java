@@ -1,9 +1,6 @@
 package Simulatie;
 
-import Data.FileIO;
-import Data.Person;
-import Data.PrisonGroup;
-import Data.Roster;
+import Data.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -20,6 +17,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main extends Application {
 
@@ -78,10 +76,7 @@ public class Main extends Application {
             } catch (NoninvertibleTransformException e) {
                 e.printStackTrace();
             }
-
         });
-
-
     }
 
     private ArrayList<Visitor> visitors;
@@ -95,26 +90,31 @@ public class Main extends Application {
 //            this.visitors.add(visitor);
 //
 //        }
-        Map map = new Map();
         FileIO fileIO = new FileIO();
         Roster roster = fileIO.readData(new File("roster.ser"));
-        createVisitors(roster, map);
-        linkLocations();
+        this.maps = new Map();
+        this.visitors = new ArrayList<>();
+        createVisitors(roster);
         timer = 0;
     }
 
-    private void linkLocations() {
+    private Point2D goToNewTarget(Roster roster) {
+        ArrayList<Activity> temp2 = roster.getActivities();
 
+        //TODO timeline link aan startTime in activity
+        String newLocation = temp2.get(1).getLocation().getLocationName();
+
+        return this.maps.locationObjects.get(newLocation).getPosition();
     }
 
-    private void createVisitors(Roster roster, Map map) {
+    private void createVisitors(Roster roster) {
         for (PrisonGroup group : roster.getGroups()) {
             for (Person inmate : group.getInmates()) {
-                Visitor prisoner = new Visitor(new Point2D.Double(0,0), 0, map, false, group.getGroupID(), inmate.getName());
+                Visitor prisoner = new Visitor(new Point2D.Double(2235,3746), 0, this.maps, false, group.getGroupID(), inmate.getName());
                 visitors.add(prisoner);
             }
             for (Person guard : group.getGuards()) {
-                Visitor guardian = new Visitor(new Point2D.Double(0,0), 0, map, true, group.getGroupID(), guard.getName());
+                Visitor guardian = new Visitor(new Point2D.Double(2235,3746), 0, this.maps, true, group.getGroupID(), guard.getName());
                 visitors.add(guardian);
             }
         }
@@ -152,7 +152,6 @@ public class Main extends Application {
                 visitor.setTarget(new Point2D.Double(Math.random() * 4800, Math.random() * 4800));
             }
         }
-
 
         for (Visitor visitor : this.visitors) {
             visitor.update(this.visitors);

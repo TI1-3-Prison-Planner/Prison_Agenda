@@ -8,7 +8,7 @@ public class Location implements Serializable {
     public enum LocationType {
         CELL,
         CELLBLOCK,
-        WORKSKHOP,
+        WORKSHOP,
         YARD,
         COMMONROOM,
         KITCHEN,
