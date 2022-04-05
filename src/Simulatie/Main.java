@@ -16,6 +16,7 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -90,6 +91,10 @@ public class Main extends Application {
         timer = 0;
     }
 
+    //todo: activities sort on time
+    //
+
+
     //local time -> int
     //localTime hour * 100 + min
     private Point2D goToNewTarget(Roster roster) {
@@ -109,11 +114,11 @@ public class Main extends Application {
     private void createVisitors(Roster roster) {
         for (PrisonGroup group : roster.getGroups()) {
             for (Person inmate : group.getInmates()) {
-                Visitor prisoner = new Visitor(new Point2D.Double(2235,3746), 0, this.maps, false, group.getGroupID(), inmate.getName());
+                Visitor prisoner = new Visitor(new Point2D.Double(2235, 3746), 0, this.maps, false, group.getGroupID(), inmate.getName());
                 visitors.add(prisoner);
             }
             for (Person guard : group.getGuards()) {
-                Visitor guardian = new Visitor(new Point2D.Double(2235,3746), 0, this.maps, true, group.getGroupID(), guard.getName());
+                Visitor guardian = new Visitor(new Point2D.Double(2235, 3746), 0, this.maps, true, group.getGroupID(), guard.getName());
                 visitors.add(guardian);
             }
         }
@@ -137,14 +142,34 @@ public class Main extends Application {
         g.setTransform(originalTransform);
     }
 
+    private LocalTime timeLine = LocalTime.MIN;
+    private long timeCount;
+
+    /**
+     * updates the simulation's timeline and calls update() of all NPCs
+     * @param deltaTime
+     */
     public void update(double deltaTime) {
 //        maps.setTx(camera.getTransform((int)canvas.getWidth(),(int)canvas.getHeight()).);
+
+        //variable that locks the animation at a certain framerate
         timer += deltaTime;
-        if (timer > 10) {
-            timer -= 10;
-            for (Visitor visitor : this.visitors) {
-                visitor.setTarget(new Point2D.Double(Math.random() * 4800, Math.random() * 4800));
+        //every second updates the timeline
+        if (timer > 1) {
+            //keeps track of how much time passed
+            timeCount++;
+            //resets time when it's the end of the day
+            if (timeLine.equals(LocalTime.of(23,59))) {
+                timeLine = LocalTime.MIN;
             }
+            //converts timeCount to LocalTime, which the timeLine saves
+            if (timeCount % 60 == 0) {
+                timeLine = timeLine.plusHours(1);
+            } else {
+                timeLine = timeLine.plusMinutes(1);
+            }
+            System.out.println(timeLine);
+            timer -= 1;
         }
 
         for (Visitor visitor : this.visitors) {
