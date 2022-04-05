@@ -146,5 +146,14 @@ public class Map {
     //    public int[][] getMap() {
 //        return layer;
 //    }
+
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
 }
 

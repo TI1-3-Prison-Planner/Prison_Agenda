@@ -119,6 +119,12 @@ public class Main extends Application {
             //todo: implementeer connectie met agendalocaties
         }
         g.setTransform(originalTransform);
+
+        Shape simBorder = new Rectangle2D.Double(0,0,canvas.getWidth()*-10,-10*canvas.getHeight()+100);
+//        g.clip(simBorder);
+//        g.setColor(Color.red);
+//        g.setStroke();
+
     }
 
     private LocalTime timeLine = LocalTime.MIN;
@@ -126,7 +132,7 @@ public class Main extends Application {
 
     /**
      * updates the simulation's timeline and calls update() of all NPCs
-     * 
+     *
      */
     public void update(double deltaTime) {
 //        maps.setTx(camera.getTransform((int)canvas.getWidth(),(int)canvas.getHeight()).);
@@ -147,7 +153,6 @@ public class Main extends Application {
             } else {
                 timeLine = timeLine.plusMinutes(1);
             }
-            System.out.println(timeLine);
             timer -= 1;
         }
 
