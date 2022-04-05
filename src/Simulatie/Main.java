@@ -63,18 +63,18 @@ public class Main extends Application {
         stage.show();
         draw(g2d);
 
-        canvas.setOnMouseMoved(event -> {
-            try {
-                Point2D clickPos = camera.getTransform((int) this.canvas.getWidth(), (int) this.canvas.getHeight()).inverseTransform(new Point2D.Double(event.getX(), event.getY()), null);
-                mouseX.setText("x: " + (int) clickPos.getX());
-                mouseY.setText("Y: " + (int) clickPos.getY());
-                for (Visitor visitor : this.visitors) {
-                    visitor.setTarget(clickPos);
-                }
-            } catch (NoninvertibleTransformException e) {
-                e.printStackTrace();
-            }
-        });
+//        canvas.setOnMouseMoved(event -> {
+//            try {
+//                Point2D clickPos = camera.getTransform((int) this.canvas.getWidth(), (int) this.canvas.getHeight()).inverseTransform(new Point2D.Double(event.getX(), event.getY()), null);
+//                mouseX.setText("x: " + (int) clickPos.getX());
+//                mouseY.setText("Y: " + (int) clickPos.getY());
+//                for (Visitor visitor : this.visitors) {
+//                    visitor.setTarget(clickPos);
+//                }
+//            } catch (NoninvertibleTransformException e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 
     private ArrayList<Visitor> visitors;
@@ -165,10 +165,10 @@ public class Main extends Application {
     private Point2D goToNewTarget(Roster roster, int groupID) {
         String newLocation = "";
         for (Activity activity : roster.getActivities()) {
-            if (activity.getPrisonGroup().getGroupID() == groupID)
-                if(activity.getStartTime().equals(this.timeLine))
-                    newLocation = activity.getLocation().getLocationName();
-        }
+                if (groupID == activity.getPrisonGroup().getGroupID())
+                    if(activity.getStartTime().equals(this.timeLine))
+                        newLocation = activity.getLocation().getLocationName();
+            }
         return this.maps.locationObjects.get(newLocation).getPosition();
     }
 
