@@ -26,7 +26,7 @@ public class Visitor {
     private Map map;
     private Font nameFont;
     private double[][] distance;
-
+    private boolean walking = false;
     public Visitor(Point2D.Double position, double angle, Map map, boolean isGuard, int groupID, String Name) {
         this.position = position;
         this.angle = angle;
@@ -45,12 +45,12 @@ public class Visitor {
 
             BufferedImage inmateImage = ImageIO.read(getClass().getResourceAsStream("/images/inmate.png"));
             BufferedImage guardImage = ImageIO.read(getClass().getResourceAsStream("/images/guard.png"));
-            int w = 48;
+            int w = 46;
             int h = 64;
             for (int y = 0; y < 1; y++) {
                 for (int x = 0; x < 4; x++) {
-                    this.inmateSprites.add(inmateImage.getSubimage(x * w, h * y, w, h));
-                    this.guardSprites.add(guardImage.getSubimage(x * w, h * y, w, h));
+                    this.inmateSprites.add(inmateImage.getSubimage((int) (x * w+0.5), h * y, w, h));
+                    this.guardSprites.add(guardImage.getSubimage(x * w+1, h * y, w, h));
                 }
 
             }
@@ -60,8 +60,8 @@ public class Visitor {
     }
 
     public void update(ArrayList<Visitor> visitors) {
-        if (target.distanceSq(position) < 32)
-            return;
+//        if (target.distanceSq(position) < 32)
+//            return;
 
         if(distance != null){
             for(int xxx = -1; xxx <= 1; xxx++)
@@ -83,6 +83,10 @@ public class Visitor {
                 }
             }
 
+        }
+        if(distance[(int)this.position.getX()/32][(int)this.position.getY()/32]<5){
+            walking = false;
+            setTarget(map.getRandomlocation());
         }
 
         double targetAngle = Math.atan2(this.target.getY() - this.position.getY(), this.target.getX() - this.position.getX());
@@ -126,11 +130,11 @@ public class Visitor {
         if (degrees >= 45 && degrees < 135) {
             this.frame = 0;
         } else if (degrees >= 135 && degrees < 225) {
-            this.frame = 3;
+            this.frame = 2;
         } else if (degrees >= 225 && degrees < 315) {
             this.frame = 1;
         } else {
-            this.frame = 2;
+            this.frame = 3;
         }
     }
 
@@ -164,7 +168,11 @@ public class Visitor {
     }
 
     public void setTarget(String target) {
-        this.distance = map.locationObjects.get(target).getDistance();
+        if (!walking) {
+            this.distance = map.locationObjects.get(target).getDistance();
+
+        }
+        walking = true;
     }
 
     public double getAngle() {

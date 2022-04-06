@@ -15,7 +15,7 @@ public class LocationObject {
 
     public LocationObject(boolean[][] map, String name, Point2D.Double position, Point2D.Double size) {
         this.name = name;
-        this.position = position;
+        this.position = new Point2D.Double(position.getX() + size.getX()/2,position.getY() + size.getY()/2);
         this.size = size;
         targetX =(int) position.getX()/32;
         targetY = (int) position.getY()/32;
