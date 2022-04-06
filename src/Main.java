@@ -39,7 +39,7 @@ public class Main {
         a3.addInmates(roster.getInmateDatabase());
         a3.addGuard(roster.getGuardDatabase());
 
-        roster.getLocationDatabase().put("breakroom1", 	new Location("Break room", Location.LocationType.BREAKROOOM));
+        roster.getLocationDatabase().put("breakroom1", 	new Location("Break room", Location.LocationType.BREAKROOM));
         roster.getLocationDatabase().put("cellA1", 		new Location("Cell", Location.LocationType.CELL));
         roster.getLocationDatabase().put("Cellblock_A", new Location("Cell block A", Location.LocationType.CELLBLOCK));
         roster.getLocationDatabase().put("Commonroom1", new Location("Common room A", Location.LocationType.COMMONROOM));

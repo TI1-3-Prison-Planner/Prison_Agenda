@@ -163,13 +163,10 @@ public class Sim_Main extends Application {
                     }
         }
 
-
         if (newLocation != null) {
             return maps.getRandomlocation();
         }
         return newLocation;
-
-
     }
 
     public Point2D randomMove() {
