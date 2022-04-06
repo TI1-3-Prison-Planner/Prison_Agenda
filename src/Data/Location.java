@@ -30,6 +30,9 @@ public class Location implements Serializable {
         this.type = locationType;
         this.locationID = locationID;
     }
+    public Location(String locationName){
+        this.locationName = locationName;
+    }
 
     //setters for the locationobject
     public void setLocationName(String locationName) {

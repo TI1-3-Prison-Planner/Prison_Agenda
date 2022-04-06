@@ -3,9 +3,14 @@ package Data;
 
 import Gui.Observer;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.*;
+
+import static Data.Location.LocationType.CELL;
 
 public class Roster implements Comparator<LocalTime>, Serializable {
 
@@ -14,7 +19,8 @@ public class Roster implements Comparator<LocalTime>, Serializable {
     private ArrayList<Person> inmateDatabase;                   //inmate database with boolean for being assigned to a group
     private HashMap<String, Location> locationDatabase;         //Location database with ID for each Location
     private ArrayList<PrisonGroup> groups;                      //List with all prison groups to assign inmates and guards to
-    private ArrayList<Activity> activities;                     //List with all activity's for all groups
+    private ArrayList<Activity> activities;
+     ;        //List with all activity's for all groups
 
     //Constructor to initialize the attributes
     public Roster() {
@@ -23,6 +29,18 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         this.inmateDatabase = new ArrayList<>();
         this.locationDatabase = new HashMap<>();
         this.activities = new ArrayList<>();
+        initLocations();
+    }
+
+    private void initLocations() {
+        JsonObject root;
+        JsonReader reader = null;
+        reader = Json.createReader(getClass().getResourceAsStream("/Prison.json"));
+        root = reader.readObject();
+        for (int i = 0; i < root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").size(); i++) {
+
+            locationDatabase.put(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString(),new Location(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString(),CELL));
+        }
     }
 
     /**
