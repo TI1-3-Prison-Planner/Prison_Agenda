@@ -169,11 +169,11 @@ public class Sim_Main extends Application {
 
     }
 
-    public Point2D randomMove() {
-        Double minX = this.maps.locationObjects.get("Yard 0").getPosition().getX();
-        Double minY = this.maps.locationObjects.get("Yard 0").getPosition().getY();
-        Double maxX = this.maps.locationObjects.get("Yard 0").getPosition().getX() + this.maps.locationObjects.get("Yard 0").getSize().getX();
-        Double maxY = this.maps.locationObjects.get("Yard 0").getPosition().getY() + this.maps.locationObjects.get("Yard 0").getSize().getY();
+    public Point2D randomMove(String locationName) {
+        Double minX = this.maps.locationObjects.get(locationName).getPosition().getX();
+        Double minY = this.maps.locationObjects.get(locationName).getPosition().getY();
+        Double maxX = this.maps.locationObjects.get(locationName).getPosition().getX() + this.maps.locationObjects.get(locationName).getSize().getX();
+        Double maxY = this.maps.locationObjects.get(locationName).getPosition().getY() + this.maps.locationObjects.get(locationName).getSize().getY();
 
         Integer rx = new Random().nextInt((maxX.intValue()) - minX.intValue());
         Integer ry = new Random().nextInt(maxY.intValue()) - minY.intValue();
