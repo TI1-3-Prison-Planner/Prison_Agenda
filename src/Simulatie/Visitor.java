@@ -26,7 +26,7 @@ public class Visitor {
     private Map map;
     private Font nameFont;
     private double[][] distance;
-
+    private boolean walking = false;
     public Visitor(Point2D.Double position, double angle, Map map, boolean isGuard, int groupID, String Name) {
         this.position = position;
         this.angle = angle;
@@ -60,8 +60,8 @@ public class Visitor {
     }
 
     public void update(ArrayList<Visitor> visitors) {
-        if (target.distanceSq(position) < 32)
-            return;
+//        if (target.distanceSq(position) < 32)
+//            return;
 
         if(distance != null){
             for(int xxx = -1; xxx <= 1; xxx++)
@@ -83,6 +83,10 @@ public class Visitor {
                 }
             }
 
+        }
+        if(distance[(int)this.position.getX()/32][(int)this.position.getY()/32]==0.0){
+            walking = false;
+            setTarget(map.getRandomlocation());
         }
 
         double targetAngle = Math.atan2(this.target.getY() - this.position.getY(), this.target.getX() - this.position.getX());
@@ -164,7 +168,11 @@ public class Visitor {
     }
 
     public void setTarget(String target) {
-        this.distance = map.locationObjects.get(target).getDistance();
+        if (!walking) {
+            this.distance = map.locationObjects.get(target).getDistance();
+
+        }
+        walking = true;
     }
 
     public double getAngle() {

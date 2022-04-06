@@ -164,10 +164,10 @@ public class Sim_Main extends Application {
         }
 
 
-        if (newLocation != null) {
-            return maps.getRandomlocation();
+        if (newLocation != "") {
+            return newLocation;
         }
-        return newLocation;
+        return maps.getRandomlocation();
 
 
     }

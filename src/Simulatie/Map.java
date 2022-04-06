@@ -10,7 +10,9 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 
 public class Map {
@@ -162,7 +164,9 @@ public class Map {
 
 
     public String getRandomlocation(){
-        String location=locations.get((int)Math.random()*locations.size());
+
+        Collections.shuffle(locations);
+        String location=locations.get((int) (locations.size()*Math.random()));
         return location;
     }
 }
