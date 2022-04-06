@@ -10,6 +10,7 @@ public class Activity implements Serializable {
     private PrisonGroup prisonGroup;
     private Location location;
 
+
     public Activity(String activityName, LocalTime startTime, LocalTime endTime, PrisonGroup group, Location location) {
         this.activityName = activityName;
         this.startTime = startTime;
@@ -18,6 +19,7 @@ public class Activity implements Serializable {
         this.location = location;
     }
 
+    //setters for the activity object
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
@@ -31,6 +33,7 @@ public class Activity implements Serializable {
         this.location = location;
     }
 
+    //getters for the activity object
     public LocalTime getStartTime() {
         return this.startTime;
     }
@@ -47,6 +50,7 @@ public class Activity implements Serializable {
         return activityName;
     }
 
+    //toString method to print certain activity
     @Override
     public String toString() {
         return "Activity: " + this.activityName + ", " + this.startTime + " - " + this.endTime + ", " + this.location.getLocationName() + ", " + this.prisonGroup;

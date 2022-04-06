@@ -17,14 +17,19 @@ public class LocationIndexCreator implements Serializable {
         this.locations = new ArrayList<>(this.roster.getLocationDatabase().values());
     }
 
+    /**
+     * method to add an index to all locations.
+     * @param check
+     * @return String with the location type and an index
+     */
     public String indexCreator(Boolean check){
-        int ammount = 0;
+        int amount = 0;
         for(Location location : this.locations){
             if(location.getType().equals(this.locationType)){
-                ammount++;
+                amount++;
             }
         }
-        this.index = ammount;
+        this.index = amount;
         if(check){
             return this.locationType + " " + (this.index - 1);
         } else {

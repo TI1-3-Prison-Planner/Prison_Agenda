@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Location implements Serializable {
 
-    //enumeration for the different locations on the tilemap.
+    //enumeration for the different types of locations on the tilemap.
     public enum LocationType {
         CELL,
         CELLBLOCK,
@@ -19,6 +19,7 @@ public class Location implements Serializable {
     private String locationName;
     private LocationType type;
 
+    //2 contructors to choose if you want to add an ID to your location
     public Location(String locationName, LocationType locationtype){
         this.locationName = locationName;
         this.type = locationtype;
@@ -30,6 +31,7 @@ public class Location implements Serializable {
         this.locationID = locationID;
     }
 
+    //setters for the locationobject
     public void setLocationName(String locationName) {
         this.locationName = locationName;
     }
@@ -42,6 +44,7 @@ public class Location implements Serializable {
         this.locationID = locationID;
     }
 
+    //getters for the locationobject
     public String getLocationName(){
         return this.locationName;
     }
@@ -52,6 +55,7 @@ public class Location implements Serializable {
         return locationID;
     }
 
+    //toString for the locationobject
     public String toString() {
         return this.locationName;
     }
