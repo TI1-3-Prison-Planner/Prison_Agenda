@@ -41,6 +41,9 @@ public class DataViewer extends Observer{
         fillActivityTab();
     }
 
+    /**
+     * method to create all tabs and set text to it. Closingpolicy is set to unavailable.
+     */
     public void createTabs(){
         this.guards = new Tab("Guards");
         this.inmates = new Tab("Inmates");
@@ -57,6 +60,9 @@ public class DataViewer extends Observer{
 
     }
 
+    /**
+     * method to fill the guard tab with the guardlist from the data package. An name and assigned column with their own cellvaluefactory are added.
+     */
     public void fillGuardTab(){
         this.guardsTable = new TableView<>();
         TableColumn<Person, String> name = new TableColumn<Person, String>("names");
@@ -83,6 +89,9 @@ public class DataViewer extends Observer{
         this.guards.setContent(this.guardsTable);
     }
 
+    /**
+     * method to fill the inmate tab with the inmatelist from the data package. An name and assigned column with their own cellvaluefactory are added.
+     */
     public void fillInmateTab(){
         this.inmateTable = new TableView<>();
         TableColumn<Person, String> name = new TableColumn<Person, String>("names");
@@ -109,6 +118,9 @@ public class DataViewer extends Observer{
         this.inmates.setContent(this.inmateTable);
     }
 
+    /**
+     * method to fill the group tab with the prisongroups from the data package. groupID, group name, inmates, guards en securityDetail columns are added with their own cellvaluefactory.
+     */
     public void fillGroupTab(){
         this.groupTable = new TableView<>();
         TableColumn<PrisonGroup, String> groupID = new TableColumn<>("Group ID");
@@ -122,6 +134,8 @@ public class DataViewer extends Observer{
         groupID.setCellValueFactory(new PropertyValueFactory<PrisonGroup, String>("groupID"));
         groupName.setCellValueFactory(new PropertyValueFactory<PrisonGroup, String>("groupName"));
         inmates.setCellValueFactory(new PropertyValueFactory<PrisonGroup, ArrayList<Person>>("inmates"));
+
+        //.cellFactory is a method to remove the arraylist bracket in the cell.
         inmates.setCellFactory(param -> {
             return new TableCell<PrisonGroup, ArrayList<Person>>()
             {
@@ -137,6 +151,8 @@ public class DataViewer extends Observer{
             };
         });
         guards.setCellValueFactory(new PropertyValueFactory<PrisonGroup, ArrayList<Person>>("guards"));
+
+        //.cellFactory is a method to remove the arraylist bracket in the cell.
         guards.setCellFactory(param -> {
             return new TableCell<PrisonGroup, ArrayList<Person>>()
             {
@@ -156,7 +172,9 @@ public class DataViewer extends Observer{
         this.groupTable.setItems(prisonGroups);
         this.groups.setContent(this.groupTable);
     }
-
+    /**
+     * method to fill the location tab with the locations from the data package. An ID, name and Type column with their own cellvaluefactory are added.
+     */
     public void fillLocationTab(){
         this.locationTable = new TableView<>();
 
@@ -177,6 +195,9 @@ public class DataViewer extends Observer{
         this.locationTable.getSortOrder().add(locationID);
     }
 
+    /**
+     * method to fill the activity tab with all the activities from the data package. An name, start time, end time, prisongroup and location column with their own cellvaluefactory are added.
+     */
     public void fillActivityTab(){
         this.activityTable = new TableView<>();
         TableColumn<Activity, String> activityName = new TableColumn<Activity, String>("Name");
@@ -199,6 +220,7 @@ public class DataViewer extends Observer{
         this.activities.setContent(this.activityTable);
     }
 
+    //getters to get all specific tabs.
     public TabPane allTabs(){
         return this.dataTab;
     }
@@ -227,13 +249,15 @@ public class DataViewer extends Observer{
         return locationTable;
     }
 
+    /**
+     * update method to update all Tabs
+     */
     @Override
     public void update() {
         fillGuardTab();
         fillInmateTab();
         fillGroupTab();
         fillLocationTab();
-//        test();
         fillActivityTab();
     }
 
