@@ -1,6 +1,8 @@
 import Data.*;
 import Gui.*;
+import Simulatie.Sim_Main;
 import javafx.application.Application;
+import javafx.application.Platform;
 
 import java.io.File;
 import java.time.LocalTime;
@@ -22,7 +24,6 @@ public class Main {
         fio.saveDataAsFile(file, testRoster);
 //        System.out.println(testRoster);
         Application.launch(Gui.class);
-
 
     }
 

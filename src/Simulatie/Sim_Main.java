@@ -4,6 +4,7 @@ import Data.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -12,15 +13,13 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Main extends Application {
+public class Sim_Main extends Application {
 
     private Map maps;
     private ResizableCanvas canvas;
@@ -174,7 +173,30 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(Main.class);
+        launch(args);
+    }
+
+    public void begin(){
+        FileIO fileIO = new FileIO();
+        this.roster = fileIO.readData(new File("roster.ser"));
+        this.maps = new Map();
+        this.visitors = new ArrayList<>();
+        createVisitors(this.roster);
+        timer = 0;
+
+        if(roster.getActivities().size() == 0){
+            Alert noActiv = new Alert(Alert.AlertType.ERROR);
+            noActiv.setTitle("Geen Activiteiten");
+            noActiv.setHeaderText("Geen geplande activiteiten gevonden");
+            noActiv.setContentText("Er zijn geen activiteiten gevonden in het rooster. Maak eerst activiteiten aan om de simulatie te kunnen starten.");
+            noActiv.showAndWait();
+        } else {
+            try {
+                this.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

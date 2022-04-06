@@ -2,7 +2,9 @@ package Gui;
 
 
 import Data.*;
+import Simulatie.Sim_Main;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -21,6 +23,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
+
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -67,7 +70,6 @@ public class Gui extends Application {
 	public void start(Stage stage) {
 		//Testcode test = new Testcode();
 
-
 		stage.setTitle("Agenda GUI");
 		this.mainPane = new BorderPane();
 		this.tabPane = new TabPane();
@@ -80,7 +82,6 @@ public class Gui extends Application {
 		this.tableView = new TableView();
 
 		canvas.setOnMouseEntered(e-> draw(new FXGraphics2D(canvas.getGraphicsContext2D())));
-
 
 		this.fileIO = new FileIO();
 		File file = new File("roster.ser");
@@ -170,7 +171,10 @@ public class Gui extends Application {
 		simulatie.getItems().addAll(startSim);
 
 		startSim.setOnAction(event -> {
-			//TODO Start simulatie
+			fileIO.saveDataAsFile(new File("roster.ser"), this.roster);
+			Sim_Main sim = new Sim_Main();
+			sim.begin();
+			stage.hide();
 		});
 
 		this.menuBar = new MenuBar(this.fileMenu, this.newMenu, this.editMenu, simulatie);
