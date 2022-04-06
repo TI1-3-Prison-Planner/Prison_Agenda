@@ -27,8 +27,9 @@ public class Visitor {
     private Font nameFont;
     private double[][] distance;
     private boolean walking = false;
-    private String targetname;
-    public Visitor(Point2D.Double position, double angle, Map map, boolean isGuard, int groupID, String Name) {
+    private String targetname ="";
+    private Sim_Main main;
+    public Visitor(Point2D.Double position, double angle, Map map, boolean isGuard, int groupID, String Name,Sim_Main main) {
         this.position = position;
         this.angle = angle;
         this.speed = 1 + 5 * Math.random(); //TODO set fixed speed
@@ -39,7 +40,7 @@ public class Visitor {
         this.group = groupID;
         this.name = Name;
         this.nameFont = new Font("Arial", Font.PLAIN, 12);
-
+        this.main = main;
         this.inmateSprites = new ArrayList<>();
         this.guardSprites = new ArrayList<>();
         try {
@@ -87,6 +88,7 @@ public class Visitor {
         }
         if(distance[(int)this.position.getX()/32][(int)this.position.getY()/32]<5){
             walking = false;
+            this.target = (Point2D.Double) main.randomMove(targetname);
         }
 
         double targetAngle = Math.atan2(this.target.getY() - this.position.getY(), this.target.getX() - this.position.getX());
@@ -168,10 +170,10 @@ public class Visitor {
     }
 
     public void setTarget(String target) {
-        if (!walking) {
-            this.targetname = target;
-            this.distance = map.locationObjects.get(target).getDistance();
+        if (!walking&&!this.targetname.equals(target)) {
 
+            this.distance = map.locationObjects.get(target).getDistance();
+            this.targetname = target;
         }
         walking = true;
     }

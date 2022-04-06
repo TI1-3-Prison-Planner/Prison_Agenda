@@ -80,11 +80,11 @@ public class Sim_Main extends Application {
     private void createVisitors(Roster roster) {
         for (PrisonGroup group : roster.getGroups()) {
             for (Person inmate : group.getInmates()) {
-                Visitor prisoner = new Visitor(new Point2D.Double(2235, 3746), 0, this.maps, false, group.getGroupID(), inmate.getName());
+                Visitor prisoner = new Visitor(new Point2D.Double(2235, 3746), 0, this.maps, false, group.getGroupID(), inmate.getName(),this);
                 visitors.add(prisoner);
             }
             for (Person guard : group.getGuards()) {
-                Visitor guardian = new Visitor(new Point2D.Double(2235, 3746), 0, this.maps, true, group.getGroupID(), guard.getName());
+                Visitor guardian = new Visitor(new Point2D.Double(2235, 3746), 0, this.maps, true, group.getGroupID(), guard.getName(),this);
                 visitors.add(guardian);
             }
         }
@@ -169,7 +169,7 @@ public class Sim_Main extends Application {
 
     }
 
-    public Point2D randomMove(String locationName) {
+    public  Point2D  randomMove(String locationName) {
         Double minX = this.maps.locationObjects.get(locationName).getPosition().getX();
         Double minY = this.maps.locationObjects.get(locationName).getPosition().getY();
         Double maxX = this.maps.locationObjects.get(locationName).getPosition().getX() + this.maps.locationObjects.get(locationName).getSize().getX();
