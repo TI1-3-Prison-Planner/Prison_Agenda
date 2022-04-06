@@ -105,8 +105,8 @@ public class Map {
             Point2D topLeft = camera.getTransform(1024, 1024).inverseTransform(new Point2D.Double(0, 0), null);
             Point2D botRight = camera.getTransform(1024, 1024).inverseTransform(new Point2D.Double(1024, 1024), null);
             for (ArrayList<ArrayList<BufferedImage>> layer : layerImageCache) {
-                for (int x = Math.max(0, (int) topLeft.getX() / 32 / chunksize); x < Math.min(mapWidth / chunksize, botRight.getX() / 32 / chunksize); x++) {
-                    for (int y = Math.max(0, (int) topLeft.getY() / 32 / chunksize); y < Math.min(mapHeight / chunksize, botRight.getY() / 32 / chunksize); y++) {
+                for (int x = Math.max(0, (int) topLeft.getX() / 33 / chunksize); x < Math.min((mapWidth) / chunksize, botRight.getX() / 32 / chunksize); x++) {
+                    for (int y = Math.max(0, (int) topLeft.getY() / 33 / chunksize); y < Math.min((mapHeight) / chunksize, botRight.getY() / 32 / chunksize); y++) {
                         g.drawImage(layer.get(x).get(y), AffineTransform.getTranslateInstance(x * tileWidth * chunksize, y * tileHeight * chunksize), null);
                     }
 

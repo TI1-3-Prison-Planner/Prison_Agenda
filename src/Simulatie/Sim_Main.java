@@ -26,6 +26,7 @@ public class Sim_Main extends Application {
     private ResizableCanvas canvas;
     private Camera camera;
     private Font alarmFont;
+
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane mainPane = new BorderPane();
@@ -36,7 +37,7 @@ public class Sim_Main extends Application {
         mainPane.setTop(hBox);
 
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
-        alarmFont= new Font("Arial", Font.PLAIN, 50);
+        alarmFont = new Font("Arial", Font.PLAIN, 50);
         mainPane.setCenter(canvas);
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
         camera = new Camera(canvas, g -> draw(g), g2d);
@@ -109,7 +110,7 @@ public class Sim_Main extends Application {
         //timeLine displayed on the top-left
         g.setFont(alarmFont);
         AffineTransform timeTx = new AffineTransform();
-        timeTx.translate(0,50);
+        timeTx.translate(0, 50);
         g.setColor(Color.WHITE);
         Shape shape = alarmFont.createGlyphVector(g.getFontRenderContext(), timeLine.toString()).getOutline();
         g.fill(timeTx.createTransformedShape(shape));
@@ -121,7 +122,6 @@ public class Sim_Main extends Application {
 
     /**
      * updates the simulation's timeline and calls update() of all NPCs
-     *
      */
     public void update(double deltaTime) {
 //        maps.setTx(camera.getTransform((int)canvas.getWidth(),(int)canvas.getHeight()).);
@@ -133,7 +133,7 @@ public class Sim_Main extends Application {
             //keeps track of how much time passed
             timeCount++;
             //resets time when it's the end of the day
-            if (timeLine.equals(LocalTime.of(23,59))) {
+            if (timeLine.equals(LocalTime.of(23, 59))) {
                 timeLine = LocalTime.MIN;
             }
             //converts timeCount to LocalTime, which the timeLine saves
@@ -154,19 +154,25 @@ public class Sim_Main extends Application {
     private Point2D goToNewTarget(Roster roster, int groupID) {
         String newLocation = "";
         for (Activity activity : roster.getActivities()) {
-                if (groupID == activity.getPrisonGroup().getGroupID())
-                    if(activity.getStartTime().equals(this.timeLine))
+            if (groupID == activity.getPrisonGroup().getGroupID())
+                if (activity.getStartTime().equals(this.timeLine))
+                    try {
                         newLocation = activity.getLocation().getLocationName();
-            }
-
-        if (newLocation.isEmpty()){
-            return randomMove();
-        }else {
-            return this.maps.locationObjects.get(newLocation).getPosition();
+                    } catch (Exception e) {
+                        newLocation = null;
+                    }
         }
+
+
+        if (newLocation != null) {
+            return randomMove();
+        }
+        return this.maps.locationObjects.get(newLocation).getPosition();
+
+
     }
 
-    public Point2D randomMove(){
+    public Point2D randomMove() {
         Double minX = this.maps.locationObjects.get("Yard 0").getPosition().getX();
         Double minY = this.maps.locationObjects.get("Yard 0").getPosition().getY();
         Double maxX = this.maps.locationObjects.get("Yard 0").getPosition().getX() + this.maps.locationObjects.get("Yard 0").getSize().getX();
@@ -176,7 +182,7 @@ public class Sim_Main extends Application {
         Integer ry = new Random().nextInt(maxY.intValue()) - minY.intValue();
 
         Point2D.Double random = new Point2D.Double(
-            rx.doubleValue(), ry.doubleValue()
+                rx.doubleValue(), ry.doubleValue()
         );
 
 //        System.out.println(random);
@@ -187,7 +193,7 @@ public class Sim_Main extends Application {
         launch(args);
     }
 
-    public void begin(){
+    public void begin() {
         FileIO fileIO = new FileIO();
         this.roster = fileIO.readData(new File("roster.ser"));
         this.maps = new Map();
@@ -195,7 +201,7 @@ public class Sim_Main extends Application {
         createVisitors(this.roster);
         timer = 0;
 
-        if(roster.getActivities().size() == 0){
+        if (roster.getActivities().size() == 0) {
             Alert noActiv = new Alert(Alert.AlertType.ERROR);
             noActiv.setTitle("Geen Activiteiten");
             noActiv.setHeaderText("Geen geplande activiteiten gevonden");

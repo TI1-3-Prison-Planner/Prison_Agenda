@@ -44,12 +44,12 @@ public class Visitor {
 
             BufferedImage inmateImage = ImageIO.read(getClass().getResourceAsStream("/images/inmate.png"));
             BufferedImage guardImage = ImageIO.read(getClass().getResourceAsStream("/images/guard.png"));
-            int w = 64;
+            int w = 48;
             int h = 64;
             for (int y = 0; y < 1; y++) {
-                for (int x = 0; x < 3; x++) {
-                    this.inmateSprites.add(inmateImage.getSubimage(x * w, y * h, w, h));
-                    this.guardSprites.add(guardImage.getSubimage(x * w, y * h, w, h));
+                for (int x = 0; x < 4; x++) {
+                    this.inmateSprites.add(inmateImage.getSubimage(x * w, h * y, w, h));
+                    this.guardSprites.add(guardImage.getSubimage(x * w, h * y, w, h));
                 }
 
             }
@@ -103,7 +103,7 @@ public class Visitor {
         if (degrees >= 45 && degrees < 135) {
             this.frame = 0;
         } else if (degrees >= 135 && degrees < 225) {
-            this.frame = 2;
+            this.frame = 3;
         } else if (degrees >= 225 && degrees < 315) {
             this.frame = 1;
         } else {
@@ -138,7 +138,6 @@ public class Visitor {
         g2d.setFont(nameFont);
         g2d.setColor(Color.black);
         g2d.drawString(name, (int) (tx.getTranslateX()), (int) (tx.getTranslateY()));
-        g2d.draw(new Ellipse2D.Double(position.getX() - 32, position.getY() - 32, 64, 64));
     }
 
     public void setTarget(Point2D newTarget) {
