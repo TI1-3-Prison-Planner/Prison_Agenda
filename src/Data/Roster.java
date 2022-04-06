@@ -16,6 +16,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
     private ArrayList<PrisonGroup> groups;                      //List with all prison groups to assign inmates and guards to
     private ArrayList<Activity> activities;                     //List with all activity's for all groups
 
+    //Constructor 
     public Roster() {
         this.guardDatabase = new ArrayList<>();
         this.groups = new ArrayList<>();
