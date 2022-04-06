@@ -16,6 +16,8 @@ import javafx.stage.Stage;
  */
 
 public class NewPersonPopup implements Popup {
+
+    //Private attributes
     private String title;
     private Roster roster;
     private ObserverRefresh obsRefresh;
@@ -29,6 +31,7 @@ public class NewPersonPopup implements Popup {
     private ComboBox<PrisonGroup> groupSelection;
     private Person person;
 
+    //Constructor to initialize the attributes
     public NewPersonPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.title = title;
         this.roster = roster;
@@ -38,6 +41,7 @@ public class NewPersonPopup implements Popup {
         this.stage.setTitle(title);
     }
 
+    //Constructor to initialize the attributes
     public NewPersonPopup(String title, Roster roster, ObserverRefresh obsRefresh, Person person) {
         this.title = title;
         this.roster = roster;
@@ -48,6 +52,9 @@ public class NewPersonPopup implements Popup {
         this.person = person;
     }
 
+    /**
+     * Popup display to create a new person in the database
+     */
     @Override
     public void display() {
         Label nameLabel = new Label("Type in the name:");
@@ -103,6 +110,9 @@ public class NewPersonPopup implements Popup {
         this.stage.showAndWait();
     }
 
+    /**
+     * Popup display to edit a person in the database
+     */
     private void editPerson() {
         this.person.setName(this.insertedName.getText());
         if (guardButton.isSelected()) {
@@ -121,8 +131,9 @@ public class NewPersonPopup implements Popup {
         close();
     }
 
-
-
+    /**
+     * Method to help to popup display to add a person to the database
+     */
     private void addPerson() {
         try {
             if (this.insertedName != null && this.toggleGroup.getSelectedToggle().isSelected()) {
@@ -140,6 +151,9 @@ public class NewPersonPopup implements Popup {
 
     }
 
+    /**
+     * Method to clear and close the popup
+     */
     @Override
     public void close() {
         this.insertedName.clear();

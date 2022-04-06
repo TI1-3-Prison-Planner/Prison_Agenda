@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 public class NewLocationPopup extends Observer implements Popup {
+
+    //Private attributes
     private ObserverRefresh obsRefresh;
     private Stage newLocationPopupDisplay;
     private Label instructionLabel;
@@ -25,6 +27,7 @@ public class NewLocationPopup extends Observer implements Popup {
     private Roster roster;
     private Location location;
 
+    //Constructor to initialize the attributes
     public NewLocationPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.newLocationPopupDisplay = new Stage();
         this.newLocationPopupDisplay.initModality(Modality.APPLICATION_MODAL);
@@ -42,6 +45,7 @@ public class NewLocationPopup extends Observer implements Popup {
         this.obsRefresh.addObservers(this);
     }
 
+    //Constructor to initialize the attributes
     public NewLocationPopup(String title, Roster roster, ObserverRefresh obsRefresh, Location location) {
         this.newLocationPopupDisplay = new Stage();
         this.newLocationPopupDisplay.initModality(Modality.APPLICATION_MODAL);
@@ -60,6 +64,9 @@ public class NewLocationPopup extends Observer implements Popup {
         this.location = location;
     }
 
+    /**
+     * Popup display to create a new location in the database
+     */
     @Override
     public void display() {
         this.locationTypeBox.getSelectionModel().clearSelection();
@@ -91,6 +98,9 @@ public class NewLocationPopup extends Observer implements Popup {
         this.newLocationPopupDisplay.showAndWait();
     }
 
+    /**
+     * Method to help the popup display to edit a location in the database
+     */
     private void editLocation() {
         this.location.setLocationName(this.locationName.getText());
         this.location.setType(this.locationTypeBox.getSelectionModel().getSelectedItem());
@@ -98,6 +108,9 @@ public class NewLocationPopup extends Observer implements Popup {
         close();
     }
 
+    /**
+     * Method to clear and close the popup
+     */
     @Override
     public void close() {
         locationName.clear();
@@ -105,6 +118,9 @@ public class NewLocationPopup extends Observer implements Popup {
         newLocationPopupDisplay.close();
     }
 
+    /**
+     * Method to help the popup display to add a location to the database
+     */
     private void addLocation() {
         try {
             LocationIndexCreator indexer = new LocationIndexCreator(this.locationTypeBox.getValue(), this.roster);
@@ -124,6 +140,7 @@ public class NewLocationPopup extends Observer implements Popup {
         }
     }
 
+    //Method to update the popup
     @Override
     public void update() {
         this.locationTypeBox.getItems().setAll(Location.LocationType.values());

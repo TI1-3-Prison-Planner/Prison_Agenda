@@ -12,6 +12,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class NewGroupPopup extends Observer implements Popup {
+
+    //Private attributes
     private ObserverRefresh obsRefresh;
     private Stage newGroupPopupDisplay;
     private Label groupNameInstruction;
@@ -26,6 +28,7 @@ public class NewGroupPopup extends Observer implements Popup {
     private Roster roster;
     private PrisonGroup pGroup;
 
+    //Constructor to initialize the attributes
     public NewGroupPopup(String title, Roster roster, ObserverRefresh obsRefresh) {
         this.newGroupPopupDisplay = new Stage();
         this.newGroupPopupDisplay.initModality(Modality.APPLICATION_MODAL);
@@ -45,6 +48,7 @@ public class NewGroupPopup extends Observer implements Popup {
         this.obsRefresh.addObservers(this);
     }
 
+    //Constructor to initialize the attributes
     public NewGroupPopup(String title, Roster roster, PrisonGroup group, ObserverRefresh obsRefresh) {
         this.newGroupPopupDisplay = new Stage();
         this.newGroupPopupDisplay.initModality(Modality.APPLICATION_MODAL);
@@ -65,6 +69,9 @@ public class NewGroupPopup extends Observer implements Popup {
         this.pGroup = group;
     }
 
+    /**
+     * Popup display to create a new group in the database
+     */
     @Override
     public void display() {
         this.cancelButton.setOnAction(e -> close());
@@ -96,6 +103,9 @@ public class NewGroupPopup extends Observer implements Popup {
         this.newGroupPopupDisplay.showAndWait();
     }
 
+    /**
+     * Method to help the popup to edit a group in the database
+     */
     private void editGroup() {
         int index = this.roster.getGroups().indexOf(this.pGroup);
 
@@ -111,6 +121,9 @@ public class NewGroupPopup extends Observer implements Popup {
         close();
     }
 
+    /**
+     * Method to add a group to the database
+     */
     private void addGroup() {
         PrisonGroup prisonGroup = null;
         Alert inputAlert = new Alert(Alert.AlertType.ERROR,"Incorrect input. Please fill every cell correctly.");

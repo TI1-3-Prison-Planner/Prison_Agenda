@@ -93,7 +93,8 @@ public class Visitor {
 
         if (hasCollision) {
             this.position = oldPosition;
-            this.angle = oldAngle + rotationSpeed;
+            this.angle = targetAngle;
+//            this.angle = oldAngle + rotationSpeed;
         }
 
         double degrees = Math.toDegrees(this.angle);

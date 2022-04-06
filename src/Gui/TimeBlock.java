@@ -11,6 +11,8 @@ import java.awt.geom.Rectangle2D;
 import java.time.LocalTime;
 
 public class TimeBlock {
+
+    //Private attributes
     private PrisonGroup group;
     private String location;
     private int timeStartHour;
@@ -22,8 +24,7 @@ public class TimeBlock {
     private LocalTime timeEnd;
     private Rectangle2D rect;
 
-
-
+    //Constructor to initialize Attributes
     public TimeBlock(PrisonGroup group, String location, LocalTime timeStart, LocalTime timeEnd) {
         this.group = group;
         this.location = location;
@@ -36,40 +37,11 @@ public class TimeBlock {
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
     }
-    
-    public void setGroup(PrisonGroup group) {
-        this.group = group;
-    }
-    public void setLocation(String location) {
-        this.location = location;
-    }
-    public void setTimeStartHour(int timeStartHour) {
-        this.timeStartHour = timeStartHour;
-    }
-    public void setTimeStartMin(int timeStartMin) {
-        this.timeStartMin = timeStartMin;
-    }
 
-    public String getGroup() {
-        return group.getGroupName();
-    }
-    public String getLocation() {
-        return location;
-    }
-    public int getTimeStartHour() {
-        return timeStartHour;
-    }
-    public int getTimeStartMin() {
-        return timeStartMin;
-    }
-
-    public TimeBlock getTimeblock(Event e){
-        return this;
-    }
-
-
-
-
+    /**
+     * Method to draw the time blocks
+     * @param g2d
+     */
     public void draw(FXGraphics2D g2d) {
         int x = groupNumber * 100;
         int y = timeStartHour * 60 + timeStartMin;
@@ -87,11 +59,46 @@ public class TimeBlock {
 
     }
 
-
+    /**
+     * Method to convert the activity to a time block on the data Gui
+     * @param a
+     * @return
+     */
     public static TimeBlock convertToTimeblock(Activity a){
         TimeBlock b = new TimeBlock(a.getPrisonGroup(), a.getLocation().toString(), a.getStartTime(), a.getEndTime());
         return  b;
 
+    }
+
+    //Setters for the attributes
+    public void setGroup(PrisonGroup group) {
+        this.group = group;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    public void setTimeStartHour(int timeStartHour) {
+        this.timeStartHour = timeStartHour;
+    }
+    public void setTimeStartMin(int timeStartMin) {
+        this.timeStartMin = timeStartMin;
+    }
+
+    //Getters for the attributes
+    public String getGroup() {
+        return group.getGroupName();
+    }
+    public String getLocation() {
+        return location;
+    }
+    public int getTimeStartHour() {
+        return timeStartHour;
+    }
+    public int getTimeStartMin() {
+        return timeStartMin;
+    }
+    public TimeBlock getTimeblock(Event e){
+        return this;
     }
 
 }
