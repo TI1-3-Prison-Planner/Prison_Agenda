@@ -25,7 +25,9 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         this.activities = new ArrayList<>();
     }
 
-    //Method to clear all the data
+    /**
+     * Method to clear all the data from the database
+     */
     public void clear() {
         this.guardDatabase.clear();
         this.groups.clear();
@@ -34,7 +36,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         this.activities.clear();
     }
 
-    //Method to fill the database of the inmates
+    /**
+     * Method to fill the database of the inmates
+     * @param persons
+     */
     public void fillInmatesDataBase(ArrayList<String> persons) {
         for (String name : persons) {
             Person inmate = new Person(name, false);
@@ -42,7 +47,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
-    //Method to fill the database of the guards
+    /**
+     * Method to fill the database of the guards
+     * @param persons
+     */
     public void fillGuardDatabase(ArrayList<String> persons) {
         for (String name : persons) {
             Person guard = new Person(name, true);
@@ -50,7 +58,9 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
-    //Method to sort the activities based on time by using the implemented compare method.
+    /**
+     * Method to sort the activities based on time by using the implemented compare method
+     */
     public void sortOnTime() {
         int n = this.activities.size();
         Activity tempActivity;
@@ -68,7 +78,12 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         Collections.addAll(this.activities, activitiesArr);
     }
 
-    //Implemented method to compare 2 different localtime attributes.
+    /**
+     * Implemented method to compare 2 different localtime attributes
+     * @param o1
+     * @param o2
+     * @return
+     */
     @Override
     public int compare(LocalTime o1, LocalTime o2) {
         if (o1.isAfter(o2)) {
@@ -78,7 +93,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
-    //Manager for the data of the guards and inmates
+    /**
+     * Manager for the data of the guards and inmates
+     * @param person
+     */
     public void manageGroups(Person person) {
         for (PrisonGroup group : this.getGroups()) {
             if (group.getInmates().remove(person))
