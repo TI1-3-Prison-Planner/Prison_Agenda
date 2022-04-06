@@ -52,9 +52,9 @@ public class Map {
             for (int i = 0; i < root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").size(); i++) {
 
                 locationObjects.put(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
-                        ,new LocationObject(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
-                                ,new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("x"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("y")),
-                                new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("width"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("height"))));
+                        , new LocationObject(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
+                                , new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("x"), root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("y")),
+                                new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("width"), root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("height"))));
 
             }
 
@@ -146,14 +146,5 @@ public class Map {
     //    public int[][] getMap() {
 //        return layer;
 //    }
-
-
-    public int getMapWidth() {
-        return mapWidth;
-    }
-
-    public int getMapHeight() {
-        return mapHeight;
-    }
 }
 
