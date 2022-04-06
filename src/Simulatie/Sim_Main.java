@@ -137,9 +137,6 @@ public class Sim_Main extends Application {
                 timeLine = LocalTime.MIN;
             }
             //converts timeCount to LocalTime, which the timeLine saves
-            if (timeCount % 60 == 0) {
-                timeLine = timeLine.plusHours(1);
-            }
             timeLine = timeLine.plusMinutes(1);
             timer -= 1;
         }

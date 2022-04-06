@@ -45,12 +45,12 @@ public class Visitor {
 
             BufferedImage inmateImage = ImageIO.read(getClass().getResourceAsStream("/images/inmate.png"));
             BufferedImage guardImage = ImageIO.read(getClass().getResourceAsStream("/images/guard.png"));
-            int w = 48;
+            int w = 46;
             int h = 64;
             for (int y = 0; y < 1; y++) {
                 for (int x = 0; x < 4; x++) {
-                    this.inmateSprites.add(inmateImage.getSubimage(x * w, h * y, w, h));
-                    this.guardSprites.add(guardImage.getSubimage(x * w, h * y, w, h));
+                    this.inmateSprites.add(inmateImage.getSubimage((int) (x * w+0.5), h * y, w, h));
+                    this.guardSprites.add(guardImage.getSubimage(x * w+1, h * y, w, h));
                 }
 
             }
@@ -130,11 +130,11 @@ public class Visitor {
         if (degrees >= 45 && degrees < 135) {
             this.frame = 0;
         } else if (degrees >= 135 && degrees < 225) {
-            this.frame = 3;
+            this.frame = 2;
         } else if (degrees >= 225 && degrees < 315) {
             this.frame = 1;
         } else {
-            this.frame = 2;
+            this.frame = 3;
         }
     }
 
