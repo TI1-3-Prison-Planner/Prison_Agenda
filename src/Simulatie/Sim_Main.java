@@ -152,7 +152,7 @@ public class Sim_Main extends Application {
         String newLocation = "";
         for (Activity activity : roster.getActivities()) {
             if (groupID == activity.getPrisonGroup().getGroupID())
-                if (activity.getStartTime().equals(this.timeLine))
+                if (activity.getStartTime().equals(this.timeLine) || activity.getEndTime().isBefore(this.timeLine) )
                     try {
                         newLocation = activity.getLocation().getLocationName();
                     } catch (Exception e) {
