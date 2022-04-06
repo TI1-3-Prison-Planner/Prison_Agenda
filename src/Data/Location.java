@@ -12,7 +12,7 @@ public class Location implements Serializable {
         YARD,
         COMMONROOM,
         KITCHEN,
-        BREAKROOOM
+        BREAKROOM
     }
 
     private String locationID;
