@@ -6,19 +6,21 @@ import java.util.HashMap;
 
 public class PrisonGroup implements Serializable {
 
-	//enumeration for the types of security on a group. For each securityDetail is a different amount of guards with the group.
+	//Enumeration for the types of security on a group. For each securityDetail is a different amount of guards with the group.
 	public enum SecurityDetail {
 		LOW,
 		MEDIUM,
 		HIGH
 	}
 
+	//Private attributes
 	private String groupName;
 	private ArrayList<Person> inmates;
 	private ArrayList<Person> guards;
 	private SecurityDetail securityDetail;
 	private int groupID;
 
+	//Constructor to initialize the attributes
 	public PrisonGroup(String groupName,int groupID, SecurityDetail securityDetail) {
 		this.groupName = groupName;
 		this.inmates = new ArrayList<>();
@@ -27,7 +29,10 @@ public class PrisonGroup implements Serializable {
 		this.securityDetail = securityDetail;
 	}
 
-	//method to check how much guards a group needs, then add that amount of guards to the hashmap given as parameter and a ArrayList of guards.
+	/**
+	 * Method to check how much guards a group needs, then add that amount of guards to the hashmap given as parameter and a ArrayList of guards.
+	 * @param guardList
+	 */
 	public void addGuard(ArrayList<Person> guardList) {
 		int guardAmount = guardsPerDetail();
 		int currentAmount = this.guards.size();
@@ -41,6 +46,10 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
+	/**
+	 * Method to remove a guard from the database
+	 * @param guardList
+	 */
 	public void removeGuard(ArrayList<Person> guardList){
 		int guardAmount = guardsPerDetail();
 		int currentAmount = this.guards.size();
@@ -55,6 +64,10 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
+	/**
+	 * Method to add inmates to the database
+	 * @param inmateList
+	 */
 	public void addInmates(ArrayList<Person> inmateList){
 		int inmatesNeeded = 20;
 		int inmateAmount = this.inmates.size();
@@ -68,7 +81,10 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
-	//method to set the right amount of guards to a certain group.
+	/**
+	 * Method to set the right amount of guards to a certain group
+	 * @return
+	 */
 	public int guardsPerDetail() {
 		switch (securityDetail) {
 			case LOW:
@@ -82,6 +98,10 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
+	/**
+	 * Method to refresh the guards on the Agenda Tab
+	 * @param roster
+	 */
 	public void refreshGuards(Roster roster){
 		int currentGuardAmmount = this.guards.size();
 		int neededGuardAmmount = guardsPerDetail();
@@ -93,6 +113,7 @@ public class PrisonGroup implements Serializable {
 		}
 	}
 
+	//Setters for the Attributes
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
@@ -109,6 +130,7 @@ public class PrisonGroup implements Serializable {
 		this.groupID = groupID;
 	}
 
+	//Getters for the attributes
 	public String getGroupName() {
 		return this.groupName;
 	}
@@ -125,7 +147,7 @@ public class PrisonGroup implements Serializable {
 		return groupID;
 	}
 
-
+	//toString method for the attributes
 	@Override
 	public String toString() {
 		return "Security detail: " + this.securityDetail + ", Group: "+ this.groupName + ", inmates: " + this.inmates.size() +  ", guards:" + this.guards.size() + "]";

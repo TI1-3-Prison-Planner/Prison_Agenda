@@ -6,8 +6,11 @@ import java.util.*;
 import java.io.*;
 
 public class FileIO {
-
-    //method to save the data in roster as a file.
+    /**
+     * method to save the data in roster as a file using Objectstream.
+     * @param path
+     * @param roster
+     */
     public void saveDataAsFile(File path, Roster roster) {
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.getAbsolutePath()))) {
             output.writeObject(roster);
@@ -16,7 +19,11 @@ public class FileIO {
         }
     }
 
-    //method to read the data in a file given as a parameter.
+    /**
+     * method to read the data in a file given as a parameter using Objectstream.
+     * @param file
+     * @return Roster object
+     */
     public Roster readData(File file) {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(file.getAbsolutePath()))) {
             return (Roster) (input.readObject());
@@ -26,7 +33,11 @@ public class FileIO {
         }
     }
 
-
+    /**
+     * method to set up a namelist from a file, reads the whole file, adds all names in the file to a Arraylist and returns it.
+     * @param fileName
+     * @return ArrayList of names
+     */
     public ArrayList<String> setUpNamelist(String fileName) {
         File file = new File(fileName);
         ArrayList<String> names = new ArrayList<>();
@@ -42,6 +53,11 @@ public class FileIO {
         return names;
     }
 
+    /**
+     * method to save a person database in a file using a printwriter.
+     * @param fileName
+     * @param database
+     */
     public void savePersonDatabase(String fileName, HashMap<Person, Boolean> database){
         Set<Person> keys = database.keySet();
         ArrayList<Person> people = new ArrayList<>(keys);
@@ -57,6 +73,11 @@ public class FileIO {
         }
     }
 
+    /**
+     * method to test saving a person database in a file using printwriter.
+     * @param fileName
+     * @param database
+     */
     public void savePersonDatabaseTester(String fileName, HashMap<Person, Boolean> database){
         Set<Person> keys = database.keySet();
         ArrayList<Person> people = new ArrayList<>(keys);

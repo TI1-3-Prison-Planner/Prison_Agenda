@@ -13,6 +13,7 @@ public class Person implements Serializable {
         this.isInGroup = false;
     }
 
+    //setters for a Person object
     public void setInGroup(boolean inGroup) {
         this.isInGroup = inGroup;
     }
@@ -30,6 +31,7 @@ public class Person implements Serializable {
         return this.name;
     }
 
+    //boolean to check if a person is in a group
     public boolean isInGroup() {
         return this.isInGroup;
     }
@@ -39,6 +41,7 @@ public class Person implements Serializable {
         return this.isGuard;
     }
 
+    //toString method for a Person object
     @Override
     public String toString() {
         return '\n' + this.name;

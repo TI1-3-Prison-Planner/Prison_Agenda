@@ -10,12 +10,13 @@ import java.util.*;
 public class Roster implements Comparator<LocalTime>, Serializable {
 
 
-    private ArrayList<Person> guardDatabase;                    //Guard database with boolean for being assinged to a group
-    private ArrayList<Person> inmateDatabase;                   //inmate database with boolean for being assinged to a group
+    private ArrayList<Person> guardDatabase;                    //Guard database with boolean for being assigned to a group
+    private ArrayList<Person> inmateDatabase;                   //inmate database with boolean for being assigned to a group
     private HashMap<String, Location> locationDatabase;         //Location database with ID for each Location
     private ArrayList<PrisonGroup> groups;                      //List with all prison groups to assign inmates and guards to
     private ArrayList<Activity> activities;                     //List with all activity's for all groups
 
+    //Constructor to initialize the attributes
     public Roster() {
         this.guardDatabase = new ArrayList<>();
         this.groups = new ArrayList<>();
@@ -24,6 +25,9 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         this.activities = new ArrayList<>();
     }
 
+    /**
+     * Method to clear all the data from the database
+     */
     public void clear() {
         this.guardDatabase.clear();
         this.groups.clear();
@@ -32,6 +36,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         this.activities.clear();
     }
 
+    /**
+     * Method to fill the database of the inmates
+     * @param persons
+     */
     public void fillInmatesDataBase(ArrayList<String> persons) {
         for (String name : persons) {
             Person inmate = new Person(name, false);
@@ -39,6 +47,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
+    /**
+     * Method to fill the database of the guards
+     * @param persons
+     */
     public void fillGuardDatabase(ArrayList<String> persons) {
         for (String name : persons) {
             Person guard = new Person(name, true);
@@ -46,7 +58,9 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
-    //method to sort the activities based on time by using the implemented compare method.
+    /**
+     * Method to sort the activities based on time by using the implemented compare method
+     */
     public void sortOnTime() {
         int n = this.activities.size();
         Activity tempActivity;
@@ -64,7 +78,12 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         Collections.addAll(this.activities, activitiesArr);
     }
 
-    //implemented method to compare 2 different localtime attributes.
+    /**
+     * Implemented method to compare 2 different localtime attributes
+     * @param o1
+     * @param o2
+     * @return
+     */
     @Override
     public int compare(LocalTime o1, LocalTime o2) {
         if (o1.isAfter(o2)) {
@@ -74,6 +93,10 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         }
     }
 
+    /**
+     * Manager for the data of the guards and inmates
+     * @param person
+     */
     public void manageGroups(Person person) {
         for (PrisonGroup group : this.getGroups()) {
             if (group.getInmates().remove(person))
@@ -82,6 +105,8 @@ public class Roster implements Comparator<LocalTime>, Serializable {
                 group.addGuard(this.getGuardDatabase());
         }
     }
+
+    //Getters for the data
     public ArrayList<Person> getGuardDatabase() {
         return this.guardDatabase;
     }
@@ -98,6 +123,7 @@ public class Roster implements Comparator<LocalTime>, Serializable {
         return this.activities;
     }
 
+    //toString method for the data
     @Override
     public String toString() {
         return "Roster:\n" +

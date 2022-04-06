@@ -30,6 +30,7 @@ public class ActivityCreator extends Observer implements Popup {
     private ObserverRefresh obsRefresh;
     private Activity activity;
 
+
     public void init(Roster roster) {
         this.groups.clear();
         this.groups.addAll(roster.getGroups());
@@ -52,6 +53,9 @@ public class ActivityCreator extends Observer implements Popup {
         this.activity = activity;
     }
 
+    /**
+     * method to set up the stage activityPlanner.
+     */
     @Override
     public void display() {
         GridPane grid = new GridPane();
@@ -60,7 +64,7 @@ public class ActivityCreator extends Observer implements Popup {
         this.activityPlanner.initModality(Modality.APPLICATION_MODAL);
         this.activityPlanner.setTitle("Activity Planner");
 
-
+        //labels created for gridPane
         Label activity = new Label("Activity:");
         Label location = new Label("Location:");
         Label group = new Label("Group:");
@@ -82,13 +86,14 @@ public class ActivityCreator extends Observer implements Popup {
         Button add = new Button("Add");
         Button edit = new Button("Edit");
 
-
+        //added labels to gridPane
         grid.add(activity, 1, 10);
         grid.add(location, 1, 20);
         grid.add(group, 1, 30);
         grid.add(timeStart, 1, 40);
         grid.add(timeEnd, 1, 50);
 
+        //added textfield comboboxes and spinners to gridPane
         grid.add(this.activityName, 2, 10);
         grid.add(this.setLocation, 2, 20);
         grid.add(this.setGroup, 2, 30);
@@ -105,6 +110,7 @@ public class ActivityCreator extends Observer implements Popup {
             grid.add(add, 1, 80);
         }
 
+        //HBoxes to add location and groups to the gridPane.
         HBox hBox1;
         grid.add(hBox1 = new HBox(this.setLocation), 2, 20);
         hBox1.setSpacing(70);
@@ -113,6 +119,7 @@ public class ActivityCreator extends Observer implements Popup {
         grid.add(hBox2 = new HBox(this.setGroup), 2, 30);
         hBox2.setSpacing(70);
 
+        //setOnAction methods for all buttons.
         cancel.setOnAction(event -> {
             activityPlanner.close();
         });
@@ -128,6 +135,9 @@ public class ActivityCreator extends Observer implements Popup {
 
     }
 
+    /**
+     * method to get an activity from the roster, create a new activity with the changes and replace the old activity with the new activity. After that all observers are updated.
+     */
     private void editActivity() {
         int indexActiv = this.roster.getActivities().indexOf(this.activity);
         Activity tempActiv = new Activity(this.activityName.getText(), this.setStartTime.getValue(), this.setEndTime.getValue(), this.setGroup.getValue(), this.setLocation.getValue());
@@ -136,6 +146,9 @@ public class ActivityCreator extends Observer implements Popup {
         close();
     }
 
+    /**
+     * close method to clear the name and close the stage.
+     */
     @Override
     public void close() {
         activityName.clear();
@@ -144,6 +157,9 @@ public class ActivityCreator extends Observer implements Popup {
         activityPlanner.close();
     }
 
+    /**
+     * method to create a new activity if the location and group are added and if the isOverlapping is false. The method gets all information from the GUI and updates observers after that.
+     */
     private void addActivity() {
         try {
             LocalTime startTime = this.setStartTime.getValue();
@@ -156,19 +172,26 @@ public class ActivityCreator extends Observer implements Popup {
                 this.obsRefresh.updateAllObservers();
 
             } else {
+                //alert to warn that activities are planned on the same time.
                 Alert overlapWarning = new Alert(Alert.AlertType.ERROR);
                 overlapWarning.setContentText("Time overlaps with existing activities. Please enter a valid time.");
                 overlapWarning.showAndWait();
                 //TODO, Code missing until adding function is working
             }
         } catch (Exception e) {
+            //error alert function.
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("An error has occurred. " + e.toString());
             alert.showAndWait();
         }
     }
 
-    //TODO: fix overlapping function - doesn't work
+    /**
+     * method to loop through all activities and to check if the startTime of a activity is before the endTime of an other activity.
+     * @param startTime
+     * @param endTime
+     * @return boolean if activities are planned on the same time.
+     */
     private boolean isOverlapping(LocalTime startTime, LocalTime endTime) {
         try {
             for (Activity activity : this.roster.getActivities()) {
@@ -185,7 +208,10 @@ public class ActivityCreator extends Observer implements Popup {
         return false;
     }
 
-    //this method creates a time spinner.
+    /**
+     * method to create spinner with help of dataTimeFormatter to get only hours and minutes.
+     * @return spinner with hours and minutes
+     */
     public Spinner<LocalTime> timeSpinner() {
         return new Spinner<>(new SpinnerValueFactory<LocalTime>() {
             {
@@ -214,14 +240,19 @@ public class ActivityCreator extends Observer implements Popup {
         });
     }
 
+    //getter for roster Object
     public Roster getRoster() {
         return this.roster;
     }
 
+    //method to return an Arraylist with Timeblocks
     public ArrayList<TimeBlock> getTimeBlocks() {
         return this.timeBlocks;
     }
 
+    /**
+     * update method to update the location and group.
+     */
     public void update() {
         if (this.setLocation != null || this.setGroup != null) {
             assert setLocation != null;
