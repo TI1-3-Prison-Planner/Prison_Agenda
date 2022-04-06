@@ -20,13 +20,13 @@ public class Visitor {
     private double speed;
     private double frame;
     private Point2D target;
-    private static double rotationSpeed = 0.1;
+    private static double rotationSpeed = 0.5;
     private Map map;
 
     public Visitor(Point2D position, double angle, Map map, boolean isGuard) {
         this.position = position;
         this.angle = angle;
-        this.speed = 1 + 5 * Math.random();
+        this.speed = 3;
         this.target = position;
         this.frame = Math.random() * 10;
         this.map = map;
@@ -67,7 +67,6 @@ public class Visitor {
             rotation -= 2 * Math.PI;
         }
 
-        double oldAngle = this.angle;
         if (rotation < -rotationSpeed) {
             this.angle -= rotationSpeed;
         } else if (rotation > rotationSpeed) {
@@ -87,7 +86,7 @@ public class Visitor {
 
         if (hasCollision) {
             this.position = oldPosition;
-            this.angle = oldAngle + rotationSpeed;
+            this.angle = targetAngle;
         }
 
         double degrees = Math.toDegrees(this.angle);
@@ -128,7 +127,7 @@ public class Visitor {
         int centerY = guardSprites.get(0).getHeight() / 2;
         AffineTransform tx = new AffineTransform();
         tx.translate(position.getX() - centerX, position.getY() - centerY);
-        tx.translate(0, 20);
+        
 
         ArrayList<BufferedImage> sprites;
         if (isGuard) {

@@ -115,13 +115,22 @@ public class Roster implements Comparator<LocalTime>, Serializable {
 
     public void locationConnection(){
         ArrayList<Location.LocationType> locationList = new ArrayList<>();
+
         for (Activity activity : activities) {
             locationList.add(activity.getLocation().getType());
-            if (map.getLocationObjects().values().contains(activity.getLocation().getType())) {
-                System.out.println(activity.getLocation().getType());
+            if (locationList.contains(map.locationObjects.values())){
+                System.out.println(locationList);
             }
-
         }
+//
+//        for (Activity activity : activities) {
+//            locationList.add(activity.getLocation().getType());
+//        if (map.getLocationObjects().values().contains(activity.getLocation().getType())) {
+//            System.out.println(activity.getLocation().getType());
+//        }
+//        }
+
+
     }
 }
 
