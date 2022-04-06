@@ -35,7 +35,6 @@ public class Sim_Main extends Application {
         mainPane.setTop(hBox);
 
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
-//        alarmFont = Font.createFont(Font.TRUETYPE_FONT, new File("res/alarm clock.ttf"));
         alarmFont= new Font("Arial", Font.PLAIN, 50);
         mainPane.setCenter(canvas);
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
@@ -54,7 +53,6 @@ public class Sim_Main extends Application {
             }
         }.start();
 
-
         stage.setScene(new Scene(mainPane));
         stage.setResizable(false);
         stage.setTitle("Fading image");
@@ -62,19 +60,6 @@ public class Sim_Main extends Application {
         stage.setHeight(1024);
         stage.show();
         draw(g2d);
-
-//        canvas.setOnMouseMoved(event -> {
-//            try {
-//                Point2D clickPos = camera.getTransform((int) this.canvas.getWidth(), (int) this.canvas.getHeight()).inverseTransform(new Point2D.Double(event.getX(), event.getY()), null);
-//                mouseX.setText("x: " + (int) clickPos.getX());
-//                mouseY.setText("Y: " + (int) clickPos.getY());
-//                for (Visitor visitor : this.visitors) {
-//                    visitor.setTarget(clickPos);
-//                }
-//            } catch (NoninvertibleTransformException e) {
-//                e.printStackTrace();
-//            }
-//        });
     }
 
     private ArrayList<Visitor> visitors;
@@ -119,7 +104,6 @@ public class Sim_Main extends Application {
             //todo: implementeer connectie met agendalocaties
         }
         g.setTransform(originalTransform);
-
 
         //timeLine displayed on the top-left
         g.setFont(alarmFont);
@@ -175,7 +159,6 @@ public class Sim_Main extends Application {
             }
         return this.maps.locationObjects.get(newLocation).getPosition();
     }
-
 
     public static void main(String[] args) {
         launch(args);

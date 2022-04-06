@@ -68,8 +68,6 @@ public class Gui extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		//Testcode test = new Testcode();
-
 		stage.setTitle("Agenda GUI");
 		this.mainPane = new BorderPane();
 		this.tabPane = new TabPane();
@@ -87,7 +85,6 @@ public class Gui extends Application {
 		File file = new File("roster.ser");
 		this.roster = fileIO.readData(file);
 
-
 		this.dataViewer = new DataViewer(this.roster, this.obsRefresh);
 		this.agendaCreator = new ActivityCreator(this.roster, this.obsRefresh);
 		this.newGroupPopup = new NewGroupPopup("add new group", this.roster, this.obsRefresh);
@@ -96,7 +93,6 @@ public class Gui extends Application {
 		fillMenuBar(stage);
 		createPanes();
 		fillTableTab();
-//		testCode();
 
 		Scene scene = new Scene(this.mainPane, 700, 700);
 		stage.setScene(scene);
@@ -104,7 +100,7 @@ public class Gui extends Application {
 	}
 
 	public void init() {
-		//TODO, Init code missing
+
 	}
 
 	public void draw(FXGraphics2D graphics) {

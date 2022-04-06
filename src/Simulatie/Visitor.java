@@ -56,9 +56,7 @@ public class Visitor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 
     public void update(ArrayList<Visitor> visitors) {
         if (target.distanceSq(position) < 32)
@@ -118,14 +116,6 @@ public class Visitor {
         if (map.layers.get(1)[(int) Math.max(0, this.position.getY() / 32)][(int) Math.max(0, this.position.getX() / 32)] == -1) {
             hasCollision = true;
         }
-
-//        for(Visitor visitor : visitors) {
-//            if(visitor != this) {
-//                if(visitor.position.distanceSq(position) < 64*64) {
-//                    hasCollision = true;
-//                }
-//            }
-//        }
         return hasCollision;
     }
 
@@ -134,7 +124,6 @@ public class Visitor {
         int centerY = guardSprites.get(0).getHeight() / 2;
         AffineTransform tx = new AffineTransform();
         tx.translate(position.getX() - centerX, position.getY() - centerY);
-//        tx.translate(0, 20);
 
         ArrayList<BufferedImage> sprites;
         if (isGuard) {
@@ -143,14 +132,12 @@ public class Visitor {
             sprites = inmateSprites;
         }
 
-
         g2d.drawImage(sprites.get((int) Math.floor(frame) % sprites.size()), tx, null);
 
         g2d.setFont(nameFont);
         g2d.setColor(Color.black);
         g2d.drawString(name, (int) (tx.getTranslateX()), (int) (tx.getTranslateY()));
         g2d.draw(new Ellipse2D.Double(position.getX() - 32, position.getY() - 32, 64, 64));
-//        g2d.draw(new Line2D.Double(position, target));
     }
 
     public void setTarget(Point2D newTarget) {
