@@ -18,6 +18,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Sim_Main extends Application {
 
@@ -138,15 +139,15 @@ public class Sim_Main extends Application {
             //converts timeCount to LocalTime, which the timeLine saves
             if (timeCount % 60 == 0) {
                 timeLine = timeLine.plusHours(1);
-            } else {
-                timeLine = timeLine.plusMinutes(1);
             }
+            timeLine = timeLine.plusMinutes(1);
             timer -= 1;
         }
 
         for (Visitor visitor : this.visitors) {
             visitor.setTarget(goToNewTarget(this.roster, visitor.getGroup()));
             visitor.update(this.visitors);
+
         }
     }
 
@@ -157,7 +158,29 @@ public class Sim_Main extends Application {
                     if(activity.getStartTime().equals(this.timeLine))
                         newLocation = activity.getLocation().getLocationName();
             }
-        return this.maps.locationObjects.get(newLocation).getPosition();
+
+        if (newLocation.isEmpty()){
+            return randomMove();
+        }else {
+            return this.maps.locationObjects.get(newLocation).getPosition();
+        }
+    }
+
+    public Point2D randomMove(){
+        Double minX = this.maps.locationObjects.get("Yard 0").getPosition().getX();
+        Double minY = this.maps.locationObjects.get("Yard 0").getPosition().getY();
+        Double maxX = this.maps.locationObjects.get("Yard 0").getPosition().getX() + this.maps.locationObjects.get("Yard 0").getSize().getX();
+        Double maxY = this.maps.locationObjects.get("Yard 0").getPosition().getY() + this.maps.locationObjects.get("Yard 0").getSize().getY();
+
+        Integer rx = new Random().nextInt((maxX.intValue()) - minX.intValue());
+        Integer ry = new Random().nextInt(maxY.intValue()) - minY.intValue();
+
+        Point2D.Double random = new Point2D.Double(
+            rx.doubleValue(), ry.doubleValue()
+        );
+
+//        System.out.println(random);
+        return random;
     }
 
     public static void main(String[] args) {

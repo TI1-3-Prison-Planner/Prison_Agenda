@@ -29,7 +29,7 @@ public class Visitor {
     public Visitor(Point2D position, double angle, Map map, boolean isGuard, int groupID, String Name) {
         this.position = position;
         this.angle = angle;
-        this.speed = 1 + 5 * Math.random();
+        this.speed = 1 + 5 * Math.random(); //TODO set fixed speed
         this.target = position;
         this.frame = Math.random() * 10;
         this.map = map;
