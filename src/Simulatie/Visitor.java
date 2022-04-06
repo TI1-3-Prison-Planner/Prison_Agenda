@@ -21,12 +21,13 @@ public class Visitor {
     private String name;
     private double speed;
     private double frame;
-    private Point2D target;
+    private Point2D.Double target;
     private static double rotationSpeed = 0.1;
     private Map map;
     private Font nameFont;
+    private double[][] distance;
 
-    public Visitor(Point2D position, double angle, Map map, boolean isGuard, int groupID, String Name) {
+    public Visitor(Point2D.Double position, double angle, Map map, boolean isGuard, int groupID, String Name) {
         this.position = position;
         this.angle = angle;
         this.speed = 1 + 5 * Math.random(); //TODO set fixed speed
@@ -61,6 +62,28 @@ public class Visitor {
     public void update(ArrayList<Visitor> visitors) {
         if (target.distanceSq(position) < 32)
             return;
+
+        if(distance != null){
+            for(int xxx = -1; xxx <= 1; xxx++)
+            {
+                for(int yyy = -1; yyy <= 1; yyy++)
+                {
+
+                    if(distance[(int)this.position.getX()/32 +xxx][(int)this.position.getY()/32+yyy]< distance[(int)this.position.getX()/32][(int)this.position.getY()/32]){
+
+                        this.target.x = this.position.getX() + xxx*32;
+                        this.target.y = this.position.getY() + yyy*32;
+                        continue;
+                    }
+
+
+
+
+
+                }
+            }
+
+        }
 
         double targetAngle = Math.atan2(this.target.getY() - this.position.getY(), this.target.getX() - this.position.getX());
         double rotation = targetAngle - this.angle;
@@ -140,8 +163,8 @@ public class Visitor {
         g2d.drawString(name, (int) (tx.getTranslateX()), (int) (tx.getTranslateY()));
     }
 
-    public void setTarget(Point2D newTarget) {
-        this.target = newTarget;
+    public void setTarget(String target) {
+        this.distance = map.locationObjects.get(target).getDistance();
     }
 
     public double getAngle() {

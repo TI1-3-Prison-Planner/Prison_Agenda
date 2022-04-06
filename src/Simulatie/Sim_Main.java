@@ -151,7 +151,7 @@ public class Sim_Main extends Application {
         }
     }
 
-    private Point2D goToNewTarget(Roster roster, int groupID) {
+    private String goToNewTarget(Roster roster, int groupID) {
         String newLocation = "";
         for (Activity activity : roster.getActivities()) {
             if (groupID == activity.getPrisonGroup().getGroupID())
@@ -165,9 +165,9 @@ public class Sim_Main extends Application {
 
 
         if (newLocation != null) {
-            return randomMove();
+            return maps.getRandomlocation();
         }
-        return this.maps.locationObjects.get(newLocation).getPosition();
+        return newLocation;
 
 
     }

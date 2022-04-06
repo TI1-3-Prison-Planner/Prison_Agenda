@@ -29,6 +29,8 @@ public class Map {
     private ArrayList<ArrayList<ArrayList<BufferedImage>>> layerImageCache = new ArrayList<>();
     private static int chunksize = 16;
     public HashMap<String, LocationObject> locationObjects = new HashMap<>();
+    private boolean path[][] = new boolean[150][150];
+    private ArrayList<String> locations = new ArrayList<>();
 
 
     public Map() {
@@ -49,16 +51,7 @@ public class Map {
 
             this.tileHeight = root.getInt("tileheight");
             this.tileWidth = root.getInt("tilewidth");
-            for (int i = 0; i < root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").size(); i++) {
 
-                locationObjects.put(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
-                        , new LocationObject(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
-                                , new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("x"), root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("y")),
-                                new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("width"), root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("height"))));
-
-            }
-
-            ;
 
 
             for (BufferedImage tilemap : tileSets) {
@@ -97,6 +90,26 @@ public class Map {
                 layerImages.add(row);
             }
             layerImageCache.add(layerImages);
+        }
+        for (int i = 0; i < 150; i++) {
+            for (int j = 0; j < 150; j++) {
+                if (layers.get(1)[i][j] < 0) {
+                    path[j][i] = true;
+                } else {
+                    path[j][i] = false;
+                }
+            }
+
+
+        }
+        for (int i = 0; i < root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").size(); i++) {
+            locations.add(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString());
+
+            locationObjects.put(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
+                    ,new LocationObject(path,root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getJsonString("name").getString()
+                            ,new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("x"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("y")),
+                            new Point2D.Double(root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("width"),root.getJsonArray("layers").getJsonObject(6).getJsonArray("objects").getJsonObject(i).getInt("height"))));
+
         }
     }
 
@@ -146,5 +159,11 @@ public class Map {
     //    public int[][] getMap() {
 //        return layer;
 //    }
+
+
+    public String getRandomlocation(){
+        String location=locations.get((int)Math.random()*locations.size());
+        return location;
+    }
 }
 
