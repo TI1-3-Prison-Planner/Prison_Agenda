@@ -84,7 +84,7 @@ public class Visitor {
             }
 
         }
-        if(distance[(int)this.position.getX()/32][(int)this.position.getY()/32]==0.0){
+        if(distance[(int)this.position.getX()/32][(int)this.position.getY()/32]<5){
             walking = false;
             setTarget(map.getRandomlocation());
         }
