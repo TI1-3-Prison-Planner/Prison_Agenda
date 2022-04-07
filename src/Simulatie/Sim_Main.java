@@ -57,7 +57,7 @@ public class Sim_Main extends Application {
 
         stage.setScene(new Scene(mainPane));
         stage.setResizable(false);
-        stage.setTitle("Fading image");
+        stage.setTitle("Alpha Prison");
         stage.setWidth(1024);
         stage.setHeight(1024);
         stage.show();
